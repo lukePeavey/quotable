@@ -34,7 +34,7 @@ This returns a JSON object in the following format:
 ##### jQuery Example
 
 ```js
-  $.getJSON('https://quota.glitch.me/random'), function(data) {
+  $.getJSON('https://quota.glitch.me/random', function(data) {
     console.log(`${data.quoteText} -${data.quoteAuthor}`)
   }
 ```
