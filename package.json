@@ -10,7 +10,8 @@
   "license": "MIT",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "lint": "yarn run eslint . --cache --color && echo \"eslint: no lint errors\""
   },
   "lint-staged": {
     "{src,data}/**/*.{js,css,json}": [

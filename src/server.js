@@ -28,5 +28,6 @@ app.get('/random', function(req, res) {
 })
 
 var listener = app.listen(config.PORT, function() {
+  /* eslint-disable-next-line no-console */
   console.log('Your app is listening on port ' + listener.address().port)
 })
