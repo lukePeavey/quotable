@@ -1,20 +1,20 @@
 {
   "name": "quota",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Random quote API",
   "author": "Luke Peavey",
   "private": true,
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node src/server.js"
   },
   "dependencies": {
-    "express": "^4.15.3",
-    "jsonfile": "^4.0.0",
-    "lodash": "^4.17.4"
+    "express": "4.17.1",
+    "jsonfile": "5.0.0",
+    "lodash": "4.17.11"
   },
   "engines": {
-    "node": "8.x"
+    "node": "12.x"
   },
   "repository": {
     "url": "https://github.com/lukepeavey/quota"
@@ -22,7 +22,9 @@
   "license": "MIT",
   "keywords": [
     "node",
-    "glitch",
-    "express"
+    "express",
+    "RESTful",
+    "rest-api",
+    "micro-service"
   ]
 }
