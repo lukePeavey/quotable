@@ -12,6 +12,7 @@
   "scripts": {
     "start": "node src/server.js",
     "start:dev": "NODE_ENV=development nodemon",
+    "start:debug": "NODE_ENV=development --inspect nodemon",
     "lint": "yarn run eslint . --cache --color && echo \"eslint: no lint errors\""
   },
   "lint-staged": {
