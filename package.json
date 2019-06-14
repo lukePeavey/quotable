@@ -12,6 +12,17 @@
   "scripts": {
     "start": "node src/server.js"
   },
+  "lint-staged": {
+    "{src,data}/**/*.{js,css,json}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "dependencies": {
     "express": "4.17.1",
     "jsonfile": "5.0.0",
