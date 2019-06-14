@@ -11,6 +11,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
+    "start:dev": "NODE_ENV=development nodemon",
     "lint": "yarn run eslint . --cache --color && echo \"eslint: no lint errors\""
   },
   "lint-staged": {
