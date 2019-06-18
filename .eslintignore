@@ -1,4 +1,7 @@
 /.vscode
 /.git
 /data
-node_smodules
+/docs
+/private
+__tests__
+node_modules

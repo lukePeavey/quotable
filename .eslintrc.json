@@ -7,5 +7,10 @@
     "node": true,
     "browser": false
   },
-  "rules": {}
+  "rules": {
+    "no-unused-vars": 0
+  },
+  "globals": {
+    "Promise": true
+  }
 }

@@ -8,6 +8,9 @@
 
 .eslintcache
 
+docs/
+private/
+
 # misc
 .DS_Store
 .env.local
