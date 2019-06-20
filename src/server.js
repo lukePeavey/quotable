@@ -1,9 +1,12 @@
+require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
+const mongoose = require('mongoose')
 const routes = require('./routes')
 const { handle404, logErrors, handleErrors } = require('./handleErrors')
 
 const PORT = process.env.PORT || 4000
+const MONGODB_URI = process.env.MONGODB_URI
 
 // Create the Express server
 const app = express()
@@ -13,7 +16,11 @@ app.use(handle404)
 app.use(logErrors)
 app.use(handleErrors)
 
-app.listen(PORT, () => {
+mongoose
+  .connect(MONGODB_URI, { useNewUrlParser: true })
+  .then(() => {
+    /* eslint-disable-next-line no-console */
+    app.listen(PORT, () => console.log(`Server is running on port: ' ${PORT}`))
+  })
   /* eslint-disable-next-line no-console */
-  console.log(`Server is running on port: ' ${PORT}`)
-})
+  .catch(error => console.error(error))
