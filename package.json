@@ -14,7 +14,8 @@
     "start:dev": "NODE_ENV=development nodemon",
     "start:debug": "NODE_ENV=development --inspect nodemon",
     "lint": "yarn run eslint . --cache --color && echo \"eslint: no lint errors\"",
-    "test": "jest"
+    "test": "jest",
+    "database:seed": "node scripts/seedDatabase.js"
   },
   "lint-staged": {
     "{src,data}/**/*.{js,css,json}": [
@@ -46,6 +47,7 @@
     "lint-staged": "^8.2.1",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
+    "shelljs": "^0.8.3",
     "shortid": "^2.2.14"
   },
   "engines": {
