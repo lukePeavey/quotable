@@ -36,7 +36,8 @@
     "jsonfile": "5.0.0",
     "lodash": "4.17.11",
     "mongodb": "^3.2.7",
-    "mongoose": "^5.6.0"
+    "mongoose": "^5.6.0",
+    "shortid": "^2.2.14"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
@@ -47,8 +48,7 @@
     "lint-staged": "^8.2.1",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
-    "shelljs": "^0.8.3",
-    "shortid": "^2.2.14"
+    "shelljs": "^0.8.3"
   },
   "engines": {
     "node": "12.x"
