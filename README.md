@@ -1,40 +1,164 @@
-Quota
-=========================
-_Random quote API_
+# Quotable
 
-I built this for a freeCodeCamp project. Anyone is welcome to use it
+_A REST API for famous quotes_
 
-- Database with roughly 1500 famous quotes
-- Easy to use
-- Allows requests over HTTP or HTTPS
+I originally built this for a freeCodeCamp project, and decided to publish for others to use as well. The database currently includes over 1500 quotes by 800 authors.
 
-### Usage
-To get a new random quote, make a request to:
-`https://quota.glitch.me/random`
+## Table of contents:
+- [Get a random quote](#get-random-quote)
+- [Search quotes](#search-quotes-beta)
+- [Search authors](#search-authors-beta)
+- [Get Author By ID](#get-author-by-id-beta)
+- [Examples](#examples)
 
-This returns a JSON object in the following format:
+## API Documentation
+
+### Get random quote
+
+Returns a single random quote from the database
+
+#### Request
+
+```http
+https://api.quotable.io/random
 ```
-  {
-    quoteText: String
-    quoteAuthor: String
-  }
+
+#### Response
+
+```ts
+{
+  content: string,
+  author: string
+}
+```
+
+### Search Quotes (beta)
+
+Get quotes from the database using various filter and sorting options. All parameters are optional.
+
+#### Query parameters
+| param    | type     | Description                                                  |
+| :------- | :------- | :----------------------------------------------------------- |
+| author   | `String` | Filter quotes by author name. Supports fuzzy search.         |
+| authorId | `String` | Filter quotes by author ID                                   |
+| limit    | `Int`    | The number of quotes to return per request. (for pagination) |
+| skip     | `Int`    | The number of items to skip (for pagination)                 |
+
+
+#### Request 
+
+```http
+https://api.quotable.io/quotes
+```
+
+#### Response 
+
+```ts
+{
+  // The number of quotes returned by this request
+  count: number,
+  // The total number or quotes matching this request
+  totalCount: number
+  // The index of the last quote returned. When paginating through results,
+  // this value would be used as the `skip` parameter when requesting the next
+  // "page" of results.
+  lastItemIndex: number
+  // The array of quotes 
+  quotes: {content: string, author: string}[]
+}
+```
+
+### Search Authors (beta)
+
+Search the database for authors using various filter/sorting options. All parameters are optional. By default, it returns all authors in alphabetical order.
+
+
+#### Query parameters
+| param     | type                           | Description                                                   |
+| :-------- | :----------------------------- | :------------------------------------------------------------ |
+| name      | `String`                       | Search for authors by name. Supports fuzzy search.            |
+| sortBy    | `enum: ['name', 'quoteCount']` | The field used to sort authors. Default is 'name'             |
+| sortOrder | `enum: ['asc', 'desc']`        | The order results are sorted in. Default is 'asc'             |
+| limit     | `Int`                          | The number of authors to return per request. (for pagination) |
+| skip      | `Int`                          | The number of items to skip (for pagination)                  |
+
+#### Request 
+
+```http
+https://api.quotable.io/authors
+```
+
+#### Response 
+
+```ts
+{
+  // The number of authors return by this request.
+  count: number,
+  // The total number or authors matching this request.
+  totalCount: number
+  // The index of the last item returned. When paginating through results,
+  // this value would be used as the `skip` parameter when requesting the next
+  // "page" of results.
+  lastItemIndex: number
+  // The array of authors 
+  quotes: {name: string, quoteCount: string}[]
+}
 ```
 
 
-##### Javascript Example
+### Get Author By ID (beta)
+
+Get all quotes a specific author
+
+#### Request 
+
+```http
+https://api.quotable.io/author/:id
+```
+
+#### Response 
+
+```ts
+{
+  // The author name
+  name: number,
+  // The total number of quotes by this author
+  quoteCount: number
+  // The array of quotes by this author
+  quotes: {content: string, author: string}[]
+}
+```
+
+## Examples
+
+**Get a random quote (fetch)**
 
 ```js
-  fetch('https://quota.glitch.me/random')
+fetch('https://api.quotable.io/random')
   .then(response => response.json())
   .then(data => {
-    console.log(`${data.quoteText} -${data.quoteAuthor}`)
+    console.log(`${data.content} —${data.author}`)
   })
 ```
 
-##### jQuery Example
+**Get a random quote (async/await)**
 
 ```js
-  $.getJSON('https://quota.glitch.me/random', function(data) {
-    console.log(`${data.quoteText} -${data.quoteAuthor}`)
-  })
+async function randomQuote() {
+  const response = await fetch('https://api.quotable.io/random')
+  const data = await response.json()
+  console.log(`${data.content} —${data.author}`)
+}
 ```
+
+**Get a random quote (JQuery)**
+
+```js
+$.getJSON('https://api.quotable.io/random', function(data) {
+  console.log(`${data.content} —${data.author}`)
+})
+```
+
+## Contributing
+
+All feedback and contributions are welcome!
