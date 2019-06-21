@@ -38,9 +38,8 @@ router.get('/random', async (req, res, next) => {
  * @param {string} [req.query.author] Get quotes by the author name. This
  *     supports "fuzzy search", so the input can be a first name, last name
  *     or partial name and it will return all matching quotes.
- * @param {string} [req.query.authorId] Get all quotes by a given author
- * @param {number} [req.query.limit = 20] The number of items to return in a
- *     single request (for pagination). Must be Int between 1 and 50
+ * @param {string} [req.query.authorId] Get quotes authorId
+ * @param {number} [req.query.limit = 20] The max number of items to return
  * @param {number} [req.query.skip = 0] The offset for pagination
  */
 router.get('/quotes', async (req, res, next) => {
@@ -81,15 +80,15 @@ router.get('/quotes', async (req, res, next) => {
 })
 
 /**
- * Get quote authors
+ * Get authors
  *
  * @param {Object} req
  * @param {Object} req.query
  * @param {string} [req.query.name] Search for authors by name.
  * @param {'name' | 'quoteCount'} [req.query.sortBy]
- * @param {'asc' | 'desc'} [req.query.sortOrder = 'ascending']
- * @param {number} [req.query.limit = 20]
- * @param {number} [req.query.skip = 0]
+ * @param {'asc' | 'desc'} [req.query.sortOrder = 'asc']
+ * @param {number} [req.query.limit = 20] The max number of items to return
+ * @param {number} [req.query.skip = 0] The offset for pagination
  */
 router.get('/authors', async (req, res, next) => {
   try {
@@ -120,7 +119,7 @@ router.get('/authors', async (req, res, next) => {
 })
 
 /**
- * Get author by id
+ * Get all quotes a given author
  */
 router.get('/author/:id', async (req, res, next) => {
   const id = escape(req.params.id)
