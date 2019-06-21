@@ -21,10 +21,10 @@ router.get('/random', async (req, res, next) => {
       .limit(1)
       .skip(index)
       .select('content author')
-    if (!entry) {
+    if (!entry || !entry[0]) {
       return next(createError(500))
     }
-    res.status(200).json(entry)
+    res.status(200).json(entry[0])
   } catch (error) {
     return next(error)
   }
