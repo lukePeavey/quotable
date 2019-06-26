@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
+const moesifMiddleware = require('./analytics')
 const routes = require('./routes')
 const { handle404, logErrors, handleErrors } = require('./handleErrors')
 
@@ -11,6 +12,7 @@ const MONGODB_URI = process.env.MONGODB_URI
 // Create the Express server
 const app = express()
 app.use(cors())
+app.use(moesifMiddleware())
 app.use(routes)
 app.use(handle404)
 app.use(logErrors)
