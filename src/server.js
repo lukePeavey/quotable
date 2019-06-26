@@ -13,6 +13,7 @@ const MONGODB_URI = process.env.MONGODB_URI
 const app = express()
 app.use(cors())
 app.use(moesifMiddleware())
+app.get('/favicon.ico', (req, res) => res.sendStatus(204))
 app.use(routes)
 app.use(handle404)
 app.use(logErrors)
