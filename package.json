@@ -1,6 +1,6 @@
 {
   "name": "quotable",
-  "version": "0.1.0",
+  "version": "1.0-beta.1",
   "description": "Random quote API",
   "author": "Luke Peavey",
   "private": true,
