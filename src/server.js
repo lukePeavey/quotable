@@ -7,7 +7,7 @@ const routes = require('./routes')
 const { handle404, logErrors, handleErrors } = require('./handleErrors')
 
 const PORT = process.env.PORT || 4000
-const MONGODB_URI = process.env.MONGODB_URI
+const { MONGODB_URI } = process.env
 
 // Create the Express server
 const app = express()

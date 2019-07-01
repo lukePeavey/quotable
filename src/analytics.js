@@ -9,7 +9,7 @@ module.exports = function moesifMiddleware() {
     return moesifExpress({
       applicationId: MOESIF_APPLICATION_ID,
       // For now, use IP address to identify unique users
-      identifyUser: function(req, res) {
+      identifyUser(req, res) {
         return requestIp.getClientIp(req)
       },
     })

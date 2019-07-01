@@ -1,5 +1,5 @@
 {
-  "extends": ["eslint:recommended", "prettier"],
+  "extends": ["airbnb", "prettier"],
   "parserOptions": {
     "ecmaVersion": 9
   },
@@ -8,7 +8,10 @@
     "browser": false
   },
   "rules": {
-    "no-unused-vars": 0
+    "no-unused-vars": 0,
+    "consistent-return": 0,
+    "radix": 0,
+    "no-underscore-dangle": 0
   },
   "globals": {
     "Promise": true

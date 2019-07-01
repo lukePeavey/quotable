@@ -44,7 +44,8 @@ router.get('/random', async (req, res, next) => {
  */
 router.get('/quotes', async (req, res, next) => {
   try {
-    let { authorId, author, limit, skip } = req.query
+    const { author, authorId } = req.query
+    let { limit, skip } = req.query
     // Filters...
     const query = {}
     if (author) {
@@ -92,7 +93,8 @@ router.get('/quotes', async (req, res, next) => {
  */
 router.get('/authors', async (req, res, next) => {
   try {
-    let { name, sortBy, sortOrder, limit, skip } = req.query
+    const { name } = req.query
+    let { sortBy, sortOrder, limit, skip } = req.query
     // Filters...
     const query = {}
     if (name) {
