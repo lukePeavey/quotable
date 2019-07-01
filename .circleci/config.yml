@@ -1,6 +1,21 @@
-version: 2
+version: 2.1
+orbs:
+  heroku: circleci/heroku@0.0.8
+workflows:
+  test_and_deploy:
+    jobs:
+      - test
+      # Master is deployed to the staging app in a Heroku pipeline.
+      - deploy_staging:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master
+
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/node:12.5.0
 
@@ -16,15 +31,28 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: npm install
+      - run:
+          name: Installing dependencies
+          command: npm install
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # run lint
-      - run: npm run lint
+      - run:
+          name: Running ESLint
+          command: npm run lint
 
-      # run tests
-      - run: npm run test
+      - run:
+          name: Running tests
+          command: npm run test
+
+  # Deploys the branch to the staging app in a Heroku Pipeline
+  deploy_staging:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - heroku/deploy-via-git:
+          app-name: 'quotable-api-staging'
