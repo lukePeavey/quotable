@@ -27,6 +27,7 @@ https://api.quotable.io/random
 
 ```ts
 {
+  _id: string,
   content: string,
   author: string
 }
@@ -64,7 +65,7 @@ https://api.quotable.io/quotes
   // "page" of results.
   lastItemIndex: number
   // The array of quotes 
-  quotes: {content: string, author: string}[]
+  results: {_id: string, content: string, author: string}[]
 }
 ```
 
@@ -101,7 +102,7 @@ https://api.quotable.io/authors
   // "page" of results.
   lastItemIndex: number
   // The array of authors 
-  quotes: {name: string, quoteCount: string}[]
+  results: {_id: string, name: string, quoteCount: string}[]
 }
 ```
 
@@ -120,12 +121,13 @@ https://api.quotable.io/author/:id
 
 ```ts
 {
+  _id: string,
   // The author name
   name: number,
   // The total number of quotes by this author
   quoteCount: number
   // The array of quotes by this author
-  quotes: {content: string, author: string}[]
+  quotes: {_id: string, content: string, author: string}[]
 }
 ```
 
