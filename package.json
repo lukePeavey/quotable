@@ -18,7 +18,7 @@
     "start:dev": "NODE_ENV=development nodemon",
     "start:debug": "NODE_ENV=development --inspect nodemon",
     "lint": "./node_modules/.bin/eslint . --cache --color && echo \"eslint: no lint errors\"",
-    "test": "jest",
+    "test": "jest --watchAll",
     "database:seed": "node scripts/seedDatabase.js",
     "deploy:production": "heroku pipelines:promote -a quotable-api-staging"
   },
