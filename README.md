@@ -7,6 +7,7 @@ I originally built this for a freeCodeCamp project, and decided to publish for o
 ## Table of contents:
 - [Get a random quote](#get-random-quote)
 - [Search quotes](#search-quotes-beta)
+- [Get Quote by ID](#get-quote-by-id)
 - [Search authors](#search-authors-beta)
 - [Get Author By ID](#get-author-by-id-beta)
 - [Examples](#examples)
@@ -69,6 +70,26 @@ https://api.quotable.io/quotes
 }
 ```
 
+### Get Quote By ID
+
+Get a quote by its ID
+
+#### Request 
+
+```http
+https://api.quotable.io/quotes/:id
+```
+
+#### Response 
+
+```ts
+{
+  _id: string,
+  content: string,
+  author: string
+}
+```
+
 ### Search Authors (beta)
 
 Search the database for authors using various filter/sorting options. All parameters are optional. By default, it returns all authors in alphabetical order.
@@ -105,7 +126,6 @@ https://api.quotable.io/authors
   results: {_id: string, name: string, quoteCount: string}[]
 }
 ```
-
 
 ### Get Author By ID (beta)
 

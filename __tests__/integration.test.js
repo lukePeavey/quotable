@@ -59,3 +59,22 @@ describe('GET /authors', () => {
     expect(response.type).toBe('application/json')
   })
 })
+
+describe('GET /quotes/:id', () => {
+  it('Request completed successfully', async () => {
+    const response = await request(app).get('/quotes/gcPBYtDU718')
+    expect(response.status).toBe(200)
+    expect(response.type).toBe('application/json')
+    expect(response.body).toEqual({
+      _id: expect.any(String),
+      author: expect.any(String),
+      content: expect.any(String),
+    })
+  })
+
+  it('Responds with error', async () => {
+    const response = await request(app).get('/quotes/fakeId')
+    expect(response.status).toBe(404)
+    expect(response.type).toBe('application/json')
+  })
+})
