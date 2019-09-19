@@ -1,10 +1,17 @@
 # Quotable
 
+**⚠ Announement (Sept 19 2019)**
+
+Due to an issue with the DNS hosting provider, the API is temporarily down. The issue has been resolved and the API should be back up in the next 24 to 48 hours. Sorry for the inconvience!
+
+---
+
 _A REST API for famous quotes_
 
 I originally built this for a freeCodeCamp project, and decided to publish for others to use as well. The database currently includes over 1500 quotes by 800 authors.
 
 ## Table of contents:
+
 - [Get a random quote](#get-random-quote)
 - [Search quotes](#search-quotes-beta)
 - [Search authors](#search-authors-beta)
@@ -38,6 +45,7 @@ https://api.quotable.io/random
 Get quotes from the database using various filter and sorting options. All parameters are optional.
 
 #### Query parameters
+
 | param    | type     | Description                                                  |
 | :------- | :------- | :----------------------------------------------------------- |
 | author   | `String` | Filter quotes by author name. Supports fuzzy search.         |
@@ -45,14 +53,13 @@ Get quotes from the database using various filter and sorting options. All param
 | limit    | `Int`    | The number of quotes to return per request. (for pagination) |
 | skip     | `Int`    | The number of items to skip (for pagination)                 |
 
-
-#### Request 
+#### Request
 
 ```http
 https://api.quotable.io/quotes
 ```
 
-#### Response 
+#### Response
 
 ```ts
 {
@@ -64,7 +71,7 @@ https://api.quotable.io/quotes
   // this value would be used as the `skip` parameter when requesting the next
   // "page" of results.
   lastItemIndex: number
-  // The array of quotes 
+  // The array of quotes
   results: {_id: string, content: string, author: string}[]
 }
 ```
@@ -73,8 +80,8 @@ https://api.quotable.io/quotes
 
 Search the database for authors using various filter/sorting options. All parameters are optional. By default, it returns all authors in alphabetical order.
 
-
 #### Query parameters
+
 | param     | type                           | Description                                                   |
 | :-------- | :----------------------------- | :------------------------------------------------------------ |
 | name      | `String`                       | Search for authors by name. Supports fuzzy search.            |
@@ -83,13 +90,13 @@ Search the database for authors using various filter/sorting options. All parame
 | limit     | `Int`                          | The number of authors to return per request. (for pagination) |
 | skip      | `Int`                          | The number of items to skip (for pagination)                  |
 
-#### Request 
+#### Request
 
 ```http
 https://api.quotable.io/authors
 ```
 
-#### Response 
+#### Response
 
 ```ts
 {
@@ -101,23 +108,22 @@ https://api.quotable.io/authors
   // this value would be used as the `skip` parameter when requesting the next
   // "page" of results.
   lastItemIndex: number
-  // The array of authors 
+  // The array of authors
   results: {_id: string, name: string, quoteCount: string}[]
 }
 ```
-
 
 ### Get Author By ID (beta)
 
 Get all quotes a specific author
 
-#### Request 
+#### Request
 
 ```http
 https://api.quotable.io/author/:id
 ```
 
-#### Response 
+#### Response
 
 ```ts
 {
