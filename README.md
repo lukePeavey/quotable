@@ -1,11 +1,5 @@
 # Quotable
 
-**⚠ Announement (Sept 19 2019)**
-
-Due to an issue with the DNS hosting provider, the API is temporarily down. The issue has been resolved and the API should be back up in the next 24 to 48 hours. Sorry for the inconvience!
-
----
-
 _A REST API for famous quotes_
 
 I originally built this for a freeCodeCamp project, and decided to publish for others to use as well. The database currently includes over 1500 quotes by 800 authors.
