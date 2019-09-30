@@ -8,7 +8,8 @@
 
 docs/
 private/
-data/v1/
+data/
+!data/samples
 
 # misc
 .DS_Store
