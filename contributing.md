@@ -1,6 +1,6 @@
 # Contributing
 
-All contributions are greatly appreciated! 
+All contributions are greatly appreciated!
 
 
 ## Issues
@@ -11,7 +11,7 @@ All contributions are greatly appreciated!
 
 ## Pull Requests
 
-All pull requests are welcome! Before submitting a PR, please start by creating an issue to 
+All pull requests are welcome! 
 
 - [Fork][fork-a-repo] the repository on GitHub.
 
@@ -53,12 +53,7 @@ If you don't have MongoDB setup locally, you can use [MongoDB Atlas][mongodb/atl
 
 You need to set the `MONGODB_URI` environment variable to point to your database. 
 
-Create a file called `.env` in the root directory of the project. and add the following (replace `<your-database-uri>` with the connection string for your database)
-
-<!--
-title: ".env"
-lineNumbers: true
--->
+Create a file called `.env` in the root directory of the project. Add the following (replace `<your-database-uri>` with the connection string for your database)
 
 ```shell 
 MONGODB_URI=<your-mongodb-uri>
@@ -72,7 +67,7 @@ $ npm run install
 
 **4. Seed the database**
 
-This will populate your database with the sample data included in the repository.
+This will populate your database with the sample data included in the repository. 
 
 ```shell
 $ npm run database:seed
@@ -96,6 +91,7 @@ $ npm run test
 # Check for lint issues
 $ npm run lint
 ```
+
 
 
 [mongodb/atlas]: https://www.mongodb.com/cloud/atlas
