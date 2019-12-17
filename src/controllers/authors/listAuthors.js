@@ -38,13 +38,14 @@ module.exports = async function listAuthors(req, res, next) {
     skip = parseInt(skip) || 0
 
     // Fetch paginated results
-    const results = await Authors.find(filter)
-      .sort({ [sortBy]: sortOrder })
-      .limit(limit)
-      .skip(skip)
-      .select('name quoteCount')
-    // Total number of authors that match the query
-    const totalCount = await Authors.countDocuments(filter)
+    const [results, totalCount] = await Promise.all([
+      Authors.find(filter)
+        .sort({ [sortBy]: sortOrder })
+        .limit(limit)
+        .skip(skip)
+        .select('name quoteCount'),
+      Authors.countDocuments(filter),
+    ])
 
     // `lastItemIndex` is the offset of the last result returned by this
     // request. When paginating through results, this would be used as the

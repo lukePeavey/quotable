@@ -1,6 +1,5 @@
 const clamp = require('lodash/clamp')
 const escapeRegExp = require('lodash/escapeRegExp')
-
 const Quotes = require('../../models/Quotes')
 
 /**
@@ -37,13 +36,14 @@ module.exports = async function listQuotes(req, res, next) {
     skip = parseInt(skip) || 0
 
     // Fetch paginated results
-    const results = await Quotes.find(filter)
-      .sort({ [sortBy]: sortOrder })
-      .limit(limit)
-      .skip(skip)
-      .select('content author')
-    // The total number of quotes that match the query
-    const totalCount = await Quotes.countDocuments(filter)
+    const [results, totalCount] = await Promise.all([
+      Quotes.find(filter)
+        .sort({ [sortBy]: sortOrder })
+        .limit(limit)
+        .skip(skip)
+        .select('content author'),
+      Quotes.countDocuments(filter),
+    ])
 
     // `lastItemIndex` is the offset of the last result returned by this
     // request. When paginating through results, this would be used as the
