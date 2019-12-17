@@ -1,4 +1,3 @@
-const random = require('lodash/random')
 const createError = require('http-errors')
 const Quotes = require('../../models/Quotes')
 
@@ -7,16 +6,14 @@ const Quotes = require('../../models/Quotes')
  */
 module.exports = async function getRandomQuote(req, res, next) {
   try {
-    const documentCount = await Quotes.estimatedDocumentCount()
-    const index = random(0, documentCount - 1)
-    const entry = await Quotes.find({})
-      .limit(1)
-      .skip(index)
-      .select('content author')
-    if (!entry || !entry[0]) {
-      return next(createError(500, `Invalid random index: \`${index}\``))
-    }
-    res.status(200).json(entry[0])
+    // Use $sample to select a random document from Quotes
+    const results = await Quotes.aggregate([{ $sample: { size: 1 } }])
+
+    res.status(200).json({
+      _id: results[0]._id,
+      content: results[0].content,
+      author: results[0].author,
+    })
   } catch (error) {
     return next(error)
   }
