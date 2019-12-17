@@ -8,6 +8,4 @@ const QuoteSchema = new Schema({
   authorId: { type: String, required: true },
 })
 
-const Quotes = model('Quote', QuoteSchema)
-
-module.exports = Quotes
+module.exports = model('Quote', QuoteSchema)

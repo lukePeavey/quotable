@@ -7,6 +7,4 @@ const AuthorSchema = new Schema({
   quoteCount: { type: Number, required: true },
 })
 
-const Authors = model('Author', AuthorSchema)
-
-module.exports = Authors
+module.exports = model('Author', AuthorSchema)

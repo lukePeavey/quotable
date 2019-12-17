@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const moesifMiddleware = require('./analytics')
+const moesifMiddleware = require('./middleware/analytics')
 const routes = require('./routes')
 const { handle404, logErrors, handleErrors } = require('./handleErrors')
 
