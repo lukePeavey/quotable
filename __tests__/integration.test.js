@@ -8,7 +8,11 @@ const { MONGODB_URI } = process.env
 
 beforeAll(async () => {
   try {
-    await mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
+    await mongoose.connect(MONGODB_URI, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+      useCreateIndex: true,
+    })
   } catch (error) {
     process.exit(1)
   }
