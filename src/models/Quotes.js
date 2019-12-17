@@ -8,4 +8,7 @@ const QuoteSchema = new Schema({
   authorId: { type: String, required: true },
 })
 
+// To support full text search
+QuoteSchema.index({ content: 'text', author: 'text' })
+
 module.exports = model('Quote', QuoteSchema)
