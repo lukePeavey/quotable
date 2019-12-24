@@ -75,13 +75,13 @@ https://api.quotable.io/quotes
 
 Get a quote by its ID
 
-#### Request 
+#### Request
 
 ```http
 https://api.quotable.io/quotes/:id
 ```
 
-#### Response 
+#### Response
 
 ```ts
 {
@@ -152,7 +152,7 @@ https://api.quotable.io/author/:id
 }
 ```
 
-## Examples
+## Usage
 
 **Get a random quote (fetch)**
 
@@ -172,6 +172,7 @@ async function randomQuote() {
   const data = await response.json()
   console.log(`${data.content} —${data.author}`)
 }
+randomQuote()
 ```
 
 **Get a random quote (JQuery)**
@@ -181,6 +182,12 @@ $.getJSON('https://api.quotable.io/random', function(data) {
   console.log(`${data.content} —${data.author}`)
 })
 ```
+
+## Live Examples
+
+[Basic Random Quote (CodePen)](https://codepen.io/lukePeavey/pen/RwNVeQG)
+
+[React Random Quote (CodeSandbox)](https://codesandbox.io/s/quotable-demo-react-e7zm1?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=dark)
 
 ## Contributing
 
