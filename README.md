@@ -11,7 +11,8 @@ I originally built this for a freeCodeCamp project, and decided to publish for o
 - [Get Quote by ID](#get-quote-by-id)
 - [Search authors](#search-authors-beta)
 - [Get Author By ID](#get-author-by-id-beta)
-- [Examples](#examples)
+- [Usage](#usage)
+- [Live Example](#live-examples)
 
 ## API Documentation
 
