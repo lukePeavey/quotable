@@ -70,7 +70,7 @@ $ npm run install
 This will populate your database with the sample data included in the repository. 
 
 ```shell
-$ npm run database:seed
+$ npm run database:seed data/samples
 ```
 
 **4. Start the Server**

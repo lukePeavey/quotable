@@ -8,7 +8,7 @@
 
 docs/
 private/
-data/
+data/*
 !data/samples
 
 # misc
