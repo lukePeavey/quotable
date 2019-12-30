@@ -5,12 +5,14 @@ _A REST API for famous quotes_
 I originally built this for a freeCodeCamp project, and decided to publish for others to use as well. The database currently includes over 1500 quotes by 800 authors.
 
 ## Table of contents:
+
 - [Get a random quote](#get-random-quote)
 - [Search quotes](#search-quotes-beta)
 - [Get Quote by ID](#get-quote-by-id)
 - [Search authors](#search-authors-beta)
 - [Get Author By ID](#get-author-by-id-beta)
-- [Examples](#examples)
+- [Usage](#usage)
+- [Live Example](#live-examples)
 
 ## API Documentation
 
@@ -39,6 +41,7 @@ https://api.quotable.io/random
 Get quotes from the database using various filter and sorting options. All parameters are optional.
 
 #### Query parameters
+
 | param    | type     | Description                                                  |
 | :------- | :------- | :----------------------------------------------------------- |
 | author   | `String` | Filter quotes by author name. Supports fuzzy search.         |
@@ -46,14 +49,13 @@ Get quotes from the database using various filter and sorting options. All param
 | limit    | `Int`    | The number of quotes to return per request. (for pagination) |
 | skip     | `Int`    | The number of items to skip (for pagination)                 |
 
-
-#### Request 
+#### Request
 
 ```http
 https://api.quotable.io/quotes
 ```
 
-#### Response 
+#### Response
 
 ```ts
 {
@@ -65,7 +67,7 @@ https://api.quotable.io/quotes
   // this value would be used as the `skip` parameter when requesting the next
   // "page" of results.
   lastItemIndex: number
-  // The array of quotes 
+  // The array of quotes
   results: {_id: string, content: string, author: string}[]
 }
 ```
@@ -74,13 +76,13 @@ https://api.quotable.io/quotes
 
 Get a quote by its ID
 
-#### Request 
+#### Request
 
 ```http
 https://api.quotable.io/quotes/:id
 ```
 
-#### Response 
+#### Response
 
 ```ts
 {
@@ -94,8 +96,8 @@ https://api.quotable.io/quotes/:id
 
 Search the database for authors using various filter/sorting options. All parameters are optional. By default, it returns all authors in alphabetical order.
 
-
 #### Query parameters
+
 | param     | type                           | Description                                                   |
 | :-------- | :----------------------------- | :------------------------------------------------------------ |
 | name      | `String`                       | Search for authors by name. Supports fuzzy search.            |
@@ -104,13 +106,13 @@ Search the database for authors using various filter/sorting options. All parame
 | limit     | `Int`                          | The number of authors to return per request. (for pagination) |
 | skip      | `Int`                          | The number of items to skip (for pagination)                  |
 
-#### Request 
+#### Request
 
 ```http
 https://api.quotable.io/authors
 ```
 
-#### Response 
+#### Response
 
 ```ts
 {
@@ -122,7 +124,7 @@ https://api.quotable.io/authors
   // this value would be used as the `skip` parameter when requesting the next
   // "page" of results.
   lastItemIndex: number
-  // The array of authors 
+  // The array of authors
   results: {_id: string, name: string, quoteCount: string}[]
 }
 ```
@@ -131,13 +133,13 @@ https://api.quotable.io/authors
 
 Get all quotes a specific author
 
-#### Request 
+#### Request
 
 ```http
 https://api.quotable.io/author/:id
 ```
 
-#### Response 
+#### Response
 
 ```ts
 {
@@ -151,7 +153,7 @@ https://api.quotable.io/author/:id
 }
 ```
 
-## Examples
+## Usage
 
 **Get a random quote (fetch)**
 
@@ -171,6 +173,7 @@ async function randomQuote() {
   const data = await response.json()
   console.log(`${data.content} —${data.author}`)
 }
+randomQuote()
 ```
 
 **Get a random quote (JQuery)**
@@ -180,6 +183,12 @@ $.getJSON('https://api.quotable.io/random', function(data) {
   console.log(`${data.content} —${data.author}`)
 })
 ```
+
+## Live Examples
+
+[Basic Random Quote (CodePen)](https://codepen.io/lukePeavey/pen/RwNVeQG)
+
+[React Random Quote (CodeSandbox)](https://codesandbox.io/s/quotable-demo-react-e7zm1?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=dark)
 
 ## Contributing
 

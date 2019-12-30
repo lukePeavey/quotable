@@ -7,6 +7,8 @@ const AuthorSchema = new Schema({
   quoteCount: { type: Number, required: true },
 })
 
-const Authors = model('Author', AuthorSchema)
+AuthorSchema.set('collation', { locale: 'en_US', strength: 1 })
+AuthorSchema.index({ name: 1 }, { name: 'nameIndex', unique: true })
+AuthorSchema.index({ quoteCount: -1 }, { name: 'quoteCountIndex' })
 
-module.exports = Authors
+module.exports = model('Author', AuthorSchema)

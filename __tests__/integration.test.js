@@ -3,11 +3,16 @@ const request = require('supertest')
 const mongoose = require('mongoose')
 const range = require('lodash/range')
 const app = require('../src/app')
+const Quotes = require('../src/models/Quotes')
 const { MONGODB_URI } = process.env
 
 beforeAll(async () => {
   try {
-    await mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
+    await mongoose.connect(MONGODB_URI, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+      useCreateIndex: true,
+    })
   } catch (error) {
     process.exit(1)
   }
@@ -62,13 +67,14 @@ describe('GET /authors', () => {
 
 describe('GET /quotes/:id', () => {
   it('Request completed successfully', async () => {
-    const response = await request(app).get('/quotes/gcPBYtDU718')
+    const quote = await Quotes.findOne()
+    const response = await request(app).get(`/quotes/${quote._id}`)
     expect(response.status).toBe(200)
     expect(response.type).toBe('application/json')
     expect(response.body).toEqual({
-      _id: expect.any(String),
-      author: expect.any(String),
-      content: expect.any(String),
+      _id: quote._id,
+      author: quote.author,
+      content: quote.content,
     })
   })
 
