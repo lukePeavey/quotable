@@ -7,6 +7,7 @@ const fs = require('fs')
 const path = require('path')
 const Quotes = require('../src/models/Quotes')
 const Authors = require('../src/models/Authors')
+const Tags = require('../src/models/Tags')
 
 // Seeds the database with data from `quotes.json` and `authors.json`.
 // This should be run when setting up a new database, or after modifying
@@ -17,6 +18,7 @@ console.log('==> Seeding database...')
 const [dataDirectory] = process.argv.slice(2)
 let _quotes
 let _authors
+let _tags
 
 try {
   _quotes = fs.readFileSync(
@@ -24,6 +26,9 @@ try {
   )
   _authors = fs.readFileSync(
     path.join(__dirname, '../', dataDirectory, 'authors.json')
+  )
+  _tags = fs.readFileSync(
+    path.join(__dirname, '../', dataDirectory, 'tags.json')
   )
 } catch (error) {
   console.log('==> [ERROR] Invalid data directory')
@@ -46,10 +51,18 @@ async function seedAuthors() {
   console.log(`==> Added ${result.insertedCount} documents to Authors`)
 }
 
+async function seedTags() {
+  // Remove any existing data from the collection
+  await Tags.collection.deleteMany({})
+  // Import the items from authors.json
+  const result = await Tags.collection.insertMany(JSON.parse(_tags))
+  console.log(`==> Added ${result.insertedCount} documents to Tags`)
+}
+
 mongoose
   .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
   .then(() => {
-    Promise.all([seedQuotes(), seedAuthors()]).then(() => {
+    Promise.all([seedQuotes(), seedAuthors(), seedTags()]).then(() => {
       console.log('==> Finished!')
       process.exit()
     })

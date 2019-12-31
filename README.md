@@ -61,7 +61,7 @@ https://api.quotable.io/quotes
 {
   // The number of quotes returned by this request
   count: number,
-  // The total number or quotes matching this request
+  // The total number of quotes matching this request
   totalCount: number
   // The index of the last quote returned. When paginating through results,
   // this value would be used as the `skip` parameter when requesting the next
@@ -118,12 +118,12 @@ https://api.quotable.io/authors
 {
   // The number of authors return by this request.
   count: number,
-  // The total number or authors matching this request.
-  totalCount: number
+  // The total number of authors matching this request.
+  totalCount: number,
   // The index of the last item returned. When paginating through results,
   // this value would be used as the `skip` parameter when requesting the next
   // "page" of results.
-  lastItemIndex: number
+  lastItemIndex: number,
   // The array of authors
   results: {_id: string, name: string, quoteCount: string}[]
 }
@@ -136,7 +136,7 @@ Get all quotes a specific author
 #### Request
 
 ```http
-https://api.quotable.io/author/:id
+https://api.quotable.io/authors/:id
 ```
 
 #### Response
@@ -145,11 +145,32 @@ https://api.quotable.io/author/:id
 {
   _id: string,
   // The author name
-  name: number,
+  name: string,
   // The total number of quotes by this author
-  quoteCount: number
+  quoteCount: number,
   // The array of quotes by this author
   quotes: {_id: string, content: string, author: string}[]
+}
+```
+
+### Get Tags
+
+Get list of available tags
+
+#### Request
+
+```http
+https://api.quotable.io/tags
+```
+
+#### Response
+
+```ts
+{
+  // The number of all tags by this request
+  count: number,
+  // The array of tags
+  results: {_id: string, name: string}[]
 }
 ```
 
