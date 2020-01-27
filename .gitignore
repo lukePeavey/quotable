@@ -9,7 +9,7 @@
 docs/
 private/
 data/*
-!data/samples
+!data/sample
 
 # misc
 .DS_Store
