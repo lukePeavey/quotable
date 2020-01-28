@@ -84,3 +84,11 @@ describe('GET /quotes/:id', () => {
     expect(response.type).toBe('application/json')
   })
 })
+
+describe('GET /tags', () => {
+  it('Request completed successfully', async () => {
+    const response = await request(app).get('/tags')
+    expect(response.status).toBe(200)
+    expect(response.type).toBe('application/json')
+  })
+})
