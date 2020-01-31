@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
+    "cli-table3": "^0.5.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-config-prettier": "^4.3.0",
@@ -56,9 +57,11 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
     "husky": "^2.4.1",
+    "is-interactive": "^1.0.0",
     "jest": "^24.9.0",
     "lint-staged": "^8.2.1",
     "nodemon": "^1.19.2",
+    "ora": "^4.0.3",
     "prettier": "^1.18.2",
     "shelljs": "^0.8.3",
     "supertest": "^4.0.2"
