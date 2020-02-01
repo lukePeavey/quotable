@@ -48,6 +48,7 @@
     "shortid": "^2.2.15"
   },
   "devDependencies": {
+    "@types/jest": "^25.1.1",
     "babel-eslint": "^10.0.3",
     "cli-table3": "^0.5.1",
     "eslint": "^5.16.0",
