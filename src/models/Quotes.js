@@ -6,6 +6,7 @@ const QuoteSchema = new Schema({
   content: { type: String, required: true },
   author: { type: String, required: true },
   authorId: { type: String, required: true },
+  length: { type: Number, required: true },
 })
 
 // To support full text search

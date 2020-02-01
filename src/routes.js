@@ -4,6 +4,7 @@ const getQuoteById = require('./controllers/quotes/getQuoteById')
 const randomQuote = require('./controllers/quotes/randomQuote')
 const listAuthors = require('./controllers/authors/listAuthors')
 const getAuthorById = require('./controllers/authors/getAuthorById')
+const listTags = require('./controllers/tags/listTags')
 
 const router = Router()
 
@@ -20,22 +21,9 @@ router.get('/random', randomQuote)
 router.get('/authors', listAuthors)
 router.get('/authors/:id', getAuthorById)
 
-/**
- * Get a quote by its ID
- */
-router.get('/quotes/:id', async (req, res, next) => {
-  const id = escape(req.params.id)
-
-  // Get the author by ID
-  const quote = await Quotes.findById(id).select('content author')
-  if (!quote) {
-    return next(createError(404, 'The requested resource could not be found'))
-  }
-  res.status(200).json({
-    _id: quote._id,
-    content: quote.content,
-    author: quote.author,
-  })
-})
+/**------------------------------------------------
+ ** Tags
+ **-----------------------------------------------*/
+router.get('/tags', listTags)
 
 module.exports = router

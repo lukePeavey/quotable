@@ -8,8 +8,8 @@
 
 docs/
 private/
-data/
-!data/samples
+data/*
+!data/sample
 
 # misc
 .DS_Store
