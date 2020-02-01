@@ -36,7 +36,7 @@
     "content": "I destroy my enemies when I make them my friends.",
     "author": "Abraham Lincoln",
     "authorId": "1jVq35e_unPn",
-    "tags": ["success", "success", "inspirational"],
+    "tags": ["success", "inspirational"],
     "length": 49
   },
   {
@@ -60,7 +60,7 @@
     "content": "Most folks are about as happy as they make up their minds to be.",
     "author": "Abraham Lincoln",
     "authorId": "1jVq35e_unPn",
-    "tags": ["life", "life", "famous-quotes"],
+    "tags": ["life", "famous-quotes"],
     "length": 64
   },
   {
@@ -124,7 +124,7 @@
     "content": "Once we accept our limits, we go beyond them.",
     "author": "Albert Einstein",
     "authorId": "4l5cJjYdtvoU",
-    "tags": ["business", "motivational", "motivational"],
+    "tags": ["business", "motivational"],
     "length": 45
   },
   {
@@ -164,7 +164,7 @@
     "content": "One who gains strength by overcoming obstacles possesses the only strength which can overcome adversity.",
     "author": "Albert Schweitzer",
     "authorId": "DwCRDw-fBNQT",
-    "tags": ["science", "religion", "religion"],
+    "tags": ["science", "religion"],
     "length": 104
   },
   {
@@ -204,7 +204,7 @@
     "content": "Life shrinks or expands in proportion to one's courage.",
     "author": "Anais Nin",
     "authorId": "OtFSS3uf0eVK",
-    "tags": ["religion", "love", "religion"],
+    "tags": ["religion", "love"],
     "length": 55
   },
   {
@@ -244,7 +244,7 @@
     "content": "All our talents increase in the using, and the every faculty, both good and bad, strengthen by exercise.",
     "author": "Anne Bronte",
     "authorId": "_dIK8j-7MZiD",
-    "tags": ["famous-quotes", "famous-quotes", "love"],
+    "tags": ["famous-quotes", "love"],
     "length": 104
   },
   {
@@ -484,7 +484,7 @@
     "content": "Kind words do not cost much. Yet they accomplish much.",
     "author": "Blaise Pascal",
     "authorId": "ztmyjaHqvfKx",
-    "tags": ["religion", "religion", "literature"],
+    "tags": ["religion", "literature"],
     "length": 54
   },
   {
@@ -572,7 +572,7 @@
     "content": "Peace comes from within. Do not seek it without.",
     "author": "Buddha",
     "authorId": "x0Lc5KMtD7et",
-    "tags": ["business", "business"],
+    "tags": ["business"],
     "length": 48
   },
   {
@@ -804,7 +804,7 @@
     "content": "Everyone can taste success when the going is easy, but few know how to taste victory when times get tough.",
     "author": "Byron Pulsifer",
     "authorId": "lpFflDY4f0G7",
-    "tags": ["motivational", "business", "motivational"],
+    "tags": ["motivational", "business"],
     "length": 106
   },
   {
@@ -844,7 +844,7 @@
     "content": "We cannot do everything at once, but we can do something at once.",
     "author": "Calvin Coolidge",
     "authorId": "-I1tAq_eYVZw",
-    "tags": ["technology", "success", "success"],
+    "tags": ["technology", "success"],
     "length": 65
   },
   {
@@ -852,7 +852,7 @@
     "content": "Who looks outside, dreams; who looks inside, awakes.",
     "author": "Carl Jung",
     "authorId": "d7WCEcZM8iu7",
-    "tags": ["science", "science"],
+    "tags": ["science"],
     "length": 52
   },
   {
@@ -916,7 +916,7 @@
     "content": "Let us revere, let us worship, but erect and open-eyed, the highest, not the lowest; the future, not the past!",
     "author": "Charlotte Gilman",
     "authorId": "X689uREI3t4I",
-    "tags": ["religion", "religion"],
+    "tags": ["religion"],
     "length": 110
   },
   {
@@ -948,7 +948,7 @@
     "content": "Once you choose hope, anythings possible.",
     "author": "Christopher Reeve",
     "authorId": "fINy8wb68HUV",
-    "tags": ["famous-quotes", "famous-quotes"],
+    "tags": ["famous-quotes"],
     "length": 41
   },
   {
@@ -1052,7 +1052,7 @@
     "content": "Choose a job you love, and you will never have to work a day in your life.",
     "author": "Confucius",
     "authorId": "DuXdRlE4Hptg",
-    "tags": ["inspirational", "inspirational", "inspirational"],
+    "tags": ["inspirational"],
     "length": 74
   },
   {
@@ -1324,7 +1324,7 @@
     "content": "Bite off more than you can chew, then chew it.",
     "author": "Ella Williams",
     "authorId": "cpP3c1zbcDHX",
-    "tags": ["inspirational", "inspirational", "famous-quotes"],
+    "tags": ["inspirational", "famous-quotes"],
     "length": 46
   },
   {
@@ -1364,7 +1364,7 @@
     "content": "Practice yourself, for heavens sake in little things, and then proceed to greater.",
     "author": "Epictetus",
     "authorId": "emmNzvD__S5h",
-    "tags": ["religion", "religion"],
+    "tags": ["religion"],
     "length": 82
   },
   {
@@ -1516,7 +1516,7 @@
     "content": "Reality does not conform to the ideal, but confirms it.",
     "author": "Gustave Flaubert",
     "authorId": "1jtmpgkJJzPd",
-    "tags": ["friendship", "friendship", "technology"],
+    "tags": ["friendship", "technology"],
     "length": 55
   },
   {
@@ -1740,7 +1740,7 @@
     "content": "Good timber does not grow with ease; the stronger the wind, the stronger the trees.",
     "author": "J. Willard Marriott",
     "authorId": "6mH16A2Du62J",
-    "tags": ["social-justice", "technology", "social-justice"],
+    "tags": ["social-justice", "technology"],
     "length": 83
   },
   {
@@ -1852,7 +1852,7 @@
     "content": "Character develops itself in the stream of life.",
     "author": "Johann Wolfgang von Goethe",
     "authorId": "0Trc28aC3ZS7",
-    "tags": ["famous-quotes", "social-justice", "social-justice"],
+    "tags": ["famous-quotes", "social-justice"],
     "length": 48
   },
   {
@@ -2012,7 +2012,7 @@
     "content": "Quality is never an accident; it is always the result of intelligent effort.",
     "author": "John Ruskin",
     "authorId": "66cnRagdC8eH",
-    "tags": ["religion", "religion", "friendship"],
+    "tags": ["religion", "friendship"],
     "length": 76
   },
   {
@@ -2292,7 +2292,7 @@
     "content": "Who sows virtue reaps honour.",
     "author": "Leonardo da Vinci",
     "authorId": "X8wGMGzcHNpT",
-    "tags": ["life", "religion", "religion"],
+    "tags": ["life", "religion"],
     "length": 29
   },
   {
@@ -2364,7 +2364,7 @@
     "content": "Those who try to do something and fail are infinitely better than those who try nothing and succeed.",
     "author": "Lloyd Jones",
     "authorId": "u8X0mWtu7zyp",
-    "tags": ["friendship", "religion", "friendship"],
+    "tags": ["friendship", "religion"],
     "length": 100
   },
   {
@@ -2628,7 +2628,7 @@
     "content": "There is no greater harm than that of time wasted.",
     "author": "Michelangelo",
     "authorId": "wW3pqyRGl3bR",
-    "tags": ["friendship", "friendship", "friendship"],
+    "tags": ["friendship"],
     "length": 50
   },
   {
@@ -2676,7 +2676,7 @@
     "content": "Victory belongs to the most persevering.",
     "author": "Napoleon Bonaparte",
     "authorId": "bhLhn_BKGN0Z",
-    "tags": ["religion", "religion", "famous-quotes"],
+    "tags": ["religion", "famous-quotes"],
     "length": 40
   },
   {
@@ -2924,7 +2924,7 @@
     "content": "Chance is always powerful. Let your hook be always cast; in the pool where you least expect it, there will be a fish.",
     "author": "Ovid",
     "authorId": "vJWLh96GrpNF",
-    "tags": ["art", "motivational", "art"],
+    "tags": ["art", "motivational"],
     "length": 117
   },
   {
@@ -3068,7 +3068,7 @@
     "content": "The years teach much which the days never know.",
     "author": "Ralph Emerson",
     "authorId": "X012DjhscXes",
-    "tags": ["success", "success", "famous-quotes"],
+    "tags": ["success", "famous-quotes"],
     "length": 47
   },
   {
@@ -3076,7 +3076,7 @@
     "content": "Our distrust is very expensive.",
     "author": "Ralph Emerson",
     "authorId": "X012DjhscXes",
-    "tags": ["life", "famous-quotes", "life"],
+    "tags": ["life", "famous-quotes"],
     "length": 31
   },
   {
@@ -3324,7 +3324,7 @@
     "content": "We come to love not by finding a perfect person, but by learning to see an imperfect person perfectly.",
     "author": "Sam Keen",
     "authorId": "sNkgypC4xIgf",
-    "tags": ["famous-quotes", "social-justice", "social-justice"],
+    "tags": ["famous-quotes", "social-justice"],
     "length": 102
   },
   {
@@ -3516,7 +3516,7 @@
     "content": "May our hearts garden of awakening bloom with hundreds of flowers.",
     "author": "Thich Nhat Hanh",
     "authorId": "oup3oDncMUQC",
-    "tags": ["religion", "technology", "technology"],
+    "tags": ["religion", "technology"],
     "length": 66
   },
   {
@@ -3548,7 +3548,7 @@
     "content": "Genius is one percent inspiration and ninety-nine percent perspiration.",
     "author": "Thomas Edison",
     "authorId": "4_p7I2LyRxjT",
-    "tags": ["social-justice", "success", "social-justice"],
+    "tags": ["social-justice", "success"],
     "length": 71
   },
   {
@@ -3652,7 +3652,7 @@
     "content": "Kind words will unlock an iron door.",
     "author": "Turkish proverb",
     "authorId": "6g7ZEaTWlBpN",
-    "tags": ["friendship", "friendship", "business"],
+    "tags": ["friendship", "business"],
     "length": 36
   },
   {
@@ -3724,7 +3724,7 @@
     "content": "Think for yourselves and let others enjoy the privilege to do so too.",
     "author": "Voltaire",
     "authorId": "GBdcGpgbeHpx",
-    "tags": ["life", "life", "inspirational"],
+    "tags": ["life", "inspirational"],
     "length": 69
   },
   {
@@ -3732,7 +3732,7 @@
     "content": "No matter how carefully you plan your goals they will never be more that pipe dreams unless you pursue them with gusto.",
     "author": "W. Clement Stone",
     "authorId": "kzuHoUYRt591",
-    "tags": ["love", "love", "motivational"],
+    "tags": ["love", "motivational"],
     "length": 119
   },
   {
@@ -3892,7 +3892,7 @@
     "content": "Love all, trust a few, do wrong to none.",
     "author": "William Shakespeare",
     "authorId": "FIiEtzPLTwZk",
-    "tags": ["religion", "success", "religion"],
+    "tags": ["religion", "success"],
     "length": 40
   },
   {
@@ -4004,6 +4004,7 @@
     "content": "Let my skin and sinews and bones dry up, together with all the flesh and blood of my body! I welcome it! But I will not move from this spot until I have attained the supreme and final wisdom.",
     "author": "Buddha",
     "authorId": "x0Lc5KMtD7et",
+    "tags": [],
     "length": 191
   }
 ]
