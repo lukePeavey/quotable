@@ -20,6 +20,13 @@ I originally built this for a freeCodeCamp project, and decided to publish for o
 
 Returns a single random quote from the database
 
+#### Query parameters
+
+| param    | type     | Description                                                  |
+| :------- | :------- | :----------------------------------------------------------- |
+| tags     | `String` | The list of tags. Tags can be separated by comma (`tags=life,technology` would match quotes with the tags "life" `AND` "technology") or pipe `|` (`tags=love|friendship` would match quotes with tags "love" `OR` "friendship").|
+
+
 #### Request
 
 ```http
@@ -32,7 +39,8 @@ https://api.quotable.io/random
 {
   _id: string,
   content: string,
-  author: string
+  author: string,
+  tags: [string]
 }
 ```
 
@@ -45,9 +53,10 @@ Get quotes from the database using various filter and sorting options. All param
 | param    | type     | Description                                                  |
 | :------- | :------- | :----------------------------------------------------------- |
 | author   | `String` | Filter quotes by author name. Supports fuzzy search.         |
-| authorId | `String` | Filter quotes by author ID                                   |
-| limit    | `Int`    | The number of quotes to return per request. (for pagination) |
-| skip     | `Int`    | The number of items to skip (for pagination)                 |
+| authorId | `String` | Filter quotes by author ID.                                  |
+| limit    | `Int`    | The number of quotes to return per request. (for pagination).|
+| skip     | `Int`    | The number of items to skip (for pagination).                |
+| tags     | `String` | The list of tags. Tags can be separated by comma (`tags=life,technology` would match quotes with the tags "life" `AND` "technology") or pipe `|` (`tags=love|friendship` would match quotes with tags "love" `OR` "friendship").|
 
 #### Request
 
@@ -68,7 +77,7 @@ https://api.quotable.io/quotes
   // "page" of results.
   lastItemIndex: number
   // The array of quotes
-  results: {_id: string, content: string, author: string}[]
+  results: {_id: string, content: string, author: string, tags: [string]}[]
 }
 ```
 
@@ -88,7 +97,8 @@ https://api.quotable.io/quotes/:id
 {
   _id: string,
   content: string,
-  author: string
+  author: string,
+  tags: [string]
 }
 ```
 
@@ -122,8 +132,8 @@ https://api.quotable.io/authors
   totalCount: number,
   // The index of the last item returned. When paginating through results,
   // this value would be used as the `skip` parameter when requesting the next
-  // "page" of results.
-  lastItemIndex: number,
+  // "page" of results. It will be set to `null` if there are no additional results.
+  lastItemIndex: number | null,
   // The array of authors
   results: {_id: string, name: string, quoteCount: string}[]
 }
