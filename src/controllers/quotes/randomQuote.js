@@ -6,8 +6,20 @@ const Quotes = require('../../models/Quotes')
  */
 module.exports = async function getRandomQuote(req, res, next) {
   try {
-    // Query filters
-    const filter = {}
+    // save our query parameters
+    const { minlength = 0, maxlength = 99999999 } = req.query
+
+    // Query Filters
+    const filter = {
+      // set a filter on attribute "length"
+      length: {
+        // $gte (greater than or equal to) matches anything of value at or above specified
+        $gte: Number(minlength),
+
+        // $lte (less than or equal to) matches anything at or below specified value
+        $lte: Number(maxlength),
+      },
+    }
 
     const [result] = await Quotes.aggregate([
       // Apply filters (if any)

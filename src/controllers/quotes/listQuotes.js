@@ -13,11 +13,20 @@ const Quotes = require('../../models/Quotes')
  */
 module.exports = async function listQuotes(req, res, next) {
   try {
-    const { author, authorId } = req.query
+    const { author, authorId, minlength = 0, maxlength = 99999999 } = req.query
     let { limit, skip = 0 } = req.query
 
     // Query filters
-    const filter = {}
+    const filter = {
+      // set a filter on attribute "length"
+      length: {
+        // $gte (greater than or equal to) matches anything of value at or above specified
+        $gte: Number(minlength),
+
+        // $lte (less than or equal to) matches anything at or below specified value
+        $lte: Number(maxlength),
+      },
+    }
 
     if (author) {
       // Search for quotes by author name (supports "fuzzy" search)
@@ -41,7 +50,7 @@ module.exports = async function listQuotes(req, res, next) {
         .sort({ [sortBy]: sortOrder })
         .limit(limit)
         .skip(skip)
-        .select('content author'),
+        .select('content author length'),
       Quotes.countDocuments(filter),
     ])
 
