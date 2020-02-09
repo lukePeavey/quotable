@@ -11,6 +11,6 @@ const QuoteSchema = new Schema({
 })
 
 // To support full text search
-QuoteSchema.index({ content: 'text', author: 'text' })
+QuoteSchema.index({ content: 'text', author: 'text' }, { name: 'textIndex' })
 
 module.exports = model('Quote', QuoteSchema)
