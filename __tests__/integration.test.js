@@ -29,14 +29,17 @@ describe('GET /random', () => {
     expect(response.status).toBe(200)
   })
 
-  it('Responds with a JSON object containing a single quote.', async () => {
-    const response = await request(app).get('/random')
+  it('Responds with a JSON object containing a single quote when tags param is "love|life".', async () => {
+    const response = await request(app).get('/random?tags=love|life')
+
     expect(response.type).toBe('application/json')
     expect(response.body).toEqual({
       _id: expect.any(String),
       author: expect.any(String),
       content: expect.any(String),
+      tags: expect.any(Array)
     })
+    expect(response.body.tags.find(tag => tag === 'love' || tag === 'life')).not.toBeUndefined()
   })
 
   it('Responds with a different quote on each request', async () => {
@@ -50,11 +53,47 @@ describe('GET /random', () => {
 })
 
 describe('GET /quotes', () => {
-  it('Request completed successfully', async () => {
+  it('without params should respond successfully', async () => {
     const response = await request(app).get('/quotes')
+
     expect(response.status).toBe(200)
     expect(response.type).toBe('application/json')
+    expect(response.body).toEqual({
+      count: expect.any(Number),
+      totalCount: expect.any(Number),
+      lastItemIndex: expect.any(Number),
+      results: expect.any(Array)
+    })
+    expect(response.body.results[0]).toEqual({
+      _id: expect.any(String),
+      author: expect.any(String),
+      content: expect.any(String),
+      tags: expect.any(Array)
+    })
   })
+
+  it('with params of "limit=2&skip=1&tags=life,love" should respond successfully', async () => {
+    const response = await request(app).get('/quotes?limit=2&skip=1&tags=life,love')
+    const { status, type, body } = response
+
+    expect(status).toBe(200)
+    expect(type).toBe('application/json')
+    expect(body).toEqual({
+      count: expect.any(Number),
+      totalCount: expect.any(Number),
+      lastItemIndex: expect.any(Number),
+      results: expect.any(Array)
+    })
+    expect(body.results[0]).toEqual({
+      _id: expect.any(String),
+      author: expect.any(String),
+      content: expect.any(String),
+      tags: expect.any(Array)
+    })
+    expect(body.results[0].tags).toContain('love')
+    expect(body.results[0].tags).toContain('life')
+  })
+
 })
 
 describe('GET /authors', () => {

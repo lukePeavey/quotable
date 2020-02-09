@@ -7,7 +7,7 @@ const Quotes = require('../../models/Quotes')
 module.exports = async function getQuoteById(req, res, next) {
   try {
     const { id } = req.params
-    const quote = await Quotes.findById(id).select('content author')
+    const quote = await Quotes.findById(id).select('content author tags')
 
     if (!quote) {
       return next(createError(404, 'The requested resource could not be found'))
