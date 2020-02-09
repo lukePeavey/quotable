@@ -32,12 +32,12 @@ describe('GET /random', () => {
   it('Responds with a JSON object containing a single quote.', async () => {
     const response = await request(app).get('/random')
     expect(response.type).toBe('application/json')
-    expect(response.body).toEqual({
-      _id: expect.any(String),
-      author: expect.any(String),
-      content: expect.any(String),
-      length: expect.any(Number),
-    })
+      expect(response.body).toEqual({
+        _id: expect.any(String),
+        author: expect.any(String),
+        content: expect.any(String),
+        length: expect.any(Number),
+      })
   })
 
   it('Responds with a different quote on each request', async () => {
@@ -76,6 +76,7 @@ describe('GET /quotes/:id', () => {
       _id: quote._id,
       author: quote.author,
       content: quote.content,
+      length: quote.length
     })
   })
 
