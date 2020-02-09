@@ -69,7 +69,8 @@ describe('GET /quotes', () => {
       _id: expect.any(String),
       author: expect.any(String),
       content: expect.any(String),
-      tags: expect.any(Array)
+      tags: expect.any(Array),
+      length: expect.any(Number),
     })
   })
 
