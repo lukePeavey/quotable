@@ -75,8 +75,7 @@ describe('GET /quotes/:id', () => {
     expect(response.body).toEqual({
       _id: quote._id,
       author: quote.author,
-      content: quote.content,
-      length: quote.length
+      content: quote.content
     })
   })
 
