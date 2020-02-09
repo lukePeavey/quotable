@@ -40,6 +40,7 @@ describe('GET /random', () => {
         length: expect.any(Number),
         tags: expect.any(Array)
       })
+    expect(response.body.tags.find(tag => tag === 'love' || tag === 'life')).not.toBeUndefined()
   })
 
   it('Responds with a different quote on each request', async () => {
@@ -94,7 +95,6 @@ describe('GET /quotes', () => {
     expect(body.results[0].tags).toContain('love')
     expect(body.results[0].tags).toContain('life')
   })
-
 })
 
 describe('GET /authors', () => {
