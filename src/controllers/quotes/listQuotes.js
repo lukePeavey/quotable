@@ -1,19 +1,22 @@
 const clamp = require('lodash/clamp')
 const escapeRegExp = require('lodash/escapeRegExp')
 const Quotes = require('../../models/Quotes')
+const getTagsFilter = require('../utils/getTagsFilter')
 
 /**
  * Get multiple quotes from the database.
  *
  * @param {Object} params
  * @param {string} [params.authorId] Filter results by authorId
+ * @param {string} [params.tags] List of tags separated by comma or pipe
  * @param {number} [params.limit = 20] The maximum number of results to include
  *     in a single response.
  * @param {number} [params.skip = 0] The offset for pagination.
  */
 module.exports = async function listQuotes(req, res, next) {
   try {
-    const { author, authorId, minlength = 0, maxlength = 99999999 } = req.query
+
+    const { author, authorId, tags, minlength = 0, maxlength = 99999999 } = req.query
     let { limit, skip = 0 } = req.query
 
     // Query filters
@@ -37,6 +40,10 @@ module.exports = async function listQuotes(req, res, next) {
       filter.authorId = authorId
     }
 
+    if (tags) {
+      filter.tags = getTagsFilter(tags)
+    }
+
     // Sorting and pagination params
     // TODO: Add sorting options for this method
     const sortBy = '_id'
@@ -50,7 +57,8 @@ module.exports = async function listQuotes(req, res, next) {
         .sort({ [sortBy]: sortOrder })
         .limit(limit)
         .skip(skip)
-        .select('content author length'),
+        .select('content author tags length'),
+
       Quotes.countDocuments(filter),
     ])
 

@@ -7,10 +7,10 @@ I originally built this for a freeCodeCamp project, and decided to publish for o
 ## Table of contents:
 
 - [Get a random quote](#get-random-quote)
-- [Search quotes](#search-quotes-beta)
+- [Search quotes](#search-quotes)
 - [Get Quote by ID](#get-quote-by-id)
-- [Search authors](#search-authors-beta)
-- [Get Author By ID](#get-author-by-id-beta)
+- [Search authors](#search-authors)
+- [Get Author By ID](#get-author-by-id)
 - [Usage](#usage)
 - [Live Example](#live-examples)
 
@@ -19,6 +19,13 @@ I originally built this for a freeCodeCamp project, and decided to publish for o
 ### Get random quote
 
 Returns a single random quote from the database
+
+#### Query parameters
+
+| param    | type     | Description                                                  |
+| :------- | :------- | :----------------------------------------------------------- |
+| tags     | `String` | Filter random quote by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
+
 
 #### Request
 
@@ -32,22 +39,24 @@ https://api.quotable.io/random
 {
   _id: string,
   content: string,
-  author: string
+  author: string,
+  tags: [string]
 }
 ```
 
-### Search Quotes (beta)
+### List Quotes
 
-Get quotes from the database using various filter and sorting options. All parameters are optional.
+Get a paginated list of all quotations in the database. This method supports several filter and sorting options. 
 
 #### Query parameters
 
 | param    | type     | Description                                                  |
 | :------- | :------- | :----------------------------------------------------------- |
 | author   | `String` | Filter quotes by author name. Supports fuzzy search.         |
-| authorId | `String` | Filter quotes by author ID                                   |
-| limit    | `Int`    | The number of quotes to return per request. (for pagination) |
-| skip     | `Int`    | The number of items to skip (for pagination)                 |
+| authorId | `String` | Filter quotes by author ID.                                  |
+| limit    | `Int`    | The number of quotes to return per request. (for pagination).|
+| skip     | `Int`    | The number of items to skip (for pagination).                |
+| tags     | `String` | Filter quotes by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
 
 #### Request
 
@@ -68,7 +77,7 @@ https://api.quotable.io/quotes
   // "page" of results.
   lastItemIndex: number
   // The array of quotes
-  results: {_id: string, content: string, author: string}[]
+  results: {_id: string, content: string, author: string, tags: [string]}[]
 }
 ```
 
@@ -88,13 +97,14 @@ https://api.quotable.io/quotes/:id
 {
   _id: string,
   content: string,
-  author: string
+  author: string,
+  tags: [string]
 }
 ```
 
-### Search Authors (beta)
+### List Authors
 
-Search the database for authors using various filter/sorting options. All parameters are optional. By default, it returns all authors in alphabetical order.
+Get a paginated list of all authors in the database. This method supports several filter and sorting options. 
 
 #### Query parameters
 
@@ -122,14 +132,14 @@ https://api.quotable.io/authors
   totalCount: number,
   // The index of the last item returned. When paginating through results,
   // this value would be used as the `skip` parameter when requesting the next
-  // "page" of results.
-  lastItemIndex: number,
+  // "page" of results. It will be set to `null` if there are no additional results.
+  lastItemIndex: number | null,
   // The array of authors
   results: {_id: string, name: string, quoteCount: string}[]
 }
 ```
 
-### Get Author By ID (beta)
+### Get Author By ID
 
 Get all quotes a specific author
 

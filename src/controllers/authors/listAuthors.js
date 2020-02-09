@@ -1,6 +1,7 @@
 const clamp = require('lodash/clamp')
 const escapeRegExp = require('lodash/escapeRegExp')
 const Authors = require('../../models/Authors')
+const parseSortOrder = require('../utils/parseSortOrder')
 
 /**
  * List Authors
@@ -19,21 +20,18 @@ module.exports = async function listAuthors(req, res, next) {
     let { sortBy, sortOrder, limit, skip } = req.query
     const filter = {}
 
+    // Supported parameter values
+    const Values = { sortBy: ['name', 'quoteCount'] }
+    // The default sort order depends on the `sortBy` field
+    const defaultSortOrder = { name: 1, quoteCount: -1 }
+
     if (name) {
       // TODO: remove this param in favor of a separate search endpoint
       filter.name = new RegExp(escapeRegExp(name), 'gi')
     }
 
-    // Supported parameter values
-    const Values = {
-      sortBy: ['name', 'quoteCount'],
-      sortOrder: ['asc', 'desc', 'ascending', 'descending', '1', '-1'],
-    }
-    // The default order depends on the sortBy field.
-    const defaultOrder = sortBy === 'quoteCount' ? -1 : 1
-
     sortBy = Values.sortBy.includes(sortBy) ? sortBy : 'name'
-    sortOrder = Values.sortOrder.includes(sortOrder) ? sortOrder : defaultOrder
+    sortOrder = parseSortOrder(sortOrder) || defaultSortOrder[sortBy] || 1
     limit = clamp(parseInt(limit), 1, 50) || 20
     skip = parseInt(skip) || 0
 

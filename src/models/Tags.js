@@ -6,7 +6,6 @@ const TagSchema = new Schema({
   name: { type: String, required: true },
 })
 
-// To support full text search
-TagSchema.index({ name: 'text' })
+TagSchema.index({ name: 1 }, { name: 'nameIndex' })
 
 module.exports = model('Tag', TagSchema)
