@@ -7,10 +7,10 @@ I originally built this for a freeCodeCamp project, and decided to publish for o
 ## Table of contents:
 
 - [Get a random quote](#get-random-quote)
-- [Search quotes](#search-quotes-beta)
+- [Search quotes](#search-quotes)
 - [Get Quote by ID](#get-quote-by-id)
-- [Search authors](#search-authors-beta)
-- [Get Author By ID](#get-author-by-id-beta)
+- [Search authors](#search-authors)
+- [Get Author By ID](#get-author-by-id)
 - [Usage](#usage)
 - [Live Example](#live-examples)
 
@@ -24,7 +24,7 @@ Returns a single random quote from the database
 
 | param    | type     | Description                                                  |
 | :------- | :------- | :----------------------------------------------------------- |
-| tags     | `String` | The list of tags. Tags can be separated by comma (`tags=life,technology` would match quotes with the tags "life" `AND` "technology") or pipe `|` (`tags=love|friendship` would match quotes with tags "love" `OR` "friendship").|
+| tags     | `String` | Filter random quote by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`|`) separated list will match quotes that have **_either_** of the provided tags. |
 
 
 #### Request
@@ -44,9 +44,9 @@ https://api.quotable.io/random
 }
 ```
 
-### Search Quotes (beta)
+### List Quotes
 
-Get quotes from the database using various filter and sorting options. All parameters are optional.
+Get a paginated list of all quotations in the database. This method supports several filter and sorting options. 
 
 #### Query parameters
 
@@ -56,7 +56,7 @@ Get quotes from the database using various filter and sorting options. All param
 | authorId | `String` | Filter quotes by author ID.                                  |
 | limit    | `Int`    | The number of quotes to return per request. (for pagination).|
 | skip     | `Int`    | The number of items to skip (for pagination).                |
-| tags     | `String` | The list of tags. Tags can be separated by comma (`tags=life,technology` would match quotes with the tags "life" `AND` "technology") or pipe `|` (`tags=love|friendship` would match quotes with tags "love" `OR` "friendship").|
+| tags     | `String` | Filter quotes by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`|`) separated list will match quotes that have **_either_** of the provided tags. |
 
 #### Request
 
@@ -102,9 +102,9 @@ https://api.quotable.io/quotes/:id
 }
 ```
 
-### Search Authors (beta)
+### List Authors
 
-Search the database for authors using various filter/sorting options. All parameters are optional. By default, it returns all authors in alphabetical order.
+Get a paginated list of all authors in the database. This method supports several filter and sorting options. 
 
 #### Query parameters
 
@@ -139,7 +139,7 @@ https://api.quotable.io/authors
 }
 ```
 
-### Get Author By ID (beta)
+### Get Author By ID
 
 Get all quotes a specific author
 
