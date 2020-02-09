@@ -88,7 +88,8 @@ describe('GET /quotes', () => {
       _id: expect.any(String),
       author: expect.any(String),
       content: expect.any(String),
-      tags: expect.any(Array)
+      tags: expect.any(Array),
+      length: expect.any(Number)
     })
     expect(body.results[0].tags).toContain('love')
     expect(body.results[0].tags).toContain('life')
