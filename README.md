@@ -24,7 +24,7 @@ Returns a single random quote from the database
 
 | param    | type     | Description                                                  |
 | :------- | :------- | :----------------------------------------------------------- |
-| tags     | `String` | Filter random quote by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`|`) separated list will match quotes that have **_either_** of the provided tags. |
+| tags     | `String` | Filter random quote by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
 
 
 #### Request
@@ -56,7 +56,7 @@ Get a paginated list of all quotations in the database. This method supports sev
 | authorId | `String` | Filter quotes by author ID.                                  |
 | limit    | `Int`    | The number of quotes to return per request. (for pagination).|
 | skip     | `Int`    | The number of items to skip (for pagination).                |
-| tags     | `String` | Filter quotes by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`|`) separated list will match quotes that have **_either_** of the provided tags. |
+| tags     | `String` | Filter quotes by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
 
 #### Request
 
