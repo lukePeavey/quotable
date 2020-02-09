@@ -36,6 +36,7 @@ describe('GET /random', () => {
       _id: expect.any(String),
       author: expect.any(String),
       content: expect.any(String),
+      length: expect.any(Number),
     })
   })
 
