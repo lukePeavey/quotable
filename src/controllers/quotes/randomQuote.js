@@ -27,7 +27,7 @@ module.exports = async function getRandomQuote(req, res, next) {
       // Select a random document from the results
       { $sample: { size: 1 } },
       // Only include the following the fields
-      { $project: { _id: 1, content: 1, author: 1 } },
+      { $project: { _id: 1, content: 1, author: 1, length: 1 } },
     ])
 
     if (!result) {

@@ -50,7 +50,7 @@ module.exports = async function listQuotes(req, res, next) {
         .sort({ [sortBy]: sortOrder })
         .limit(limit)
         .skip(skip)
-        .select('content author'),
+        .select('content author length'),
       Quotes.countDocuments(filter),
     ])
 
