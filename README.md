@@ -59,8 +59,8 @@ Get a paginated list of all quotations in the database. This method supports sev
 | limit    | `Int`    | The number of quotes to return per request. (for pagination).|
 | skip     | `Int`    | The number of items to skip (for pagination).                |
 | tags     | `String` | Filter quotes by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
-| maxlength  | `Int` | The maximum Length in characters ( can be combined with `minlength` ) |
-| minlength | `Int`| The minimum Length in characters ( can be combined with `maxlength` )
+| maxlength  | `Int` | The maximum Length in characters ( can be combined with `minLength` ) |
+| minlength | `Int`| The minimum Length in characters ( can be combined with `maxLength` )
 
 #### Request
 
@@ -81,7 +81,7 @@ https://api.quotable.io/quotes
   // "page" of results.
   lastItemIndex: number
   // The array of quotes
-  results: {_id: string, content: string, author: string, tags: [string], length: number}[]
+  results: {_id: string, content: string, author: string, tags: [string], length:}[]
 }
 ```
 

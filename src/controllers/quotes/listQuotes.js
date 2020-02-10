@@ -15,8 +15,13 @@ const getTagsFilter = require('../utils/getTagsFilter')
  */
 module.exports = async function listQuotes(req, res, next) {
   try {
-
-    const { author, authorId, tags, minlength = 0, maxlength = 99999999 } = req.query
+    const {
+      author,
+      authorId,
+      tags,
+      minLength = 0,
+      maxLength = 99999999,
+    } = req.query
     let { limit, skip = 0 } = req.query
 
     // Query filters
@@ -24,10 +29,10 @@ module.exports = async function listQuotes(req, res, next) {
       // set a filter on attribute "length"
       length: {
         // $gte (greater than or equal to) matches anything of value at or above specified
-        $gte: Number(minlength),
+        $gte: Number(minLength),
 
         // $lte (less than or equal to) matches anything at or below specified value
-        $lte: Number(maxlength),
+        $lte: Number(maxLength),
       },
     }
 
