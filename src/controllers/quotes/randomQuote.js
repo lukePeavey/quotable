@@ -7,10 +7,20 @@ const getTagsFilter = require('../utils/getTagsFilter')
  */
 module.exports = async function getRandomQuote(req, res, next) {
   try {
-    const { tags } = req.query
+    // save our query parameters
+    const { minLength = 0, maxLength = 99999999, tags } = req.query
 
-    // Query filters
-    const filter = {}
+    // Query Filters
+    const filter = {
+      // set a filter on attribute "length"
+      length: {
+        // $gte (greater than or equal to) matches anything of value at or above specified
+        $gte: Number(minLength),
+
+        // $lte (less than or equal to) matches anything at or below specified value
+        $lte: Number(maxLength),
+      },
+    }
 
     if (tags) {
       filter.tags = getTagsFilter(tags)
@@ -22,7 +32,7 @@ module.exports = async function getRandomQuote(req, res, next) {
       // Select a random document from the results
       { $sample: { size: 1 } },
       // Only include the following the fields
-      { $project: { _id: 1, content: 1, author: 1, tags: 1 } },
+      { $project: { _id: 1, content: 1, author: 1, length: 1, tags: 1 } },
     ])
 
     if (!result) {

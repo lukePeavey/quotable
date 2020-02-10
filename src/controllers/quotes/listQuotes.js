@@ -15,11 +15,26 @@ const getTagsFilter = require('../utils/getTagsFilter')
  */
 module.exports = async function listQuotes(req, res, next) {
   try {
-    const { author, authorId, tags } = req.query
+    const {
+      author,
+      authorId,
+      tags,
+      minLength = 0,
+      maxLength = 99999999,
+    } = req.query
     let { limit, skip = 0 } = req.query
 
     // Query filters
-    const filter = {}
+    const filter = {
+      // set a filter on attribute "length"
+      length: {
+        // $gte (greater than or equal to) matches anything of value at or above specified
+        $gte: Number(minLength),
+
+        // $lte (less than or equal to) matches anything at or below specified value
+        $lte: Number(maxLength),
+      },
+    }
 
     if (author) {
       // Search for quotes by author name (supports "fuzzy" search)
@@ -47,7 +62,8 @@ module.exports = async function listQuotes(req, res, next) {
         .sort({ [sortBy]: sortOrder })
         .limit(limit)
         .skip(skip)
-        .select('content author tags'),
+        .select('content author tags length'),
+
       Quotes.countDocuments(filter),
     ])
 

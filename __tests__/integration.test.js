@@ -33,12 +33,13 @@ describe('GET /random', () => {
     const response = await request(app).get('/random?tags=love|life')
 
     expect(response.type).toBe('application/json')
-    expect(response.body).toEqual({
-      _id: expect.any(String),
-      author: expect.any(String),
-      content: expect.any(String),
-      tags: expect.any(Array)
-    })
+      expect(response.body).toEqual({
+        _id: expect.any(String),
+        author: expect.any(String),
+        content: expect.any(String),
+        length: expect.any(Number),
+        tags: expect.any(Array)
+      })
     expect(response.body.tags.find(tag => tag === 'love' || tag === 'life')).not.toBeUndefined()
   })
 
@@ -68,7 +69,8 @@ describe('GET /quotes', () => {
       _id: expect.any(String),
       author: expect.any(String),
       content: expect.any(String),
-      tags: expect.any(Array)
+      tags: expect.any(Array),
+      length: expect.any(Number),
     })
   })
 
@@ -88,12 +90,12 @@ describe('GET /quotes', () => {
       _id: expect.any(String),
       author: expect.any(String),
       content: expect.any(String),
-      tags: expect.any(Array)
+      tags: expect.any(Array),
+      length: expect.any(Number)
     })
     expect(body.results[0].tags).toContain('love')
     expect(body.results[0].tags).toContain('life')
   })
-
 })
 
 describe('GET /authors', () => {
@@ -113,7 +115,7 @@ describe('GET /quotes/:id', () => {
     expect(response.body).toEqual({
       _id: quote._id,
       author: quote.author,
-      content: quote.content,
+      content: quote.content
     })
   })
 
