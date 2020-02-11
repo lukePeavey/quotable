@@ -33,14 +33,16 @@ describe('GET /random', () => {
     const response = await request(app).get('/random?tags=love|life')
 
     expect(response.type).toBe('application/json')
-      expect(response.body).toEqual({
-        _id: expect.any(String),
-        author: expect.any(String),
-        content: expect.any(String),
-        length: expect.any(Number),
-        tags: expect.any(Array)
-      })
-    expect(response.body.tags.find(tag => tag === 'love' || tag === 'life')).not.toBeUndefined()
+    expect(response.body).toEqual({
+      _id: expect.any(String),
+      author: expect.any(String),
+      content: expect.any(String),
+      length: expect.any(Number),
+      tags: expect.any(Array),
+    })
+    expect(
+      response.body.tags.find(tag => tag === 'love' || tag === 'life')
+    ).not.toBeUndefined()
   })
 
   it('Responds with a different quote on each request', async () => {
@@ -63,7 +65,7 @@ describe('GET /quotes', () => {
       count: expect.any(Number),
       totalCount: expect.any(Number),
       lastItemIndex: expect.any(Number),
-      results: expect.any(Array)
+      results: expect.any(Array),
     })
     expect(response.body.results[0]).toEqual({
       _id: expect.any(String),
@@ -75,7 +77,9 @@ describe('GET /quotes', () => {
   })
 
   it('with params of "limit=2&skip=1&tags=life,love" should respond successfully', async () => {
-    const response = await request(app).get('/quotes?limit=2&skip=1&tags=life,love')
+    const response = await request(app).get(
+      '/quotes?limit=2&skip=1&tags=life,love'
+    )
     const { status, type, body } = response
 
     expect(status).toBe(200)
@@ -84,14 +88,14 @@ describe('GET /quotes', () => {
       count: expect.any(Number),
       totalCount: expect.any(Number),
       lastItemIndex: expect.any(Number),
-      results: expect.any(Array)
+      results: expect.any(Array),
     })
     expect(body.results[0]).toEqual({
       _id: expect.any(String),
       author: expect.any(String),
       content: expect.any(String),
       tags: expect.any(Array),
-      length: expect.any(Number)
+      length: expect.any(Number),
     })
     expect(body.results[0].tags).toContain('love')
     expect(body.results[0].tags).toContain('life')
@@ -115,7 +119,9 @@ describe('GET /quotes/:id', () => {
     expect(response.body).toEqual({
       _id: quote._id,
       author: quote.author,
-      content: quote.content
+      content: quote.content,
+      tags: expect.any(Array),
+      length: expect.any(Number)
     })
   })
 
