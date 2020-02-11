@@ -19,7 +19,7 @@ module.exports = async function getAuthorById(req, res, next) {
       return next(createError(404, 'The requested resource could not be found'))
     }
     // Get quotes by this author
-    const quotes = await Quotes.find({ authorId: id }).select('content author')
+    const quotes = await Quotes.find({ authorId: id }).select('__v')
 
     res.status(200).json({
       _id: author._id,

@@ -2,6 +2,7 @@ const clamp = require('lodash/clamp')
 const escapeRegExp = require('lodash/escapeRegExp')
 const Quotes = require('../../models/Quotes')
 const getTagsFilter = require('../utils/getTagsFilter')
+const getLengthFilter = require('../utils/getLengthFilter')
 
 /**
  * Get multiple quotes from the database.
@@ -15,26 +16,11 @@ const getTagsFilter = require('../utils/getTagsFilter')
  */
 module.exports = async function listQuotes(req, res, next) {
   try {
-    const {
-      author,
-      authorId,
-      tags,
-      minLength = 0,
-      maxLength = 99999999,
-    } = req.query
+    const { author, authorId, tags, minLength, maxLength } = req.query
     let { limit, skip = 0 } = req.query
 
     // Query filters
-    const filter = {
-      // set a filter on attribute "length"
-      length: {
-        // $gte (greater than or equal to) matches anything of value at or above specified
-        $gte: Number(minLength),
-
-        // $lte (less than or equal to) matches anything at or below specified value
-        $lte: Number(maxLength),
-      },
-    }
+    const filter = {}
 
     if (author) {
       // Search for quotes by author name (supports "fuzzy" search)
@@ -43,6 +29,10 @@ module.exports = async function listQuotes(req, res, next) {
     } else if (authorId) {
       // Get quotes by author ID
       filter.authorId = authorId
+    }
+
+    if (minLength || maxLength) {
+      filter.length = getLengthFilter(minLength, maxLength)
     }
 
     if (tags) {
@@ -62,7 +52,7 @@ module.exports = async function listQuotes(req, res, next) {
         .sort({ [sortBy]: sortOrder })
         .limit(limit)
         .skip(skip)
-        .select('content author tags length'),
+        .select('-__v -authorId'),
 
       Quotes.countDocuments(filter),
     ])

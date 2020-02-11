@@ -41,7 +41,7 @@ module.exports = async function listAuthors(req, res, next) {
         .sort({ [sortBy]: sortOrder })
         .limit(limit)
         .skip(skip)
-        .select('name quoteCount'),
+        .select('-__v'),
       Authors.countDocuments(filter),
     ])
 
