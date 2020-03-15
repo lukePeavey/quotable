@@ -1,48 +1,52 @@
 # Quotable
 
-_A REST API for famous quotes_
-
 I originally built this for a freeCodeCamp project, and decided to publish for others to use as well. The database currently includes over 1500 quotes by 800 authors.
 
-## Table of contents:
-
-- [Get a random quote](#get-random-quote)
-- [Search quotes](#search-quotes)
-- [Get Quote by ID](#get-quote-by-id)
-- [Search authors](#search-authors)
-- [Get Author By ID](#get-author-by-id)
-- [Usage](#usage)
-- [Live Example](#live-examples)
-
-## API Documentation
+- [Quotable](#quotable)
+  - [API Methods](#api-methods)
+    - [Get random quote](#get-random-quote)
+    - [List Quotes](#list-quotes)
+    - [Get Quote By ID](#get-quote-by-id)
+    - [List Authors](#list-authors)
+    - [Get Author By ID](#get-author-by-id)
+    - [Get Tags](#get-tags)
+  - [Usage](#usage)
+    - [Live Examples](#live-examples)
+  - [Contributing](#contributing)
+  
+## API Methods
 
 ### Get random quote
 
 Returns a single random quote from the database
 
-#### Query parameters
-
-| param    | type     | Description                                                  |
-| :------- | :------- | :----------------------------------------------------------- |
-| maxLength  | `Int` | The maximum Length in characters ( can be combined with `minLength` ) |
-| minLength | `Int`| The minimum Length in characters ( can be combined with `maxLength` )
-| tags     | `String` | Filter random quote by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
-
-#### Request
+**Path**
 
 ```http
 https://api.quotable.io/random
 ```
 
-#### Response
+**Query parameters**
+
+| param     | type     | Description                                                                                                                                                                                                                                                                                                            |
+| :-------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| maxLength | `Int`    | The maximum Length in characters ( can be combined with `minLength` )                                                                                                                                                                                                                                                  |
+| minLength | `Int`    | The minimum Length in characters ( can be combined with `maxLength` )                                                                                                                                                                                                                                                  |
+| tags      | `String` | Filter random quote by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
+
+**Response**
 
 ```ts
 {
-  _id: string,
-  content: string,
-  author: string,
-  tags: [string],
+  _id: string
+  // The quotation text
+  content: string
+  // The full name of the author
+  author: string
+  // The length of quote (number of characters)
   length: number
+  // An array of tag names for this quote
+  tags: [string]
 }
 ```
 
@@ -50,30 +54,30 @@ https://api.quotable.io/random
 
 Get a paginated list of all quotations in the database. This method supports several filter and sorting options. 
 
-#### Query parameters
-
-| param    | type     | Description                                                  |
-| :------- | :------- | :----------------------------------------------------------- |
-| author   | `String` | Filter quotes by author name. Supports fuzzy search.         |
-| authorId | `String` | Filter quotes by author ID.                                  |
-| limit    | `Int`    | The number of quotes to return per request. (for pagination).|
-| skip     | `Int`    | The number of items to skip (for pagination).                |
-| maxLength  | `Int` | The maximum Length in characters ( can be combined with `minLength` ) |
-| minLength | `Int`| The minimum Length in characters ( can be combined with `maxLength` )
-| tags     | `String` | Filter quotes by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
-
-#### Request
+**Path**
 
 ```http
 https://api.quotable.io/quotes
 ```
 
-#### Response
+**Query parameters**
+
+| param     | type     | Description                                                                                                                                                                                                                                                                                                      |
+| :-------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| author    | `String` | Filter quotes by author name. Supports fuzzy search.                                                                                                                                                                                                                                                             |
+| authorId  | `String` | Filter quotes by author ID.                                                                                                                                                                                                                                                                                      |
+| limit     | `Int`    | The number of quotes to return per request. (for pagination).                                                                                                                                                                                                                                                    |
+| skip      | `Int`    | The number of items to skip (for pagination).                                                                                                                                                                                                                                                                    |
+| maxLength | `Int`    | The maximum Length in characters ( can be combined with `minLength` )                                                                                                                                                                                                                                            |
+| minLength | `Int`    | The minimum Length in characters ( can be combined with `maxLength` )                                                                                                                                                                                                                                            |
+| tags      | `String` | Filter quotes by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
+
+**Response**
 
 ```ts
 {
   // The number of quotes returned by this request
-  count: number,
+  count: number
   // The total number of quotes matching this request
   totalCount: number
   // The index of the last quote returned. When paginating through results,
@@ -81,7 +85,17 @@ https://api.quotable.io/quotes
   // "page" of results.
   lastItemIndex: number
   // The array of quotes
-  results: {_id: string, content: string, author: string, tags: [string], length:}[]
+  results: Array<{
+    _id: string
+    // The quotation text
+    content: string
+    // The full name of the author
+    author: string
+    // The length of quote (number of characters)
+    length: number
+    // An array of tag names for this quote
+    tags: [string]
+  }>
 }
 ```
 
@@ -89,21 +103,25 @@ https://api.quotable.io/quotes
 
 Get a quote by its ID
 
-#### Request
+**Path**
 
 ```http
 https://api.quotable.io/quotes/:id
 ```
 
-#### Response
+**Response**
 
 ```ts
 {
-  _id: string,
-  content: string,
-  author: string,
-  tags: [string],
+  _id: string
+  // The quotation text
+  content: string
+  // The full name of the author
+  author: string
+  // The length of quote (number of characters)
   length: number
+  // An array of tag names for this quote
+  tags: [string]
 }
 ```
 
@@ -111,7 +129,13 @@ https://api.quotable.io/quotes/:id
 
 Get a paginated list of all authors in the database. This method supports several filter and sorting options. 
 
-#### Query parameters
+**Path**
+
+```http
+https://api.quotable.io/authors
+```
+
+**Query parameters**
 
 | param     | type                           | Description                                                   |
 | :-------- | :----------------------------- | :------------------------------------------------------------ |
@@ -121,26 +145,27 @@ Get a paginated list of all authors in the database. This method supports severa
 | limit     | `Int`                          | The number of authors to return per request. (for pagination) |
 | skip      | `Int`                          | The number of items to skip (for pagination)                  |
 
-#### Request
-
-```http
-https://api.quotable.io/authors
-```
-
-#### Response
+**Response**
 
 ```ts
 {
   // The number of authors return by this request.
-  count: number,
+  count: number
   // The total number of authors matching this request.
-  totalCount: number,
+  totalCount: number
   // The index of the last item returned. When paginating through results,
   // this value would be used as the `skip` parameter when requesting the next
   // "page" of results. It will be set to `null` if there are no additional results.
-  lastItemIndex: number | null,
+  lastItemIndex: number | null
   // The array of authors
-  results: {_id: string, name: string, quoteCount: string}[]
+  results: Array<{
+    // A unique id for this author
+    _id: string
+    // The authors full name
+    name: string 
+    // The number of quotes by this author
+    quoteCount: string
+  }>
 }
 ```
 
@@ -148,23 +173,34 @@ https://api.quotable.io/authors
 
 Get all quotes a specific author
 
-#### Request
+**Path**
 
 ```http
 https://api.quotable.io/authors/:id
 ```
 
-#### Response
+**Response**
 
 ```ts
 {
-  _id: string,
-  // The author name
-  name: string,
-  // The total number of quotes by this author
-  quoteCount: number,
+  // A unique id for this author
+  _id: string
+  // The authors full name
+  name: string
+  // The number of quotes by this author
+  quoteCount: string
   // The array of quotes by this author
-  quotes: {_id: string, content: string, author: string}[]
+  quotes: Array<{
+    _id: string
+    // The quotation text
+    content: string
+    // The full name of the author
+    author: string
+    // An array of tag names for this quote
+    tags: [string]
+    // The length of quote (number of characters)
+    length: number
+  }>
 }
 ```
 
@@ -172,20 +208,23 @@ https://api.quotable.io/authors/:id
 
 Get list of available tags
 
-#### Request
+**Path**
 
 ```http
 https://api.quotable.io/tags
 ```
 
-#### Response
+**Response**
 
 ```ts
 {
   // The number of all tags by this request
-  count: number,
+  count: number
   // The array of tags
-  results: {_id: string, name: string}[]
+  results: Array<{
+    _id: string
+    name: string
+  }>
 }
 ```
 
@@ -220,7 +259,7 @@ $.getJSON('https://api.quotable.io/random', function(data) {
 })
 ```
 
-## Live Examples
+### Live Examples
 
 [Basic Random Quote (CodePen)](https://codepen.io/lukePeavey/pen/RwNVeQG)
 
@@ -228,4 +267,4 @@ $.getJSON('https://api.quotable.io/random', function(data) {
 
 ## Contributing
 
-All feedback and contributions are welcome!
+All contributions are welcome! For more info on how to contribute, check out the [Contributor Guide](CONTRIBUTING.md)
