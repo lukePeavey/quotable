@@ -10,7 +10,7 @@ const Table = require('cli-table3')
 const fs = require('fs')
 const path = require('path')
 const Spinner = require('./utils/Spinner')
-require('./../src/models')
+require('../src/models')
 
 // -------------------------------------------------------------------------
 
