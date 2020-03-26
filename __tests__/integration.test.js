@@ -1,6 +1,7 @@
 require('dotenv').config()
 const request = require('supertest')
 const mongoose = require('mongoose')
+const _ = require('lodash')
 const range = require('lodash/range')
 const app = require('../src/app')
 const Quotes = require('../src/models/Quotes')
@@ -76,6 +77,39 @@ describe('GET /quotes', () => {
     })
   })
 
+  describe('GET /search/:keyword', () => {
+    it('Request completed successfully', async () => {
+      // Get keyword from a persisted quote instead of using a random string
+      const quote = await Quotes.findOne()
+      const keyword = _.words(quote.content)[0]
+      // Match keyword without case sensitivity
+      const keywordRegex = new RegExp(_.escapeRegExp(keyword), 'gi')
+      const response = await request(app).get(`/search/${keyword}`)
+      const { status, type, body } = response
+
+      expect(status).toBe(200)
+      expect(type).toBe('application/json')
+      expect(body).toEqual({
+        count: expect.any(Number),
+        totalCount: expect.any(Number),
+        lastItemIndex: expect.any(Number),
+        results: expect.any(Array),
+      })
+
+      expect(body.results[0]).toEqual({
+        _id: expect.any(String),
+        author: expect.any(String),
+        content: expect.any(String),
+        tags: expect.any(Array),
+        length: expect.any(Number),
+      })
+
+      body.results.forEach(result => {
+        expect(result.content).toMatch(keywordRegex)
+      })
+    })
+  })
+
   it('with params of "limit=2&skip=1&tags=life,love" should respond successfully', async () => {
     const response = await request(app).get(
       '/quotes?limit=2&skip=1&tags=life,love'
@@ -109,6 +143,8 @@ describe('GET /authors', () => {
     expect(response.type).toBe('application/json')
   })
 })
+
+
 
 describe('GET /quotes/:id', () => {
   it('Request completed successfully', async () => {
