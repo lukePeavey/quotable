@@ -1,6 +1,7 @@
 const { Router } = require('express')
 const listQuotes = require('./controllers/quotes/listQuotes')
 const getQuoteById = require('./controllers/quotes/getQuoteById')
+const searchQuotes = require('./controllers/quotes/searchQuotes')
 const randomQuote = require('./controllers/quotes/randomQuote')
 const listAuthors = require('./controllers/authors/listAuthors')
 const getAuthorById = require('./controllers/authors/getAuthorById')
@@ -13,6 +14,7 @@ const router = Router()
  **-----------------------------------------------*/
 router.get('/quotes', listQuotes)
 router.get('/quotes/:id', getQuoteById)
+router.get('/search/:keywords', searchQuotes)
 router.get('/random', randomQuote)
 
 /**------------------------------------------------
