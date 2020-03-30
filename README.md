@@ -1,18 +1,25 @@
 # Quotable
 
-I originally built this for a freeCodeCamp project, and decided to publish for others to use as well. The database currently includes over 1500 quotes by 800 authors.
+ Quotable is a free, open source quotations API. It was originally built as part of a [FreeCodeCamp](https://www.freecodecamp.org/) project. The database includes over 2000 quotes by 900 authors. 
+ 
+- [Servers](#servers)
+- [API Methods](#api-methods)
+  - [Get random quote](#get-random-quote)
+  - [List Quotes](#list-quotes)
+  - [Get Quote By ID](#get-quote-by-id)
+  - [List Authors](#list-authors)
+  - [Get Author By ID](#get-author-by-id)
+  - [List Tags](#list-tags)
+- [Usage](#usage)
+  - [Live Examples](#live-examples)
+- [Contributing](#contributing)
 
-- [Quotable](#quotable)
-  - [API Methods](#api-methods)
-    - [Get random quote](#get-random-quote)
-    - [List Quotes](#list-quotes)
-    - [Get Quote By ID](#get-quote-by-id)
-    - [List Authors](#list-authors)
-    - [Get Author By ID](#get-author-by-id)
-    - [Get Tags](#get-tags)
-  - [Usage](#usage)
-    - [Live Examples](#live-examples)
-  - [Contributing](#contributing)
+## Servers
+
+| Name            | URL                 | Description                                                                                                   |
+| :-------------- | :------------------ | :------------------------------------------------------------------------------------------------------------ |
+| Staging     | staging.quotable.io | Synced with the master branch of this repository                |
+| Production  | api.quotable.io     | The primary API server |
   
 ## API Methods
 
@@ -22,8 +29,8 @@ Returns a single random quote from the database
 
 **Path**
 
-```http
-https://api.quotable.io/random
+```HTTP
+GET /random
 ```
 
 **Query parameters**
@@ -52,12 +59,12 @@ https://api.quotable.io/random
 
 ### List Quotes
 
-Get a paginated list of all quotations in the database. This method supports several filter and sorting options. 
+Get a paginated list of all quotes. This method supports several filter and sorting options. 
 
 **Path**
 
-```http
-https://api.quotable.io/quotes
+```HTTP
+GET /quotes
 ```
 
 **Query parameters**
@@ -105,8 +112,8 @@ Get a quote by its ID
 
 **Path**
 
-```http
-https://api.quotable.io/quotes/:id
+```HTTP
+GET /quotes/:id
 ```
 
 **Response**
@@ -127,12 +134,12 @@ https://api.quotable.io/quotes/:id
 
 ### List Authors
 
-Get a paginated list of all authors in the database. This method supports several filter and sorting options. 
+Get a paginated list of all authors. By default, authors will be returned in alphabetical order (ascending). 
 
 **Path**
 
-```http
-https://api.quotable.io/authors
+```HTTP
+GET /authors
 ```
 
 **Query parameters**
@@ -171,12 +178,12 @@ https://api.quotable.io/authors
 
 ### Get Author By ID
 
-Get all quotes a specific author
+Get a specific author by ID. The response includes all quotes by the given author. 
 
 **Path**
 
-```http
-https://api.quotable.io/authors/:id
+```HTTP
+GET /authors/:id
 ```
 
 **Response**
@@ -189,7 +196,7 @@ https://api.quotable.io/authors/:id
   name: string
   // The number of quotes by this author
   quoteCount: string
-  // The array of quotes by this author
+  // The array of quotes by this author (not paginated)
   quotes: Array<{
     _id: string
     // The quotation text
@@ -204,14 +211,14 @@ https://api.quotable.io/authors/:id
 }
 ```
 
-### Get Tags
+### List Tags
 
-Get list of available tags
+Get a list of all tags
 
 **Path**
 
-```http
-https://api.quotable.io/tags
+```HTTP
+GET /tags
 ```
 
 **Response**
@@ -267,4 +274,4 @@ $.getJSON('https://api.quotable.io/random', function(data) {
 
 ## Contributing
 
-All contributions are welcome! For more info on how to contribute, check out the [Contributor Guide](CONTRIBUTING.md)
+All contributions are welcome! For more info on how to contribute, check out the [Contributors Guide](./CONTRIBUTING.md)
