@@ -16,7 +16,6 @@
   "scripts": {
     "start": "node src/index.js",
     "start:dev": "NODE_ENV=development nodemon",
-    "start:debug": "NODE_ENV=development --inspect nodemon",
     "lint": "./node_modules/.bin/eslint . --color && echo \"eslint: no lint errors\"",
     "test": "jest",
     "test:watch": "jest --watchAll",

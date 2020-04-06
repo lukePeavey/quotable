@@ -3,11 +3,16 @@
   "configurations": [
     {
       "type": "node",
-      "request": "attach",
-      "name": "Node: Nodemon",
-      "processId": "${command:PickProcess}",
+      "request": "launch",
+      "name": "nodemon",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/nodemon",
+      "program": "${workspaceFolder}/src/index.js",
       "restart": true,
-      "protocol": "inspector"
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
     }
   ]
 }
