@@ -41,7 +41,7 @@ module.exports = async function listAuthors(req, res, next) {
         .sort({ [sortBy]: sortOrder })
         .limit(limit)
         .skip(skip)
-        .select('-__v'),
+        .select('-__v -aka'),
       Authors.countDocuments(filter),
     ])
 

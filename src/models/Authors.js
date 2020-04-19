@@ -3,7 +3,15 @@ const shortid = require('shortid')
 
 const AuthorSchema = new Schema({
   _id: { type: String, default: shortid.generate },
+  // The authors full name
   name: { type: String, required: true },
+  // A list of alternate names (for internal use)
+  aka: { type: [String], default: [] },
+  // The link to the authors WikiPedia page or website
+  link: { type: String, default: '' },
+  // A short description about the person
+  bio: { type: String, default: '' },
+  // The number of quotes by this author
   quoteCount: { type: Number, required: true },
 })
 

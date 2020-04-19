@@ -13,7 +13,7 @@ module.exports = async function getAuthorById(req, res, next) {
       return next(createError(422, 'ID is required'))
     }
     // Get the author
-    const author = await Authors.findById(id).select('name quoteCount')
+    const author = await Authors.findById(id).select('-__v -aka')
 
     if (!author) {
       return next(createError(404, 'The requested resource could not be found'))
