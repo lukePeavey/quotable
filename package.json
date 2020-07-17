@@ -39,7 +39,7 @@
     "express": "4.17.1",
     "http-errors": "^1.7.2",
     "jsonfile": "5.0.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moesif-express": "^2.9.15",
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.5",
