@@ -1,4 +1,5 @@
 const clamp = require('lodash/clamp')
+const omit = require('lodash/omit')
 const Quotes = require('../../models/Quotes')
 
 /**
@@ -51,10 +52,7 @@ module.exports = async function searchQuotes(req, res, next) {
       count: results.length,
       totalCount,
       lastItemIndex: lastItemIndex >= totalCount ? null : lastItemIndex,
-      // TODO: the `score` field should not be included in the results. But
-      // excluding it with `select` results in an error since its being used
-      // to sort results.
-      results,
+      results: results.map(doc => omit(doc.toJSON(), 'score')),
     })
   } catch (error) {
     return next(error)

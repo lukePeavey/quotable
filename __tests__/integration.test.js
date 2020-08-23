@@ -77,14 +77,14 @@ describe('GET /quotes', () => {
     })
   })
 
-  describe('GET /search/:keyword', () => {
+  describe('GET /search/quotes', () => {
     it('Request completed successfully', async () => {
       // Get keyword from a persisted quote instead of using a random string
       const quote = await Quotes.findOne()
       const keyword = _.words(quote.content)[0]
       // Match keyword without case sensitivity
       const keywordRegex = new RegExp(_.escapeRegExp(keyword), 'gi')
-      const response = await request(app).get(`/search/${keyword}`)
+      const response = await request(app).get(`/search/quotes?query=${keyword}`)
       const { status, type, body } = response
 
       expect(status).toBe(200)
