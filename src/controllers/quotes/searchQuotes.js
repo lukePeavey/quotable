@@ -1,5 +1,4 @@
 const clamp = require('lodash/clamp')
-const escapeRegExp = require('lodash/escapeRegExp')
 const Quotes = require('../../models/Quotes')
 
 /**
@@ -12,26 +11,30 @@ const Quotes = require('../../models/Quotes')
  */
 module.exports = async function searchQuotes(req, res, next) {
   try {
-    const { keywords } = req.params
-    let { limit, skip = 0 } = req.query
+    const { query = '' } = req.query
+    let { limit = 20, skip = 0 } = req.query
 
-    // Query filters
-    const filter = {}
-    filter.content = new RegExp(escapeRegExp(keywords), 'gi')
+    // Use a $text search query to search `content` and `author` fields
+    // @see https://docs.mongodb.com/manual/reference/operator/query/text
+    const filter = {
+      $text: { $search: query },
+    }
+
+    // Add a `score` field that will be used to sort results by text score.
+    // @see https://docs.mongodb.com/manual/reference/operator/projection/meta
+    const projection = {
+      score: { $meta: 'textScore' },
+    }
 
     // Sorting and pagination params
-    // TODO: Add sorting options for this method
-    const sortBy = '_id'
-    const sortOrder = 1
     limit = clamp(parseInt(limit), 0, 50) || 20
     skip = parseInt(skip) || 0
 
-    // Fetch paginated results
     const [results, totalCount] = await Promise.all([
-      Quotes.find(filter)
-        .sort({ [sortBy]: sortOrder })
-        .limit(limit)
+      Quotes.find(filter, projection)
+        .sort({ score: { $meta: 'textScore' } })
         .skip(skip)
+        .limit(limit)
         .select('-__v -authorId'),
 
       Quotes.countDocuments(filter),
@@ -48,6 +51,9 @@ module.exports = async function searchQuotes(req, res, next) {
       count: results.length,
       totalCount,
       lastItemIndex: lastItemIndex >= totalCount ? null : lastItemIndex,
+      // TODO: the `score` field should not be included in the results. But
+      // excluding it with `select` results in an error since its being used
+      // to sort results.
       results,
     })
   } catch (error) {
