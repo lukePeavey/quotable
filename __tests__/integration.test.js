@@ -84,12 +84,11 @@ describe('GET /quotes', () => {
 
     expect(status).toBe(200)
     expect(type).toBe('application/json')
-    expect(body).toEqual({
+    expect(body).toEqual(expect.objectContaining({
       count: expect.any(Number),
       totalCount: expect.any(Number),
-      lastItemIndex: expect.any(Number),
       results: expect.any(Array),
-    })
+    }))
     expect(body.results[0]).toEqual({
       _id: expect.any(String),
       author: expect.any(String),
