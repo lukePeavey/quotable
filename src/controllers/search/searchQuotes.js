@@ -1,11 +1,13 @@
 const clamp = require('lodash/clamp')
 const omit = require('lodash/omit')
+const createError = require('http-errors')
 const Quotes = require('../../models/Quotes')
 
 /**
- * Search multiple quotes by keyword.
+ * Search for quotes by content and author
  *
  * @param {Object} params
+ * @param {Object} params.query The search query
  * @param {number} [params.limit = 20] The maximum number of results to include
  *     in a single response.
  * @param {number} [params.skip = 0] The offset for pagination.
