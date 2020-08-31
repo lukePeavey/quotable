@@ -77,9 +77,9 @@ describe('GET /quotes', () => {
     })
   })
 
-  it(`With "limit=2&skip=0&tags=wisdom" should respond
+  it(`With "limit=2&skip=0&tags=inspirational" should respond
     successfully`, async () => {
-    const URL = '/quotes?limit=2&skip=0&tags=wisdom'
+    const URL = '/quotes?limit=2&skip=0&tags=inspirational'
     const { status, type, body } = await request(app).get(URL)
 
     expect(status).toBe(200)
@@ -96,7 +96,7 @@ describe('GET /quotes', () => {
       tags: expect.any(Array),
       length: expect.any(Number),
     })
-    expect(body.results[0].tags).toContain('wisdom')
+    expect(body.results[0].tags).toContain('inspirational')
   })
 })
 
