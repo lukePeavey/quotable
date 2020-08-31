@@ -182,5 +182,6 @@ module.exports = {
   // watchPathIgnorePatterns: [],
 
   // Whether to use watchman for file crawling
-  // watchman: true,
+  // TODO: this should be set to true (default)
+  watchman: false,
 };

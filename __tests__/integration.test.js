@@ -1,6 +1,7 @@
 require('dotenv').config()
 const request = require('supertest')
 const mongoose = require('mongoose')
+const _ = require('lodash')
 const range = require('lodash/range')
 const app = require('../src/app')
 const Quotes = require('../src/models/Quotes')
@@ -76,20 +77,18 @@ describe('GET /quotes', () => {
     })
   })
 
-  it('with params of "limit=2&skip=1&tags=life,love" should respond successfully', async () => {
-    const response = await request(app).get(
-      '/quotes?limit=2&skip=1&tags=life,love'
-    )
-    const { status, type, body } = response
+  it(`With "limit=2&skip=0&tags=inspirational" should respond
+    successfully`, async () => {
+    const URL = '/quotes?limit=2&skip=0&tags=inspirational'
+    const { status, type, body } = await request(app).get(URL)
 
     expect(status).toBe(200)
     expect(type).toBe('application/json')
-    expect(body).toEqual({
+    expect(body).toEqual(expect.objectContaining({
       count: expect.any(Number),
       totalCount: expect.any(Number),
-      lastItemIndex: expect.any(Number),
       results: expect.any(Array),
-    })
+    }))
     expect(body.results[0]).toEqual({
       _id: expect.any(String),
       author: expect.any(String),
@@ -97,9 +96,34 @@ describe('GET /quotes', () => {
       tags: expect.any(Array),
       length: expect.any(Number),
     })
-    expect(body.results[0].tags).toContain('love')
-    expect(body.results[0].tags).toContain('life')
+    expect(body.results[0].tags).toContain('inspirational')
   })
+})
+
+describe('GET /search/quotes', () => {
+  it(`Response is OK`, async () => {
+    const query = 'a divided house'
+    const URL = `/search/quotes?query=${encodeURI(query)}`
+    const { status, type, body } = await request(app).get(URL)
+
+    // Response matches schema
+    expect(status).toBe(200)
+    expect(type).toBe('application/json')
+    expect(body).toEqual(
+      expect.objectContaining({
+        count: expect.any(Number),
+        totalCount: expect.any(Number),
+        results: expect.any(Array),
+      })
+    )
+  })
+
+  // Should either respond with an error or empty results...
+  it.todo('When called without a `query`...')
+
+  it.todo('Returns the correct quote(s) when searching by content')
+
+  it.todo('Returns correct quote(s) when searching by author name')
 })
 
 describe('GET /authors', () => {
@@ -121,7 +145,7 @@ describe('GET /quotes/:id', () => {
       author: quote.author,
       content: quote.content,
       tags: expect.any(Array),
-      length: expect.any(Number)
+      length: expect.any(Number),
     })
   })
 
