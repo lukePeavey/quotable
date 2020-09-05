@@ -1,5 +1,5 @@
-/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-console */
+
 const Ora = require('ora')
 const isString = require('lodash/isString')
 const isInteractive = require('is-interactive')

@@ -1,6 +1,5 @@
 #!/usr/bin/env
 
-/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-console */
 require('dotenv').config({})
 const mongoose = require('mongoose')
@@ -11,6 +10,7 @@ const fs = require('fs')
 const path = require('path')
 const Spinner = require('./utils/Spinner')
 require('../src/models')
+
 
 // -------------------------------------------------------------------------
 
