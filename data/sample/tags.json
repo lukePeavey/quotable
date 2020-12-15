@@ -1,58 +1,21 @@
 [
-  {
-    "_id": "lmOF86Cv",
-    "name": "famous-quotes"
-  },
-  {
-    "_id": "7HjmNmOIE",
-    "name": "life"
-  },
-  {
-    "_id": "ZY0PgehL1",
-    "name": "friendship"
-  },
-  {
-    "_id": "rYJgbbjOK",
-    "name": "science"
-  },
-  {
-    "_id": "ZBOfkMBWc",
-    "name": "technology"
-  },
-  {
-    "_id": "M97I8NOsF",
-    "name": "inspirational"
-  },
-  {
-    "_id": "PnbpDlRlC",
-    "name": "motivational"
-  },
-  {
-    "_id": "637eDKoGB",
-    "name": "literature"
-  },
-  {
-    "_id": "fqgdQmYNk",
-    "name": "art"
-  },
-  {
-    "_id": "BPCApygPx",
-    "name": "business"
-  },
-  {
-    "_id": "CkRvna8Tz",
-    "name": "love"
-  },
-  {
-    "_id": "AK9UKVnIm",
-    "name": "success"
-  },
-  {
-    "_id": "GADjjdrcd",
-    "name": "religion"
-  },
-  {
-    "_id": "8mV7Dhqt3",
-    "name": "social-justice"
-  }
+  { "_id": "fvpORe-t", "name": "famous-quotes" },
+  { "_id": "poT-7QEBm", "name": "life" },
+  { "_id": "rnrd8q9X1", "name": "love" },
+  { "_id": "JCMoLDds9", "name": "inspirational" },
+  { "_id": "M83oc3scg", "name": "business" },
+  { "_id": "KBWnDu4rH", "name": "history" },
+  { "_id": "96NNdxeI_", "name": "politics" },
+  { "_id": "krXU-q4FE", "name": "friendship" },
+  { "_id": "6J1qxxuj3", "name": "wisdom" },
+  { "_id": "k97A51Uf5", "name": "happiness" },
+  { "_id": "p5xRCWCdU", "name": "proverb" },
+  { "_id": "-7GEUrC5r", "name": "faith" },
+  { "_id": "OMnUd1CUg", "name": "future" },
+  { "_id": "vmVZQ72P_", "name": "nature" },
+  { "_id": "tWLCsyf_K", "name": "religion" },
+  { "_id": "Gq75KBrfb", "name": "technology" },
+  { "_id": "wm1HFcO8vf", "name": "success" },
+  { "_id": "qO4zwIUdFW", "name": "science" },
+  { "_id": "kqzFRe-4V4", "name": "education" }
 ]
