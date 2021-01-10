@@ -16,10 +16,10 @@
 
 ## Servers
 
-| Name            | URL                 | Description                                                                                                   |
-| :-------------- | :------------------ | :------------------------------------------------------------------------------------------------------------ |
-| Staging     | staging.quotable.io | Synced with the master branch of this repository                |
-| Production  | api.quotable.io     | The primary API server |
+| Name       | URL                 | Description                                      |
+| :--------- | :------------------ | :----------------------------------------------- |
+| Staging    | staging.quotable.io | Synced with the master branch of this repository |
+| Production | api.quotable.io     | The primary API server                           |
   
 ## API Methods
 
@@ -27,13 +27,13 @@
 
 Returns a single random quote from the database
 
-**Path**
+#### Path
 
 ```HTTP
 GET /random
 ```
 
-**Query parameters**
+#### Query parameters
 
 | param     | type     | Description                                                                                                                                                                                                                                                                                                            |
 | :-------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -41,7 +41,7 @@ GET /random
 | minLength | `Int`    | The minimum Length in characters ( can be combined with `maxLength` )                                                                                                                                                                                                                                                  |
 | tags      | `String` | Filter random quote by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
 
-**Response**
+#### Response
 
 ```ts
 {
@@ -53,33 +53,59 @@ GET /random
   // The length of quote (number of characters)
   length: number
   // An array of tag names for this quote
-  tags: [string]
+  tags: string[]
 }
+```
+
+#### Examples 
+
+Random Quote [try in browser](https://api.quotable.io/random)
+```
+GET /random
+```
+
+Random Quote with tags "technology" **`AND`** "famous-quotes" [try in browser](https://api.quotable.io/random?tags=technology,famous-quotes)
+```
+GET /random?tags=technology,famous-quotes
+```
+
+Random Quote with tags "History" **`OR`** "Civil Rights" [try in browser](https://api.quotable.io/random?tags=history|civil-rights)
+```
+GET /random?tags=history|civil-rights
+```
+
+Random Quote with a maximum length of 50 characters  [try in browser](https://api.quotable.io/random?maxLength=50)
+```
+GET /random?maxLength=50
+```
+
+Random Quote with a length between 100 and 140 characters  [try in browser](https://api.quotable.io/random?minLength=100&maxLength=140)
+```
+GET /random?minLength=100&maxLength=140
 ```
 
 ### List Quotes
 
 Get a paginated list of all quotes. This method supports several filter and sorting options. 
 
-**Path**
+#### Path
 
 ```HTTP
 GET /quotes
 ```
 
-**Query parameters**
+#### Query parameters
 
 | param     | type     | Description                                                                                                                                                                                                                                                                                                      |
 | :-------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| author    | `String` | Filter quotes by author name. Supports fuzzy search.                                                                                                                                                                                                                                                             |
 | authorId  | `String` | Filter quotes by author ID.                                                                                                                                                                                                                                                                                      |
-| limit     | `Int`    | The number of quotes to return per request. (for pagination).                                                                                                                                                                                                                                                    |
-| skip      | `Int`    | The number of items to skip (for pagination).                                                                                                                                                                                                                                                                    |
+| limit     | `Int`    | `Min: 1` `Max: 100` `Default: 20` <br> The number of quotes to return per request. (for pagination).                                                                                                                                                                                                             |
+| skip      | `Int`    | `Min: 0` `Default: 0` <br>  The number of items to skip (for pagination).                                                                                                                                                                                                                                        |
 | maxLength | `Int`    | The maximum Length in characters ( can be combined with `minLength` )                                                                                                                                                                                                                                            |
 | minLength | `Int`    | The minimum Length in characters ( can be combined with `maxLength` )                                                                                                                                                                                                                                            |
 | tags      | `String` | Filter quotes by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
 
-**Response**
+#### Response
 
 ```ts
 {
@@ -101,7 +127,7 @@ GET /quotes
     // The length of quote (number of characters)
     length: number
     // An array of tag names for this quote
-    tags: [string]
+    tags: string[]
   }>
 }
 ```
@@ -110,13 +136,13 @@ GET /quotes
 
 Get a quote by its ID
 
-**Path**
+#### Path
 
 ```HTTP
 GET /quotes/:id
 ```
 
-**Response**
+#### Response
 
 ```ts
 {
@@ -128,7 +154,7 @@ GET /quotes/:id
   // The length of quote (number of characters)
   length: number
   // An array of tag names for this quote
-  tags: [string]
+  tags: string[]
 }
 ```
 
@@ -136,23 +162,22 @@ GET /quotes/:id
 
 Get a paginated list of all authors. By default, authors will be returned in alphabetical order (ascending). 
 
-**Path**
+#### Path
 
 ```HTTP
 GET /authors
 ```
 
-**Query parameters**
+#### Query parameters
 
 | param     | type                           | Description                                                   |
 | :-------- | :----------------------------- | :------------------------------------------------------------ |
-| name      | `String`                       | Search for authors by name. Supports fuzzy search.            |
-| sortBy    | `enum: ['name', 'quoteCount']` | The field used to sort authors. Default is 'name'             |
-| sortOrder | `enum: ['asc', 'desc']`        | The order results are sorted in. Default is 'asc'             |
-| limit     | `Int`                          | The number of authors to return per request. (for pagination) |
-| skip      | `Int`                          | The number of items to skip (for pagination)                  |
+| sortBy    | `enum: ['name', 'quoteCount']` | `Default: "name"` <br> The field used to sort authors.          |
+| sortOrder | `enum: ['asc', 'desc']`        | `Default: "asc"` <br> The order results are sorted in.          |
+| limit     | `Int`                          | `Min: 1` `Max: 100` `Default: 20` <br> The number of authors to return per request. (for pagination) |
+| skip      | `Int`                          | `Min: 0` `Default: 0` <br> The number of items to skip (for pagination)                  |
 
-**Response**
+#### Response
 
 ```ts
 {
@@ -180,13 +205,13 @@ GET /authors
 
 Get a specific author by ID. The response includes all quotes by the given author. 
 
-**Path**
+#### Path
 
 ```HTTP
 GET /authors/:id
 ```
 
-**Response**
+#### Response
 
 ```ts
 {
@@ -204,7 +229,7 @@ GET /authors/:id
     // The full name of the author
     author: string
     // An array of tag names for this quote
-    tags: [string]
+    tags: string[]
     // The length of quote (number of characters)
     length: number
   }>
@@ -215,13 +240,13 @@ GET /authors/:id
 
 Get a list of all tags
 
-**Path**
+#### Path
 
 ```HTTP
 GET /tags
 ```
 
-**Response**
+#### Response
 
 ```ts
 {
