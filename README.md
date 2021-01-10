@@ -60,27 +60,27 @@ GET /random
 #### Examples 
 
 Random Quote [try in browser](https://api.quotable.io/random)
-```
+```HTTP
 GET /random
 ```
 
 Random Quote with tags "technology" **`AND`** "famous-quotes" [try in browser](https://api.quotable.io/random?tags=technology,famous-quotes)
-```
+```HTTP
 GET /random?tags=technology,famous-quotes
 ```
 
 Random Quote with tags "History" **`OR`** "Civil Rights" [try in browser](https://api.quotable.io/random?tags=history|civil-rights)
-```
+```HTTP
 GET /random?tags=history|civil-rights
 ```
 
 Random Quote with a maximum length of 50 characters  [try in browser](https://api.quotable.io/random?maxLength=50)
-```
+```HTTP
 GET /random?maxLength=50
 ```
 
 Random Quote with a length between 100 and 140 characters  [try in browser](https://api.quotable.io/random?minLength=100&maxLength=140)
-```
+```HTTP
 GET /random?minLength=100&maxLength=140
 ```
 
