@@ -246,6 +246,13 @@ Get a list of all tags
 GET /tags
 ```
 
+#### Query parameters
+
+| param     | type                           | Description                                                   |
+| :-------- | :----------------------------- | :------------------------------------------------------------ |
+| sortBy    | `enum: ['name', 'quoteCount']` | `Default: "name"` <br> The field used to sort tags.         |
+| sortOrder | `enum: ['asc', 'desc']`        | `Default: depends on sortBy` <br> The order in which results are sorted.         |
+
 #### Response
 
 ```ts
