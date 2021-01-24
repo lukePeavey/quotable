@@ -9,7 +9,7 @@ const getLengthFilter = require('../utils/getLengthFilter')
 module.exports = async function getRandomQuote(req, res, next) {
   try {
     // save our query parameters
-    const { minLength, maxLength, tags } = req.query
+    const { minLength, maxLength, tags, author, authorId } = req.query
 
     const filter = {}
 
@@ -19,6 +19,14 @@ module.exports = async function getRandomQuote(req, res, next) {
 
     if (tags) {
       filter.tags = getTagsFilter(tags)
+    }
+
+    if (authorId) {
+      filter.authorId = { $in: authorId.split('|') }
+    }
+
+    if (author) {
+      filter.author = { $in: author.split('|') }
     }
 
     const [result] = await Quotes.aggregate([
