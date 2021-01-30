@@ -39,7 +39,10 @@ GET /random
 | :-------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | maxLength | `Int`    | The maximum Length in characters ( can be combined with `minLength` )                                                                                                                                                                                                                                                  |
 | minLength | `Int`    | The minimum Length in characters ( can be combined with `maxLength` )                                                                                                                                                                                                                                                  |
-| tags      | `String` | Filter random quote by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
+| tags      | `String` | Filter random quote by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. 
+| authorId      | `String` | Filter random quote by authorId(s). Takes a list of one or more authorId, separated by a pipe (meaning `OR`). A pipe (`\|`) separated list will match quotes that have **_either_** of the provided authorId. 
+| author      | `String` | Filter random quote by author(s). Takes a list of one or more author names, separated by a pipe (meaning `OR`). A pipe (`\|`) separated list will match quotes that have **_either_** of the provided author name. 
+|
 
 #### Response
 

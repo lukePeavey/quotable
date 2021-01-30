@@ -46,6 +46,33 @@ describe('GET /random', () => {
     ).not.toBeUndefined()
   })
 
+  it('Responds with a JSON object containing a single quote when authorId param is "zgMVt2guVo7p|qsaptKSHuLDU".', async () =>{
+    const response = await request(app).get('/random?authorId=zgMVt2guVo7p|qsaptKSHuLDU')
+
+    expect(response.type).toBe('application/json')
+    expect(response.body).toEqual({
+      _id: expect.any(String),
+      author: expect.any(String),
+      content: expect.any(String),
+      length: expect.any(Number),
+      tags: expect.any(Array),
+    })
+  })
+
+  it('Responds with a JSON object containing a single quote when author param is "Zig Ziglar|Laozi".', async () => {
+    const response = await request(app).get('/random?author=Zig Ziglar|Laozi')
+
+    expect(response.type).toBe('application/json')
+    expect(response.body).toEqual({
+      _id: expect.any(String),
+      author: expect.any(String),
+      content: expect.any(String),
+      length: expect.any(Number),
+      tags: expect.any(Array),
+    })
+    expect(["Zig Ziglar","Laozi"]).toContain(response.body.author)
+  })
+
   it('Responds with a different quote on each request', async () => {
     // This just fetches two quotes and checks that they are different.
     const responses = await Promise.all(
