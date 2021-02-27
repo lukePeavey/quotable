@@ -32,7 +32,7 @@ module.exports = async function listAuthors(req, res, next) {
 
     sortBy = Values.sortBy.includes(sortBy) ? sortBy : 'name'
     sortOrder = parseSortOrder(sortOrder) || defaultSortOrder[sortBy] || 1
-    limit = clamp(parseInt(limit), 1, 50) || 20
+    limit = clamp(parseInt(limit), 1, 150) || 20
     skip = parseInt(skip) || 0
 
     // Fetch paginated results
