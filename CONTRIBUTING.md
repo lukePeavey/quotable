@@ -10,7 +10,7 @@ All contributions are greatly appreciated!
 
 ## Pull Requests
 
-All pull requests are welcome! 
+All pull requests are welcome!
 
 - [Fork][fork-a-repo] the repository on GitHub.
 
@@ -33,28 +33,23 @@ $ git pull upstream master
 
 ## Running the API Locally
 
-If you are working on changes to the source code, you will want to run the server locally so you test your changes as you work. 
+If you are working on changes to the source code, you will want to run the server locally so you test your changes as you work.
 
 **Requirements**
 
-- Node >= 12.x
-- NPM >= 6.x
-- MongoDB
-
+- node >= 12.x
+- npm >= 6.x
+- mongodb >= 4.2
 
 **1. Create a database**
 
-Create a MongoDB database called quotable. 
-
-If you don't have MongoDB setup locally, you can use [MongoDB Atlas][mongodb/atlas] to create a free hosted database. 
+Create a MongoDB database called quotable. If you don't have MongoDB setup locally, you can use [MongoDB Atlas][mongodb/atlas] to create a free hosted database.
 
 **2. Environment Variables**
 
-You need to set the `MONGODB_URI` environment variable to point to your database. 
+You need to set the `MONGODB_URI` environment variable to point to your database. Create a file called `.env` in the root directory of the project. Add the following line (replace `<your-database-uri>` with the connection string for your database).
 
-Create a file called `.env` in the root directory of the project. Add the following (replace `<your-database-uri>` with the connection string for your database)
-
-```shell 
+```shell
 MONGODB_URI=<your-mongodb-uri>
 ```
 
@@ -66,7 +61,7 @@ $ npm run install
 
 **4. Seed the database**
 
-This will populate your database with the sample data included in the repository. 
+This script will populate your database with the sample data included in the repository.
 
 ```shell
 $ npm run database:seed data/sample
@@ -82,7 +77,7 @@ $ npm run start:dev
 
 **5. Running Tests**
 
-Before submitting a PR, make sure all tests are passing. 
+Before submitting a PR, make sure all tests are passing.
 
 ```shell
 # Runs tests
