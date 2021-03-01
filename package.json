@@ -23,7 +23,7 @@
     "deploy:production": "heroku pipelines:promote -a quotable-api-staging"
   },
   "lint-staged": {
-    "{src,data}/**/*.{js,css,json}": [
+    "**/*.{js,css,json,md}": [
       "prettier --write",
       "git add"
     ]
