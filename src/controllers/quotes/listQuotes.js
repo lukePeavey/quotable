@@ -43,7 +43,7 @@ module.exports = async function listQuotes(req, res, next) {
     // TODO: Add sorting options for this method
     const sortBy = '_id'
     const sortOrder = 1
-    limit = clamp(parseInt(limit), 0, 50) || 20
+    limit = clamp(parseInt(limit), 0, 150) || 20
     skip = parseInt(skip) || 0
 
     // Fetch paginated results
