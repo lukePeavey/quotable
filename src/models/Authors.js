@@ -13,6 +13,8 @@ const AuthorSchema = new Schema({
   bio: { type: String, default: '' },
   // The number of quotes by this author
   quoteCount: { type: Number, required: true },
+  // URL safe version of the author name
+  slug: { type: String, required: true },
 })
 
 AuthorSchema.set('collation', { locale: 'en_US', strength: 1 })
