@@ -5,7 +5,8 @@ const searchQuotes = require('./controllers/search/searchQuotes')
 const randomQuote = require('./controllers/quotes/randomQuote')
 const listAuthors = require('./controllers/authors/listAuthors')
 const getAuthorById = require('./controllers/authors/getAuthorById')
-const getAuthorById = require('./controllers/authors/getAuthorBySlug')
+const getAuthorBySlug = require('./controllers/authors/getAuthorBySlug')
+
 const listTags = require('./controllers/tags/listTags')
 
 const router = Router()
