@@ -21,6 +21,7 @@ router.get('/random', randomQuote)
  **-----------------------------------------------*/
 router.get('/authors', listAuthors)
 router.get('/authors/:id', getAuthorById)
+router.get('/authors/slug/:slug', getAuthorBySlug)
 
 /**------------------------------------------------
  ** Tags
