@@ -31,7 +31,7 @@ module.exports = async function getRandomQuote(req, res, next) {
     }
 
     if (authorSlug) {
-      let authorsSlugId = await Authors.findOne({slug: `${authorSlug}`}).select('-__v -aka')
+      const authorsSlugId = await Authors.findOne({slug: `${authorSlug}`}).select('-__v -aka')
       filter.authorId = { $in: authorsSlugId._id.split('|') }
     }
 
