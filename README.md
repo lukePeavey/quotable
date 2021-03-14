@@ -214,6 +214,14 @@ GET /authors/:id
 {
   // A unique id for this author
   _id: string
+  // A slug is a unique string that can be used to identify an author. Unlike _id,
+  // the slug is derived from the author's name (by converting it to hyphen case).
+  slug: string
+  // A brief, one paragraph bio of the author. Source: wiki API
+  bio: string
+  // A one-line description of the author. Typically it is the person's primary
+  // occupation or what they are know for. For example: "Austrian Physicist"
+  description: string
   // The authors full name
   name: string
   // The number of quotes by this author
