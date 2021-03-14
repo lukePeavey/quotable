@@ -1,5 +1,6 @@
 const createError = require('http-errors')
 const Quotes = require('../../models/Quotes')
+const Authors = require('../../models/Authors')
 const getTagsFilter = require('../utils/getTagsFilter')
 const getLengthFilter = require('../utils/getLengthFilter')
 
@@ -9,7 +10,14 @@ const getLengthFilter = require('../utils/getLengthFilter')
 module.exports = async function getRandomQuote(req, res, next) {
   try {
     // save our query parameters
-    const { minLength, maxLength, tags, author, authorId } = req.query
+    const {
+      minLength,
+      maxLength,
+      tags,
+      author,
+      authorId,
+      authorSlug,
+    } = req.query
 
     const filter = {}
 
@@ -27,6 +35,11 @@ module.exports = async function getRandomQuote(req, res, next) {
 
     if (author) {
       filter.author = { $in: author.split('|') }
+    }
+
+    if (authorSlug) {
+      const authorsSlugId = await Authors.findOne({ slug: `${authorSlug}` })
+      filter.authorId = { $in: authorsSlugId._id.split('|') }
     }
 
     const [result] = await Quotes.aggregate([
