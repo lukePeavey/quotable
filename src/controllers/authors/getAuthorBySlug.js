@@ -25,12 +25,7 @@ module.exports = async function getAuthorById(req, res, next) {
       '-__v -authorId'
     )
 
-    res.status(200).json({
-      _id: author._id,
-      name: author.name,
-      quoteCount: author.quoteCount,
-      quotes,
-    })
+    res.status(200).json({ ...author.toJSON(), quotes })
   } catch (error) {
     return next(error)
   }
