@@ -1,8 +1,9 @@
 const clamp = require('lodash/clamp')
-const escapeRegExp = require('lodash/escapeRegExp')
+const createError = require('http-errors')
 const Quotes = require('../../models/Quotes')
 const getTagsFilter = require('../utils/getTagsFilter')
 const getLengthFilter = require('../utils/getLengthFilter')
+const slug = require('../utils/slug')
 
 /**
  * Get multiple quotes from the database.
@@ -23,11 +24,16 @@ module.exports = async function listQuotes(req, res, next) {
     const filter = {}
 
     if (author) {
-      // Search for quotes by author name (supports "fuzzy" search)
-      // TODO: Move this feature to a separate search endpoint
-      filter.author = new RegExp(escapeRegExp(author), 'gi')
+      // Filter by author `name` or `slug`
+      if (/,/.test(author)) {
+        // If `author` is a comma-separated list, respond with error.
+        const message = 'Multiple authors should be separated by a pipe.'
+        return next(createError(400, message))
+      }
+      filter.authorSlug = author.split('|').map(slug)
     } else if (authorId) {
-      // Get quotes by author ID
+      // @deprecated
+      // Use author `slug` instead of _id.
       filter.authorId = authorId
     }
 

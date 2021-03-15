@@ -3,6 +3,7 @@ const Quotes = require('../../models/Quotes')
 const Authors = require('../../models/Authors')
 const getTagsFilter = require('../utils/getTagsFilter')
 const getLengthFilter = require('../utils/getLengthFilter')
+const slug = require('../utils/slug')
 
 /**
  * Get a single random quote
@@ -30,16 +31,25 @@ module.exports = async function getRandomQuote(req, res, next) {
     }
 
     if (authorId) {
+      // @deprecated
+      // Use the `author` param to filter by author `name` or `slug` instead
       filter.authorId = { $in: authorId.split('|') }
     }
 
     if (author) {
-      filter.author = { $in: author.split('|') }
+      if (/,/.test(author)) {
+        // If `author` is a comma-separated list, respond with an error
+        const message = 'Multiple authors should be separated by a pipe.'
+        return next(createError(400, message))
+      }
+      // Filter quotes by author slug.
+      filter.authorSlug = { $in: author.split('|').map(slug) }
     }
 
     if (authorSlug) {
-      const authorsSlugId = await Authors.findOne({ slug: `${authorSlug}` })
-      filter.authorId = { $in: authorsSlugId._id.split('|') }
+      // @deprecated
+      // use `author` param instead
+      filter.authorSlug = { $in: author.split('|').map(slug) }
     }
 
     const [result] = await Quotes.aggregate([
@@ -52,7 +62,8 @@ module.exports = async function getRandomQuote(req, res, next) {
 
     if (!result) {
       // This should only occur when using filter params
-      return next(createError(404, 'Could not find any matching quotes'))
+      const message = 'Could not find any matching quotes'
+      return next(createError(404, message))
     }
     res.status(200).json(result)
   } catch (error) {
