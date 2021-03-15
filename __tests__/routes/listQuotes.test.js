@@ -22,6 +22,7 @@ describe('GET /quotes', () => {
     const quote = body.results[0]
     expect(quote._id).toEqual(expect.any(String))
     expect(quote.author).toEqual(expect.any(String))
+    expect(quote.authorSlug).toEqual(expect.any(String))
     expect(quote.content).toEqual(expect.any(String))
     expect(quote.tags).toEqual(expect.any(Array))
     expect(quote.length).toEqual(expect.any(Number))

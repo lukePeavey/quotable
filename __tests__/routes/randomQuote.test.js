@@ -18,6 +18,7 @@ describe('GET /random', () => {
     // Response should be a single `Quote` object with the following fields
     expect(body._id).toEqual(expect.any(String))
     expect(body.author).toEqual(expect.any(String))
+    expect(body.authorSlug).toEqual(expect.any(String))
     expect(body.content).toEqual(expect.any(String))
     expect(body.tags).toEqual(expect.any(Array))
     expect(body.length).toEqual(expect.any(Number))
