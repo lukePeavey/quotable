@@ -3,7 +3,7 @@ const shortid = require('shortid')
 
 const AuthorSchema = new Schema({
   _id: { type: String, default: shortid.generate },
-  // Slug can be used instead of `_id` to identify an author.
+  // A unique ID derived from the author's name.
   slug: { type: String, required: true },
   // The authors full name
   name: { type: String, required: true },
