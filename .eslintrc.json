@@ -14,6 +14,14 @@
     "no-underscore-dangle": 0
   },
   "globals": {
-    "Promise": true
+    "Promise": true,
+    "beforeAll": true,
+    "beforeEach": true,
+    "afterAll": true,
+    "afterEach": true,
+    "describe": true,
+    "it": true,
+    "expect": true,
+    "test": true
   }
 }
