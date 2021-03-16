@@ -18,7 +18,7 @@
     "start:dev": "NODE_ENV=development nodemon",
     "lint": "./node_modules/.bin/eslint . --color && echo \"eslint: no lint errors\"",
     "test": "jest",
-    "test:watch": "jest --watchAll",
+    "test:watch": "jest --watchAll --verbose",
     "database:seed": "node scripts/seedDatabase.js",
     "deploy:production": "heroku pipelines:promote -a quotable-api-staging"
   },
@@ -46,6 +46,7 @@
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.5",
     "ora": "^5.0.0",
+    "query-string": "^6.14.1",
     "request-ip": "^2.1.3",
     "shortid": "^2.2.15"
   },
