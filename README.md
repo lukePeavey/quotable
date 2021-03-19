@@ -197,8 +197,17 @@ GET /authors
   results: Array<{
     // A unique id for this author
     _id: string
+    // A brief, one paragraph bio of the author. Source: wiki API
+    bio: string
+    // A one-line description of the author. Typically it is the person's primary
+    // occupation or what they are know for.
+    description: string
+    // The link to the author's wikipedia page or official website
+    link: string
     // The authors full name
     name: string
+    // A slug is a URL-friendly ID derived from the authors name. It can be used as
+    slug: string
     // The number of quotes by this author
     quoteCount: string
   }>
@@ -207,7 +216,7 @@ GET /authors
 
 ### Get Author By ID
 
-Get a specific author by ID. The response includes all quotes by the given author.
+Get details about a specific author by `_id`.
 
 ```HTTP
 GET /authors/:id
@@ -219,19 +228,20 @@ GET /authors/:id
 {
   // A unique id for this author
   _id: string
-  // A slug is a unique string that can be used to identify an author. Unlike _id,
-  // the slug is derived from the author's name (by converting it to hyphen case).
-  slug: string
-  // A brief, one paragraph bio of the author. Source: wiki API
+  // A brief, one paragraph bio of the author. Source wiki API.
   bio: string
-  // A one-line description of the author. Typically it is the person's primary
-  // occupation or what they are know for. For example: "Austrian Physicist"
+  // A one-line description of the author.
   description: string
+  // The link to the author's wikipedia page or official website
+  link: string
   // The authors full name
   name: string
+  // A slug is a URL-friendly ID derived from the authors name. It can be used as
+  slug: string
   // The number of quotes by this author
   quoteCount: string
   // The array of quotes by this author (not paginated)
+  // @deprecated
   quotes: Array<{
     _id: string
     // The quotation text
