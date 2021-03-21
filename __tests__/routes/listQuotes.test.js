@@ -1,10 +1,41 @@
 require('dotenv').config()
 const request = require('supertest')
+const last = require('lodash/last')
+const first = require('lodash/first')
+const { stringify } = require('query-string')
 const app = require('../../src/app')
 const db = require('../../scripts/db')
+const Authors = require('../../src/models/Authors')
+const Quotes = require('../../src/models/Quotes')
+
+// This tag will be used as the value of the `tag` param in tests
+let singleTag
+// `multipleTags` is a array tags that will be used as the value of the
+// `tags` param when testing requests with multiple tags. We know that at least
+// one quote will have all of the tags in this array, so we can expect a result
+// to be returned when requesting quotes with ALL given tags (ie `?tags=a,b,c`).
+let multipleTags
+// `singleAuthor` is a random author pulled from the database. this will be
+// used when testing the `author` and `authorId` param
+let singleAuthor
+// The shortest quote in the database. We will use the length of this quote
+// when testing the `maxLength` param.
+let shortestQuote
+// The longest quote in the database. We will use the length of this quote when
+// testing the minLength param.
+let longestQuote
 
 // Setup
-beforeAll(async () => db.connect())
+beforeAll(async () => {
+  await db.connect()
+  const quoteWithTags = await Quotes.findOne({ tags: { $size: 3 } })
+  const quotesByLength = await Quotes.find({}).sort({ length: 1 })
+  shortestQuote = first(quotesByLength)
+  longestQuote = last(quotesByLength)
+  multipleTags = quoteWithTags.tags
+  singleTag = first(multipleTags)
+  singleAuthor = await Authors.findOne({})
+})
 // Teardown
 afterAll(async () => db.close())
 
@@ -25,27 +56,82 @@ describe('GET /quotes', () => {
     expect(quote.authorSlug).toEqual(expect.any(String))
     expect(quote.content).toEqual(expect.any(String))
     expect(quote.tags).toEqual(expect.any(Array))
-    expect(quote.length).toEqual(expect.any(Number))
+    expect(quote.length).toEqual(quote.content.length)
   })
 
-  test(`When called with tags=inspirational, returns quotes with the specified
-  tag`, async () => {
-    const URL = '/quotes?tags=inspirational'
-    const { status, type, body } = await request(app).get(URL)
+  describe('With `tags` parameter', () => {
+    test(`Returns all quotes matching the given tag`, async () => {
+      const expectedResults = await Quotes.find({ tags: { $in: [singleTag] } })
+      const query = { tags: singleTag }
+      const url = `/quotes?${stringify(query)}`
+      const { status, body } = await request(app).get(url)
+      expect(status).toBe(200)
+      // The total number of results should match the total number of quotes
+      // with the given tag (`singleTag`)
+      expect(body.totalCount).toEqual(expectedResults.length)
+      body.results.forEach(result => expect(result.tags).toContain(singleTag))
+    })
 
-    expect(status).toBe(200)
-    expect(type).toBe('application/json')
-    expect(body.results[0].tags).toContain('inspirational')
+    test(`Given a comma-separated list of tags, returns all quotes that match
+      ALL of the specified tags`, async () => {
+      const expectedResults = await Quotes.find({
+        tags: { $all: multipleTags },
+      })
+      const query = { tags: multipleTags.join(',') }
+      const url = `/quotes?${stringify(query)}`
+      const { status, body } = await request(app).get(url)
+      expect(status).toBe(200)
+      // `totalCount` should match the the number of quotes with all of the given tags
+      expect(body.totalCount).toEqual(expectedResults.length)
+      // Each result should have **all** of the given tags
+      body.results.forEach(result =>
+        expect(result.tags).toEqual(expect.arrayContaining(multipleTags))
+      )
+    })
   })
 
-  test(`When called with limit=2, response contains the correct number of
-  results`, async () => {
-    const URL = '/quotes?limit=2'
-    const { status, type, body } = await request(app).get(URL)
+  describe('with `author` param', () => {
+    test(`Given a valid author \`slug\`, returns all quotes by the given
+      author`, async () => {
+      const validAuthorSlug = singleAuthor.slug
+      const expectedResults = await Quotes.find({ authorSlug: validAuthorSlug })
+      const query = { author: validAuthorSlug }
+      const url = `/quotes?${stringify(query)}`
+      const { status, body } = await request(app).get(url)
+      expect(status).toBe(200)
+      // `totalCount` should match number of quotes by the given author
+      expect(body.totalCount).toEqual(expectedResults.length)
+      // The quotes should all be by the correct author
+      body.results.forEach(result => {
+        expect(result.author).toEqual(singleAuthor.name)
+      })
+    })
 
-    expect(status).toBe(200)
-    expect(type).toBe('application/json')
-    expect(body.count).toEqual(2)
-    expect(body.results.length).toEqual(2)
+    test(`Given a valid author \`name\`, returns all quotes by the given
+      author`, async () => {
+      const validAuthorName = singleAuthor.name
+      const expectedResults = await Quotes.find({ author: validAuthorName })
+      const query = { author: validAuthorName }
+      const url = `/quotes?${stringify(query)}`
+      const { status, body } = await request(app).get(url)
+      expect(status).toBe(200)
+      // `totalCount` should match number of quotes by the given author
+      expect(body.totalCount).toEqual(expectedResults.length)
+      // The quotes should all be by the correct author
+      body.results.forEach(result => {
+        expect(result.author).toEqual(singleAuthor.name)
+      })
+    })
+    test.todo(`Given a pipe-separated list of author slugs, returns all
+      quotes by the given authors `)
+
+    test.todo(`Given a pipe-separated list of author names, returns all
+      quotes by the given authors `)
+  })
+  describe('with `minLength` param', () => {
+    test.todo(`Only returns quotes with a length >= minLength`)
+  })
+  describe('with `minLength` param', () => {
+    test.todo(`Only returns quotes with a length <= maxLength`)
   })
 })
