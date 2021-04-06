@@ -12,9 +12,6 @@ jobs:
 
     working_directory: ~/quotable
 
-    environment:
-      MONGODB_URI: mongodb://localhost:27017/test
-
     steps:
       - checkout
 
@@ -33,10 +30,6 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run:
-          name: Seeding database
-          command: npm run -s database:seed data/sample
 
       - run:
           name: Running ESLint
