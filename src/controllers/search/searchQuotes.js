@@ -38,7 +38,7 @@ module.exports = async function searchQuotes(req, res, next) {
 
     if (fields.some(field => !supportedFields.includes(field))) {
       // Respond with error if `fields` param is invalid
-      return next(createError(422, 'Invalid request: `path`'))
+      return next(createError(422, 'Invalid parameter: `fields`'))
     }
 
     // The search query
