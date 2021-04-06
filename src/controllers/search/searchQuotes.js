@@ -1,61 +1,78 @@
+const lowerCase = require('lodash/lowerCase')
 const clamp = require('lodash/clamp')
-const omit = require('lodash/omit')
 const createError = require('http-errors')
-const Quotes = require('../../models/Quotes')
+const Quote = require('../../models/Quotes')
 
 /**
- * Search for quotes by content and author
+ * Search quotes by keyword, phrase, or author.
  *
- * @param {Object} params
- * @param {Object} params.query The search query
- * @param {number} [params.limit = 20] The maximum number of results to include
- *     in a single response.
- * @param {number} [params.skip = 0] The offset for pagination.
+ * @param {Object} req
+ * @param {Object} req.query
+ * @param {string} query The search query. The query can be wrapped in
+ *     quotes to search for an exact phrase.
+ * @param {string} fields Specify which fields to search
+ *     by. It takes a comma separated list of field names
+ * @param {string} [slop = 0] When searching for an exact phrase,
+ *     this controls how much flexibility is allowed in the order of the search
+ *     terms. See mongodb docs.
  */
 module.exports = async function searchQuotes(req, res, next) {
   try {
-    const { query = '' } = req.query
-    let { limit = 20, skip = 0 } = req.query
+    let { query, fields = 'content, author', limit, skip, slop } = req.query
+    // Parse params
+    query = lowerCase(query)
+    fields = fields.split(',').map(field => field.trim())
 
-    // Use a $text search query to search `content` and `author` fields
-    // @see https://docs.mongodb.com/manual/reference/operator/query/text
-    const filter = {
-      $text: { $search: query },
+    // Pagination params
+    limit = clamp(limit, 0, 50) || 20
+    skip = clamp(skip, 0, 1e3) || 0
+    slop = clamp(slop, 0, 1e3) || 0
+
+    const supportedFields = ['author', 'content', 'tags']
+    const isExactPhrase = /^(".+")|('.+')$/.test(query)
+
+    if (!query) {
+      // Respond with error if `query` param is empty
+      return next(createError(422, 'Missing required parameter: `query`'))
     }
 
-    // Add a `score` field that will be used to sort results by text score.
-    // @see https://docs.mongodb.com/manual/reference/operator/projection/meta
-    const projection = {
-      score: { $meta: 'textScore' },
+    if (fields.some(field => !supportedFields.includes(field))) {
+      // Respond with error if `fields` param is invalid
+      return next(createError(422, 'Invalid request: `path`'))
     }
 
-    // Sorting and pagination params
-    limit = clamp(parseInt(limit), 0, 50) || 20
-    skip = parseInt(skip) || 0
+    // The search query
+    // @see https://docs.atlas.mongodb.com/atlas-search/
+    let $search
 
-    const [results, totalCount] = await Promise.all([
-      Quotes.find(filter, projection)
-        .sort({ score: { $meta: 'textScore' } })
-        .skip(skip)
-        .limit(limit)
-        .select('-__v -authorId'),
+    if (isExactPhrase) {
+      // Search for an exact phrase...
+      // @see https://docs.atlas.mongodb.com/reference/atlas-search/phrase/
+      $search = {
+        phrase: { query, path: fields, slop },
+      }
+    } else {
+      // Otherwise, use text search...
+      // @see https://docs.atlas.mongodb.com/reference/atlas-search/text/
+      $search = {
+        text: { query, path: fields },
+      }
+    }
 
-      Quotes.countDocuments(filter),
+    // Query database
+    const [results, [meta]] = await Promise.all([
+      // Get paginated search results
+      Quote.aggregate([{ $search }, { $skip: skip }, { $limit: limit }]),
+      // Get the total number of results that match the search
+      Quote.aggregate([{ $search }, { $count: 'totalCount' }]),
     ])
 
-    // `lastItemIndex` is the offset of the last result returned by this
-    // request. When paginating through results, this would be used as the
-    // `skip` parameter when requesting the next page of results. It will be
-    // set to `null` if there are no additional results.
-    const lastItemIndex = skip + results.length
-
-    // Return a paginated list of quotes to client
-    res.status(200).json({
-      count: results.length,
-      totalCount,
-      lastItemIndex: lastItemIndex >= totalCount ? null : lastItemIndex,
-      results: results.map(doc => omit(doc.toJSON(), 'score')),
-    })
+    // Pagination info
+    const { totalCount = 0 } = meta || {}
+    const count = results.length
+    const lastItemIndex = skip + count < totalCount ? skip + count : null
+    // Send response
+    res.json({ count, totalCount, lastItemIndex, results })
   } catch (error) {
     return next(error)
   }
