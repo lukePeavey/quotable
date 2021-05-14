@@ -1,5 +1,6 @@
 require('dotenv').config()
 const request = require('supertest')
+const { stringify } = require('query-string')
 const app = require('../../src/app')
 const db = require('../../scripts/db')
 
@@ -9,8 +10,9 @@ afterAll(async () => db.close())
 
 describe('GET /search/quotes', () => {
   it(`Response is OK`, async () => {
-    const query = 'a divided house'
-    const URL = `/search/quotes?query=${encodeURI(query)}`
+    const query = { query: 'freedom' }
+    const URL = `/search/quotes?query=${stringify(query)}`
+
     const { status, type, body } = await request(app).get(URL)
 
     // Response matches schema
