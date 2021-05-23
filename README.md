@@ -105,6 +105,7 @@ GET /quotes
 | :-------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | limit     | `Int`    | `Min: 1` `Max: 100` `Default: 20` <br> The number of quotes to return per request. (for pagination).                                                                                                                                                                                                             |
 | skip      | `Int`    | `Min: 0` `Default: 0` <br> The number of items to skip (for pagination).                                                                                                                                                                                                                                         |
+| page      | `Int`    | `Min: 0` `Default: 0` <br> The page of results to return.                                                                                                                                                                                                                                                        |
 | maxLength | `Int`    | The maximum Length in characters ( can be combined with `minLength` )                                                                                                                                                                                                                                            |
 | minLength | `Int`    | The minimum Length in characters ( can be combined with `maxLength` )                                                                                                                                                                                                                                            |
 | tags      | `String` | Filter quotes by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
@@ -119,6 +120,10 @@ GET /quotes
   count: number
   // The total number of quotes matching this request
   totalCount: number
+  // The total number of pages matching this request with the specified limit per page
+  totalPages: number
+  // The current page number
+  page: number
   // The index of the last quote returned. When paginating through results,
   // this value would be used as the `skip` parameter when requesting the next
   // "page" of results.
@@ -180,6 +185,7 @@ GET /authors
 | sortOrder | `enum: ['asc', 'desc']`        | `Default: "asc"` <br> The order results are sorted in.                                               |
 | limit     | `Int`                          | `Min: 1` `Max: 100` `Default: 20` <br> The number of authors to return per request. (for pagination) |
 | skip      | `Int`                          | `Min: 0` `Default: 0` <br> The number of items to skip (for pagination)                              |
+| page      | `Int`                          | `Min: 0` `Default: 0` <br> The page of results to return.                                            |
 
 #### Response
 
@@ -189,6 +195,10 @@ GET /authors
   count: number
   // The total number of authors matching this request.
   totalCount: number
+  // The total number of pages matching this request with the specified limit per page
+  totalPages: number
+  // The current page number
+  page: number
   // The index of the last item returned. When paginating through results,
   // this value would be used as the `skip` parameter when requesting the next
   // "page" of results. It will be set to `null` if there are no additional results.

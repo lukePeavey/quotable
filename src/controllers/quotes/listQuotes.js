@@ -18,7 +18,7 @@ const slug = require('../utils/slug')
 module.exports = async function listQuotes(req, res, next) {
   try {
     const { author, authorId, tags, minLength, maxLength } = req.query
-    let { limit, skip = 0 } = req.query
+    let { limit, skip = 0, page } = req.query
 
     // Query filters
     const filter = {}
@@ -50,7 +50,7 @@ module.exports = async function listQuotes(req, res, next) {
     const sortBy = '_id'
     const sortOrder = 1
     limit = clamp(parseInt(limit), 0, 150) || 20
-    skip = parseInt(skip) || 0
+    skip = parseInt(skip) || (parseInt(page) - 1) * limit || 0
 
     // Fetch paginated results
     const [results, totalCount] = await Promise.all([
@@ -69,10 +69,20 @@ module.exports = async function listQuotes(req, res, next) {
     // set to `null` if there are no additional results.
     const lastItemIndex = skip + results.length
 
+    // 'page' is the page number that the first result of the request
+    // When Paginating through results, this would be used as the
+    // 'page' parameter when requesting the next page of results.
+    page = Math.ceil(lastItemIndex / limit)
+
+    // 'totalPages' is total number of pages based on results per page
+    const totalPages = Math.ceil(totalCount / limit)
+
     // Return a paginated list of quotes to client
     res.status(200).json({
       count: results.length,
       totalCount,
+      totalPages,
+      page,
       lastItemIndex: lastItemIndex >= totalCount ? null : lastItemIndex,
       results,
     })

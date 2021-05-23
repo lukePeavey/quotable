@@ -56,7 +56,7 @@ MONGODB_URI=<your-mongodb-uri>
 **3. Install dependencies**
 
 ```shell
-$ npm run install
+$ npm install
 ```
 
 **4. Seed the database**

@@ -17,6 +17,8 @@ describe('GET /authors', () => {
     expect(body.results).toEqual(expect.any(Array))
     expect(body.count).toEqual(body.results.length)
     expect(body.totalCount).toEqual(expect.any(Number))
+    expect(body.totalPages).toEqual(expect.any(Number))
+    expect(body.page).toEqual(expect.any(Number))
 
     // Each result should be an `Author` object with the following fields
     const author = body.results[0]
