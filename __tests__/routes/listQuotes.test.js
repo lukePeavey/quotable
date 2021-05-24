@@ -48,6 +48,8 @@ describe('GET /quotes', () => {
     expect(body.results).toEqual(expect.any(Array))
     expect(body.count).toEqual(body.results.length)
     expect(body.totalCount).toEqual(expect.any(Number))
+    expect(body.totalPages).toEqual(expect.any(Number))
+    expect(body.page).toEqual(expect.any(Number))
 
     // Each result should be an `Quote` object with the following fields
     const quote = body.results[0]
