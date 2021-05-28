@@ -1,4 +1,4 @@
-module.exports = function getTagsFilter(tags) {
+export default function getTagsFilter(tags) {
   if (tags.includes('|')) {
     return { $in: tags.split('|') }
   }

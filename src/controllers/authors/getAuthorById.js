@@ -1,11 +1,11 @@
-const createError = require('http-errors')
-const Authors = require('../../models/Authors')
-const Quotes = require('../../models/Quotes')
+import createError from 'http-errors'
+import Authors from '../../models/Authors'
+import Quotes from '../../models/Quotes'
 
 /**
  * Get a single author by ID
  */
-module.exports = async function getAuthorById(req, res, next) {
+export default async function getAuthorById(req, res, next) {
   try {
     const { id } = req.params
 

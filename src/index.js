@@ -1,23 +1,25 @@
 /* eslint-disable no-console */
 
-require('dotenv').config()
-const mongoose = require('mongoose')
-const app = require('./app')
+import mongoose from 'mongoose'
+import app from './app'
 
-// Environment variables
-const PORT = process.env.PORT || 4000
-const { MONGODB_URI } = process.env
+async function run() {
+  try {
+    // Environment variables
+    const PORT = process.env.PORT || 4000
+    const { MONGODB_URI } = process.env
 
-// Connect to database, then start the Express server
-mongoose
-  .connect(MONGODB_URI, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-    useCreateIndex: true,
-  })
-  .then(() => {
-    app.listen(PORT, () => console.log(`Quotable is running on port: ${PORT}`))
-  })
-  .catch(error => {
+    // Connect to database, then start the Express server
+    await mongoose.connect(MONGODB_URI, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+      useCreateIndex: true,
+    })
+    app.listen(PORT, () => {
+      console.log(`Quotable is running on port: ${PORT}`)
+    })
+  } catch (error) {
     console.error(error)
-  })
+  }
+}
+run()

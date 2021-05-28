@@ -1,13 +1,12 @@
-require('dotenv').config()
-const request = require('supertest')
-const range = require('lodash/range')
-const last = require('lodash/last')
-const first = require('lodash/first')
-const { stringify } = require('query-string')
-const app = require('../../src/app')
-const db = require('../../scripts/db')
-const Authors = require('../../src/models/Authors')
-const Quotes = require('../../src/models/Quotes')
+import request from 'supertest'
+import range from 'lodash/range'
+import last from 'lodash/last'
+import first from 'lodash/first'
+import { stringify } from 'query-string'
+import app from '../../src/app'
+import db from '../../scripts/db'
+import Authors from '../../src/models/Authors'
+import Quotes from '../../src/models/Quotes'
 
 // This tag will be used as the value of the `tag` param in tests
 let singleTag
@@ -100,9 +99,17 @@ describe('GET /random', () => {
     test(`Given a valid author \`name\`, returns a random quote by
       the specified author.`, async () => {
       // Select an author from the database.
-      const validAuthorName = singleAuthor.name
-      const query = { author: encodeURI(validAuthorName) }
-      const url = `/random?${stringify(query)}`
+      const name = encodeURI(singleAuthor.name)
+      const url = `/random?${stringify({ author: name })}`
+      const { status, body } = await request(app).get(url)
+      expect(status).toBe(200)
+      expect(body.author).toEqual(singleAuthor.name)
+    })
+
+    test(`Given an author \`name\`, returns a random quote by
+      the specified author.`, async () => {
+      // Select an author from the database.
+      const url = `/random?${stringify({ author: singleAuthor.name })}`
       const { status, body } = await request(app).get(url)
       expect(status).toBe(200)
       expect(body.author).toEqual(singleAuthor.name)

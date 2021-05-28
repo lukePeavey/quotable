@@ -1,7 +1,7 @@
-const express = require('express')
-const cors = require('cors')
-const routes = require('./routes')
-const { handle404, logErrors, handleErrors } = require('./handleErrors')
+import express from 'express'
+import cors from 'cors'
+import routes from './routes'
+import { handle404, logErrors, handleErrors } from './handleErrors'
 
 /** The Express app */
 const app = express()
@@ -17,4 +17,4 @@ app.use(handle404)
 app.use(logErrors)
 app.use(handleErrors)
 
-module.exports = app
+export default app

@@ -1,10 +1,10 @@
-const createError = require('http-errors')
-const Quotes = require('../../models/Quotes')
+import createError from 'http-errors'
+import Quotes from '../../models/Quotes'
 
 /**
  * Get a single quote by its ID
  */
-module.exports = async function getQuoteById(req, res, next) {
+export default async function getQuoteById(req, res, next) {
   try {
     const { id } = req.params
     const result = await Quotes.findById(id).select('-__v -authorId')

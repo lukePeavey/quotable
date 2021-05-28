@@ -24,7 +24,7 @@
  * // => false
  *
  */
-module.exports = function toBoolean(value) {
+export default function toBoolean(value) {
   const number = parseInt(value)
   const string = String(value)
   return !Number.isNaN(number)

@@ -1,8 +1,8 @@
-const clamp = require('lodash/clamp')
-const createError = require('http-errors')
-const Authors = require('../../models/Authors')
-const toBoolean = require('../utils/toBoolean')
-const parseName = require('../utils/parseName')
+import clamp from 'lodash/clamp'
+import createError from 'http-errors'
+import Authors from '../../models/Authors'
+import toBoolean from '../utils/toBoolean'
+import parseName from '../utils/parseName'
 
 /**
  * Search Operators
@@ -69,7 +69,7 @@ const SearchIndex = {
  * @see https://docs.atlas.mongodb.com/reference/atlas-search/index-definitions/
  * @see https://docs.atlas.mongodb.com/reference/atlas-search/scoring
  */
-module.exports = async function searchAuthors(req, res, next) {
+export default async function searchAuthors(req, res, next) {
   try {
     const {
       query,

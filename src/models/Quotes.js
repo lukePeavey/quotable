@@ -1,5 +1,5 @@
-const { Schema, model } = require('mongoose')
-const shortid = require('shortid')
+import { Schema, model } from 'mongoose'
+import shortid from 'shortid'
 
 const QuoteSchema = new Schema({
   // @internal
@@ -21,4 +21,4 @@ const QuoteSchema = new Schema({
 // To support full text search
 QuoteSchema.index({ content: 'text', author: 'text' }, { name: 'textIndex' })
 
-module.exports = model('Quote', QuoteSchema)
+export default model('Quote', QuoteSchema)

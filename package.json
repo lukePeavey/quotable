@@ -14,11 +14,13 @@
   "license": "MIT",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "start:dev": "NODE_ENV=development nodemon",
+    "start": "node --require dotenv/config dist/index.js",
+    "dev": "NODE_ENV=development nodemon --require dotenv/config --exec babel-node src/index.js",
+    "start:dev": "npm run dev",
     "lint": "./node_modules/.bin/eslint . --color && echo \"eslint: no lint errors\"",
-    "test": "jest",
-    "test:watch": "jest --watchAll --verbose",
+    "build": "npx babel src --out-dir dist --copy-files",
+    "test": "jest --setupFiles dotenv/config",
+    "test:watch": "jest --setupFiles dotenv/config --watchAll --verbose",
     "database:seed": "node scripts/seedDatabase.js",
     "deploy:production": "heroku pipelines:promote -a quotable-api-staging"
   },
@@ -34,6 +36,10 @@
     }
   },
   "dependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/node": "^7.14.2",
+    "@babel/preset-env": "^7.14.2",
     "chalk": "^4.0.0",
     "cli-table3": "^0.6.0",
     "cors": "^2.8.5",
@@ -53,6 +59,7 @@
   "devDependencies": {
     "@types/jest": "^26.0.13",
     "babel-eslint": "^10.1.0",
+    "babel-preset-latest-node": "^5.5.1",
     "eslint": "^7.8.1",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^6.10.1",

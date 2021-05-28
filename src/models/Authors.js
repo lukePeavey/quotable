@@ -1,5 +1,5 @@
-const { Schema, model } = require('mongoose')
-const shortid = require('shortid')
+import { Schema, model } from 'mongoose'
+import shortid from 'shortid'
 
 const AuthorSchema = new Schema({
   _id: { type: String, default: shortid.generate },
@@ -23,4 +23,4 @@ AuthorSchema.set('collation', { locale: 'en_US', strength: 1 })
 AuthorSchema.index({ name: 1 }, { name: 'nameIndex', unique: true })
 AuthorSchema.index({ quoteCount: -1 }, { name: 'quoteCountIndex' })
 
-module.exports = model('Author', AuthorSchema)
+export default model('Author', AuthorSchema)
