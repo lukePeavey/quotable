@@ -1,9 +1,9 @@
-const clamp = require('lodash/clamp')
-const createError = require('http-errors')
-const Quotes = require('../../models/Quotes')
-const getTagsFilter = require('../utils/getTagsFilter')
-const getLengthFilter = require('../utils/getLengthFilter')
-const slug = require('../utils/slug')
+import clamp from 'lodash/clamp'
+import createError from 'http-errors'
+import Quotes from '../../models/Quotes'
+import getTagsFilter from '../utils/getTagsFilter'
+import getLengthFilter from '../utils/getLengthFilter'
+import slug from '../utils/slug'
 
 /**
  * Get multiple quotes from the database.
@@ -15,7 +15,7 @@ const slug = require('../utils/slug')
  *     in a single response.
  * @param {number} [params.skip = 0] The offset for pagination.
  */
-module.exports = async function listQuotes(req, res, next) {
+export default async function listQuotes(req, res, next) {
   try {
     const { author, authorId, tags, minLength, maxLength } = req.query
     let { limit, skip = 0, page } = req.query

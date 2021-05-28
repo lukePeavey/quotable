@@ -5,7 +5,7 @@
  * @param {number} [minLength = 0]
  * @param {number} [maxLength = 1e4]
  */
-module.exports = function getLengthFilter(minLength, maxLength) {
+export default function getLengthFilter(minLength, maxLength) {
   return {
     $gte: Number(minLength) || 0,
     $lte: Number(maxLength) || 1e4,

@@ -1,8 +1,7 @@
-require('dotenv').config()
-const request = require('supertest')
-const { stringify } = require('query-string')
-const app = require('../../src/app')
-const db = require('../../scripts/db')
+import request from 'supertest'
+import { stringify } from 'query-string'
+import app from '../../src/app'
+import db from '../../scripts/db'
 
 beforeAll(async () => db.connect())
 

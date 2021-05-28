@@ -1,10 +1,10 @@
-const moesifExpress = require('moesif-express')
-const requestIp = require('request-ip')
+import moesifExpress from 'moesif-express'
+import requestIp from 'request-ip'
 
 const { MOESIF_APPLICATION_ID } = process.env
 
 // Moesif middleware (API monitoring and analytics)
-module.exports = function moesifMiddleware() {
+export default function moesifMiddleware() {
   if (MOESIF_APPLICATION_ID) {
     return moesifExpress({
       applicationId: MOESIF_APPLICATION_ID,

@@ -1,6 +1,6 @@
-const deburr = require('lodash/deburr')
-const words = require('lodash/words')
-const toLower = require('lodash/toLower')
+import deburr from 'lodash/deburr'
+import words from 'lodash/words'
+import toLower from 'lodash/toLower'
 
 /**
  * Converts the given `string` to a slug.
@@ -22,7 +22,7 @@ const toLower = require('lodash/toLower')
  * slug('Søren Kierkegaard')
  * // => 'soren-kierkegaard'
  */
-module.exports = function slug(input) {
-  const string = deburr(input).replace(/['\u2019]/g, '')
+export default function slug(input) {
+  const string = deburr(decodeURI(input)).replace(/['\u2019]/g, '')
   return words(string).map(toLower).join('-')
 }

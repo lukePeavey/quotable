@@ -1,5 +1,5 @@
-const toWords = require('lodash/words')
-const toLower = require('lodash/toLower')
+import toWords from 'lodash/words'
+import toLower from 'lodash/toLower'
 
 // List of prefixes
 const prefix = [
@@ -81,4 +81,4 @@ function parseName(str) {
   return { terms, value }
 }
 
-module.exports = parseName
+export default parseName

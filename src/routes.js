@@ -1,14 +1,14 @@
-const { Router } = require('express')
-const listQuotes = require('./controllers/quotes/listQuotes')
-const getQuoteById = require('./controllers/quotes/getQuoteById')
-const searchQuotes = require('./controllers/search/searchQuotes')
-const searchAuthors = require('./controllers/search/searchAuthors')
-const randomQuote = require('./controllers/quotes/randomQuote')
-const listAuthors = require('./controllers/authors/listAuthors')
-const getAuthorById = require('./controllers/authors/getAuthorById')
-const getAuthorBySlug = require('./controllers/authors/getAuthorBySlug')
+import { Router } from 'express'
+import listQuotes from './controllers/quotes/listQuotes'
+import getQuoteById from './controllers/quotes/getQuoteById'
+import searchQuotes from './controllers/search/searchQuotes'
+import searchAuthors from './controllers/search/searchAuthors'
+import randomQuote from './controllers/quotes/randomQuote'
+import listAuthors from './controllers/authors/listAuthors'
+import getAuthorById from './controllers/authors/getAuthorById'
+import getAuthorBySlug from './controllers/authors/getAuthorBySlug'
 
-const listTags = require('./controllers/tags/listTags')
+import listTags from './controllers/tags/listTags'
 
 const router = Router()
 
@@ -37,4 +37,4 @@ router.get('/tags', listTags)
 router.get('/search/quotes', searchQuotes)
 router.get('/search/authors', searchAuthors)
 
-module.exports = router
+export default router

@@ -6,7 +6,7 @@
  * - "asc" | "ascending" | "1"
  * - "desc" | "descending" | "-1"
  */
-module.exports = function parseSortOrder(input) {
+export default function parseSortOrder(input) {
   let value = input
   // If value is one of the supported keywords ("asc", "ascending",
   // "desc", "descending"), convert it to the corresponding numeric value.

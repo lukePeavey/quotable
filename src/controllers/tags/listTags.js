@@ -1,7 +1,7 @@
-const Tags = require('../../models/Tags')
-const parseSortOrder = require('../utils/parseSortOrder')
+import Tags from '../../models/Tags'
+import parseSortOrder from '../utils/parseSortOrder'
 
-module.exports = async function listTags(req, res, next) {
+export default async function listTags(req, res, next) {
   try {
     let { sortBy, sortOrder } = req.query
 

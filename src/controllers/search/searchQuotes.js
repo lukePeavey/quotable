@@ -1,7 +1,7 @@
-const lowerCase = require('lodash/lowerCase')
-const clamp = require('lodash/clamp')
-const createError = require('http-errors')
-const Quote = require('../../models/Quotes')
+import lowerCase from 'lodash/lowerCase'
+import clamp from 'lodash/clamp'
+import createError from 'http-errors'
+import Quote from '../../models/Quotes'
 
 /**
  * Search quotes by keyword, phrase, or author.
@@ -16,7 +16,7 @@ const Quote = require('../../models/Quotes')
  *     this controls how much flexibility is allowed in the order of the search
  *     terms. See mongodb docs.
  */
-module.exports = async function searchQuotes(req, res, next) {
+export default async function searchQuotes(req, res, next) {
   try {
     let { query, fields = 'content, author', limit, skip, slop } = req.query
     // Parse params

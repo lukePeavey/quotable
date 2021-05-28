@@ -1,8 +1,8 @@
-const clamp = require('lodash/clamp')
-const createError = require('http-errors')
-const slugify = require('../utils/slug')
-const Authors = require('../../models/Authors')
-const parseSortOrder = require('../utils/parseSortOrder')
+import clamp from 'lodash/clamp'
+import createError from 'http-errors'
+import slugify from '../utils/slug'
+import Authors from '../../models/Authors'
+import parseSortOrder from '../utils/parseSortOrder'
 
 /**
  * Get all authors that match a given query. By default, this method returns
@@ -19,7 +19,7 @@ const parseSortOrder = require('../utils/parseSortOrder')
  * @param {number} [req.query.limit = 20] The max number of items to return
  * @param {number} [req.query.skip = 0] The offset for pagination
  */
-module.exports = async function listAuthors(req, res, next) {
+export default async function listAuthors(req, res, next) {
   try {
     const { name, slug } = req.query
     let { sortBy, sortOrder, limit, skip, page } = req.query

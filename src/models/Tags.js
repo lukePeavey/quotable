@@ -1,5 +1,5 @@
-const { Schema, model } = require('mongoose')
-const shortid = require('shortid')
+import { Schema, model } from 'mongoose'
+import shortid from 'shortid'
 
 const TagSchema = new Schema({
   _id: { type: String, default: shortid.generate },
@@ -8,4 +8,4 @@ const TagSchema = new Schema({
 
 TagSchema.index({ name: 1 }, { name: 'nameIndex' })
 
-module.exports = model('Tag', TagSchema)
+export default model('Tag', TagSchema)

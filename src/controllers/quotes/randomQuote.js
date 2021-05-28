@@ -1,16 +1,15 @@
-const createError = require('http-errors')
-const Quotes = require('../../models/Quotes')
-const Authors = require('../../models/Authors')
-const getTagsFilter = require('../utils/getTagsFilter')
-const getLengthFilter = require('../utils/getLengthFilter')
-const slug = require('../utils/slug')
+import createError from 'http-errors'
+import Quotes from '../../models/Quotes'
+import Authors from '../../models/Authors'
+import getTagsFilter from '../utils/getTagsFilter'
+import getLengthFilter from '../utils/getLengthFilter'
+import slug from '../utils/slug'
 
 /**
  * Get a single random quote
  */
-module.exports = async function getRandomQuote(req, res, next) {
+export default async function getRandomQuote(req, res, next) {
   try {
-    // save our query parameters
     const {
       minLength,
       maxLength,

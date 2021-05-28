@@ -1,5 +1,5 @@
-const Quotes = require('./Quotes')
-const Authors = require('./Authors')
-const Tags = require('./Tags')
+import Quotes from './Quotes'
+import Authors from './Authors'
+import Tags from './Tags'
 
-module.exports = { Quotes, Authors, Tags }
+export default { Quotes, Authors, Tags }
