@@ -39,7 +39,7 @@ GET /random
 | minLength | `Int`    | The minimum Length in characters ( can be combined with `maxLength` )                                                                                                                                                                                                                                                  |
 | tags      | `String` | Filter random quote by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
 | author    | `String` | Get random quote by a specific author(s). The value can be an author `name` or `slug`. To include quotes by multiple authors, provide a pipe-separated list of author names/slugs.                                                                                                                                     |
-| authorId  | `String` | `deprecated` <br> Same as `author` param, except it uses author `_id` instead of `slug`                                                                                                                                                                                                                                |
+| authorId  | `String` | `deprecated` <br> Same as `author` param, except it uses author `_id` instead of `slug`                                                                                                                                                                                                                                |  |
 
 #### Response
 
@@ -93,7 +93,7 @@ GET /random?minLength=100&maxLength=140
 
 ### List Quotes
 
-Get a paginated list of all quotes. This method supports several filter and sorting options.
+Get all quotes matching a given query. By default, this will return a paginated list of all quotes, sorted by `_id`. Quotes can also be filter by author, tag, and length.
 
 ```HTTP
 GET /quotes
@@ -103,30 +103,27 @@ GET /quotes
 
 | param     | type     | Description                                                                                                                                                                                                                                                                                                      |
 | :-------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| limit     | `Int`    | `Min: 1` `Max: 100` `Default: 20` <br> The number of quotes to return per request. (for pagination).                                                                                                                                                                                                             |
-| skip      | `Int`    | `Min: 0` `Default: 0` <br> The number of items to skip (for pagination).                                                                                                                                                                                                                                         |
-| page      | `Int`    | `Min: 0` `Default: 0` <br> The page of results to return.                                                                                                                                                                                                                                                        |
 | maxLength | `Int`    | The maximum Length in characters ( can be combined with `minLength` )                                                                                                                                                                                                                                            |
 | minLength | `Int`    | The minimum Length in characters ( can be combined with `maxLength` )                                                                                                                                                                                                                                            |
 | tags      | `String` | Filter quotes by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
 | author    | `String` | Get quotes by a specific author. The value can be an author `name` or `slug`. To get quotes by multiple authors, provide a pipe separated list of author names/slugs.                                                                                                                                            |
 | authorId  | `String` | `deprecated` <br> Same as `author` param, except it uses author `_id` instead of `slug`                                                                                                                                                                                                                          |
+| limit     | `Int`    | `Min: 1` `Max: 150` `Default: 20` <br> Sets the number of results per page.                                                                                                                                                                                                                                      |
+| page      | `Int`    | `Min: 1` `Default: 1` <br> The page of results to return. If the value is greater than the total number of pages, request will not return any results                                                                                                                                                            |
 
 #### Response
 
 ```ts
 {
-  // The number of quotes returned by this request
+  // The number of quotes returned in this response
   count: number
-  // The total number of quotes matching this request
+  // The total number of quotes matching this query
   totalCount: number
-  // The total number of pages matching this request with the specified limit per page
-  totalPages: number
   // The current page number
   page: number
-  // The index of the last quote returned. When paginating through results,
-  // this value would be used as the `skip` parameter when requesting the next
-  // "page" of results.
+  // The total number of pages matching this request
+  totalPages: number
+  // The 1-based index of the last result included in the current response.
   lastItemIndex: number
   // The array of quotes
   results: Array<{
@@ -143,6 +140,38 @@ GET /quotes
     tags: string[]
   }>
 }
+```
+
+#### Examples
+
+Get the first page of quotes, with 20 results per page [try in browser](https://quotable.io/quotes?page=1)
+
+```HTTP
+GET /quotes?page=1
+```
+
+Get the second page of quotes, with 20 results per page [try in browser](https://quotable.io/quotes?page=2)
+
+```HTTP
+GET /quotes?page=2
+```
+
+Get all quotes with the tags `love` `OR` `happiness` [try in browser](https://quotable.io/quotes?tags=love|happiness)
+
+```HTTP
+GET /quotes?tags=love|happiness
+```
+
+Get all quotes with the tags `technology` `AND` `famous-quotes` [try in browser](https://quotable.io/quotes?tags=technology,famous-quotes)
+
+```HTTP
+GET /quotes?tags=technology,famous-quotes
+```
+
+Get all quotes by author, using the author's `slug`. [try in browser](https://quotable.io/quotes?author=albert-einstein)
+
+```HTTP
+GET /quotes?author=albert-einstein
 ```
 
 ### Get Quote By ID
@@ -171,7 +200,7 @@ GET /quotes/:id
 
 ### List Authors
 
-Get a paginated list of all authors. By default, authors will be returned in alphabetical order (ascending).
+Get all authors matching the given query. This endpoint can be used to list authors, with several options for sorting and filter. It can also be used to get author details for one or more specific authors, using the author slug or ids.
 
 ```HTTP
 GET /authors
@@ -179,29 +208,28 @@ GET /authors
 
 #### Query parameters
 
-| param     | type                           | Description                                                                                          |
-| :-------- | :----------------------------- | :--------------------------------------------------------------------------------------------------- |
-| sortBy    | `enum: ['name', 'quoteCount']` | `Default: "name"` <br> The field used to sort authors.                                               |
-| sortOrder | `enum: ['asc', 'desc']`        | `Default: "asc"` <br> The order results are sorted in.                                               |
-| limit     | `Int`                          | `Min: 1` `Max: 100` `Default: 20` <br> The number of authors to return per request. (for pagination) |
-| skip      | `Int`                          | `Min: 0` `Default: 0` <br> The number of items to skip (for pagination)                              |
-| page      | `Int`                          | `Min: 0` `Default: 0` <br> The page of results to return.                                            |
+| param     | type                           | Description                                                                                                                                             |
+| :-------- | :----------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| sortBy    | `enum: ['name', 'quoteCount']` | `Default: "name"` <br> The field used to sort authors.                                                                                                  |
+| sortOrder | `enum: ['asc', 'desc']`        | `Default: "asc"` <br> The order results are sorted in.                                                                                                  |
+| slug      | `string`                       | Filter authors by slug. The value can be one or more author slugs. To get multiple authors by slug, the value should be a pipe separated list of slugs. |
+| limit     | `Int`                          | `Min: 1` `Max: 150` `Default: 20` <br> Sets the number of results per page.                                                                             |
+| page      | `Int`                          | `Min: 1` `Default: 1` <br> The page of results to return. If the value is greater than the total number of pages, request will not return any results   |
 
 #### Response
 
 ```ts
 {
-  // The number of authors return by this request.
+  // The number of results included in this response.
   count: number
-  // The total number of authors matching this request.
+  // The total number of results matching this request.
   totalCount: number
-  // The total number of pages matching this request with the specified limit per page
-  totalPages: number
   // The current page number
   page: number
-  // The index of the last item returned. When paginating through results,
-  // this value would be used as the `skip` parameter when requesting the next
-  // "page" of results. It will be set to `null` if there are no additional results.
+  // The total number of pages matching this request
+  totalPages: number
+  // The 1-based index of the last result included in this response. This shows the
+  // current pagination offset.
   lastItemIndex: number | null
   // The array of authors
   results: Array<{
@@ -222,6 +250,32 @@ GET /authors
     quoteCount: string
   }>
 }
+```
+
+#### Examples
+
+Get all authors, sorted alphabetically by name [try in browser](https://quotable.io/authors?sortBy=name&order=asc)
+
+```HTTP
+GET /authors?sortBy=name
+```
+
+Get all authors, sorted by number of quotes in descending order [try in browser](https://quotable.io/authors?sortBy=quoteCount&order=desc)
+
+```HTTP
+GET /authors?sortBy=quoteCount&order=desc
+```
+
+Get a single author by slug. [try in browser](https://quotable.io/authors?slug=albert-einstein)
+
+```HTTP
+GET /authors?slug=albert-einstein
+```
+
+Get multiple authors by slug. In this case, you provide a pipe-separated list of slugs [try in browser](https://quotable.io/authors?slug=albert-einstein|abraham-lincoln)
+
+```HTTP
+GET /authors?slug=albert-einstein|abraham-lincoln
 ```
 
 ### Get Author By ID
