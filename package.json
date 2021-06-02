@@ -12,7 +12,7 @@
     "url": "https://github.com/lukepeavey/quotable"
   },
   "license": "MIT",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "node --require dotenv/config dist/index.js",
     "dev": "NODE_ENV=development nodemon --require dotenv/config --exec babel-node src/index.js",

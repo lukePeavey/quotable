@@ -1,5 +1,5 @@
 import clamp from 'lodash/clamp'
-import * as config from '../../../config'
+import * as config from '../../config'
 
 const { MAX_LIMIT, DEFAULT_LIMIT } = config
 
