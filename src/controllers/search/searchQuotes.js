@@ -2,6 +2,7 @@ import lowerCase from 'lodash/lowerCase'
 import clamp from 'lodash/clamp'
 import createError from 'http-errors'
 import Quote from '../../models/Quotes'
+import getPaginationParams from '../utils/getPaginationParams'
 
 /**
  * Search quotes by keyword, phrase, or author.
@@ -15,17 +16,16 @@ import Quote from '../../models/Quotes'
  * @param {string} [slop = 0] When searching for an exact phrase,
  *     this controls how much flexibility is allowed in the order of the search
  *     terms. See mongodb docs.
+ * @param {number} [req.query.limit = 20] Results per page
+ * @param {number} [req.query.page = 0] page of results to return
  */
 export default async function searchQuotes(req, res, next) {
   try {
-    let { query, fields = 'content, author', limit, skip, slop } = req.query
+    let { query, fields = 'content, author', slop } = req.query
+    const { skip: $skip, limit: $limit, page } = getPaginationParams(req.query)
     // Parse params
     query = lowerCase(query)
     fields = fields.split(',').map(field => field.trim())
-
-    // Pagination params
-    limit = clamp(limit, 0, 50) || 20
-    skip = clamp(skip, 0, 1e3) || 0
     slop = clamp(slop, 0, 1e3) || 0
 
     const supportedFields = ['author', 'content', 'tags']
@@ -62,7 +62,7 @@ export default async function searchQuotes(req, res, next) {
     // Query database
     const [results, [meta]] = await Promise.all([
       // Get paginated search results
-      Quote.aggregate([{ $search }, { $skip: skip }, { $limit: limit }]),
+      Quote.aggregate([{ $search }, { $skip }, { $limit }]),
       // Get the total number of results that match the search
       Quote.aggregate([{ $search }, { $count: 'totalCount' }]),
     ])
@@ -70,9 +70,12 @@ export default async function searchQuotes(req, res, next) {
     // Pagination info
     const { totalCount = 0 } = meta || {}
     const count = results.length
-    const lastItemIndex = skip + count < totalCount ? skip + count : null
+    // The (1-based) index of the last result returned by this request
+    const lastItemIndex = $skip + count < totalCount ? $skip + count : null
+    // 'totalPages' is total number of pages based on results per page
+    const totalPages = Math.ceil(totalCount / $limit)
     // Send response
-    res.json({ count, totalCount, lastItemIndex, results })
+    res.json({ count, totalCount, page, totalPages, lastItemIndex, results })
   } catch (error) {
     return next(error)
   }

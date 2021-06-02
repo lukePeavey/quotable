@@ -1,8 +1,8 @@
-import clamp from 'lodash/clamp'
 import createError from 'http-errors'
 import slugify from '../utils/slug'
 import Authors from '../../models/Authors'
 import parseSortOrder from '../utils/parseSortOrder'
+import getPaginationParams from '../utils/getPaginationParams'
 
 /**
  * Get all authors that match a given query. By default, this method returns
@@ -16,13 +16,15 @@ import parseSortOrder from '../utils/parseSortOrder'
  *     single slug or a pipe-separated list of slugs.
  * @param {'name' | 'quoteCount'} [req.query.sortBy]
  * @param {'asc' | 'desc'} [req.query.sortOrder = 'asc']
- * @param {number} [req.query.limit = 20] The max number of items to return
- * @param {number} [req.query.skip = 0] The offset for pagination
+ * @param {number} [req.query.limit = 20] Results per page
+ * @param {number} [req.query.page = 0] page of results to return
  */
 export default async function listAuthors(req, res, next) {
   try {
     const { name, slug } = req.query
-    let { sortBy, sortOrder, limit, skip, page } = req.query
+    const { skip, limit, page } = getPaginationParams(req.query)
+    let { sortBy, sortOrder } = req.query
+
     const filter = {}
     const nameOrSlug = name || slug
 
@@ -43,8 +45,6 @@ export default async function listAuthors(req, res, next) {
 
     sortBy = Values.sortBy.includes(sortBy) ? sortBy : 'name'
     sortOrder = parseSortOrder(sortOrder) || defaultSortOrder[sortBy] || 1
-    limit = clamp(parseInt(limit), 1, 150) || 20
-    skip = parseInt(skip) || (parseInt(page) - 1) * limit || 0
 
     // Fetch paginated results
     const [results, totalCount] = await Promise.all([
@@ -56,16 +56,8 @@ export default async function listAuthors(req, res, next) {
       Authors.countDocuments(filter),
     ])
 
-    // `lastItemIndex` is the offset of the last result returned by this
-    // request. When paginating through results, this would be used as the
-    // `skip` parameter when requesting the next page of results. It will be
-    // set to `null` if there are no additional results.
+    // The (1-based) index of the last result returned by this request
     const lastItemIndex = skip + results.length
-
-    // 'page' is the page number that the first result of the request
-    // When Paginating through results, this would be used as the
-    // 'page' parameter when requesting the next page of results.
-    page = Math.ceil(lastItemIndex / limit)
 
     // 'totalPages' is total number of pages based on results per page
     const totalPages = Math.ceil(totalCount / limit)
@@ -74,8 +66,8 @@ export default async function listAuthors(req, res, next) {
     res.status(200).json({
       count: results.length,
       totalCount,
-      totalPages,
       page,
+      totalPages,
       lastItemIndex: lastItemIndex >= totalCount ? null : lastItemIndex,
       results,
     })

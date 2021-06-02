@@ -3,6 +3,7 @@ import createError from 'http-errors'
 import Authors from '../../models/Authors'
 import toBoolean from '../utils/toBoolean'
 import parseName from '../utils/parseName'
+import getPaginationParams from '../utils/getPaginationParams'
 
 /**
  * Search Operators
@@ -59,8 +60,8 @@ const SearchIndex = {
  *     Kennedy", would only return authors that match "John" and "Kennedy". And
  *     query="John Quincy Adams" would return authors that match any two of the
  *     three terms "john", "quincy" and "adams".
- * @param {Object} [req.query.limit = 20] results per page
- * @param {Object} [req.query.skip = 20] offset for pagination
+ * @param {number} [req.query.limit = 20] Results per page
+ * @param {number} [req.query.page = 0] page of results to return
  *
  * @see https://docs.atlas.mongodb.com/reference/atlas-search/
  * @see https://docs.atlas.mongodb.com/reference/atlas-search/text
@@ -71,13 +72,8 @@ const SearchIndex = {
  */
 export default async function searchAuthors(req, res, next) {
   try {
-    const {
-      query,
-      autocomplete = true,
-      matchThreshold = 2,
-      skip,
-      limit,
-    } = req.query
+    const { query, autocomplete = true, matchThreshold = 2 } = req.query
+    const { skip: $skip, limit: $limit, page } = getPaginationParams(req.query)
 
     // Parse the query into terms.
     // =======================================================================
@@ -105,9 +101,6 @@ export default async function searchAuthors(req, res, next) {
       return next(createError(422, 'Missing required parameter: `query`'))
     }
 
-    // Pagination params
-    const $limit = clamp(limit, 0, 50) || 20
-    const $skip = clamp(skip, 0, 1e3) || 0
     const $project = { __v: 0, aka: 0 }
 
     // Let `indexName` be the name of the search index to use. This name
@@ -129,7 +122,10 @@ export default async function searchAuthors(req, res, next) {
     }
 
     // Required clause
-    // ...
+    // This clause determines which authors will be included in the results.
+    // What I wanted to do was require that at least x number of search terms
+    // match,
+    //
     $search.compound.must = {
       compound: {
         minimumShouldMatch: Math.min(terms.length, matchThreshold),
@@ -161,9 +157,12 @@ export default async function searchAuthors(req, res, next) {
     // Pagination info
     const { totalCount = 0 } = meta || {}
     const count = results.length
-    const lastItemIndex = skip + count < totalCount ? skip + count : null
+    // The (1-based) index of the last result returned by this request
+    const lastItemIndex = $skip + count < totalCount ? $skip + count : null
+    // 'totalPages' is total number of pages based on results per page
+    const totalPages = Math.ceil(totalCount / $limit)
     // Send response
-    res.json({ count, totalCount, lastItemIndex, results })
+    res.json({ count, totalCount, page, totalPages, lastItemIndex, results })
   } catch (error) {
     return next(error)
   }

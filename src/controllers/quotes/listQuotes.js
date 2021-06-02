@@ -1,8 +1,8 @@
-import clamp from 'lodash/clamp'
 import createError from 'http-errors'
 import Quotes from '../../models/Quotes'
 import getTagsFilter from '../utils/getTagsFilter'
 import getLengthFilter from '../utils/getLengthFilter'
+import getPaginationParams from '../utils/getPaginationParams'
 import slug from '../utils/slug'
 
 /**
@@ -11,14 +11,13 @@ import slug from '../utils/slug'
  * @param {Object} params
  * @param {string} [params.authorId] Filter results by authorId
  * @param {string} [params.tags] List of tags separated by comma or pipe
- * @param {number} [params.limit = 20] The maximum number of results to include
- *     in a single response.
- * @param {number} [params.skip = 0] The offset for pagination.
+ * @param {number} [req.query.limit = 20] Results per page
+ * @param {number} [req.query.page = 0] page of results to return
  */
 export default async function listQuotes(req, res, next) {
   try {
     const { author, authorId, tags, minLength, maxLength } = req.query
-    let { limit, skip = 0, page } = req.query
+    const { limit, skip, page } = getPaginationParams(req.query)
 
     // Query filters
     const filter = {}
@@ -49,8 +48,6 @@ export default async function listQuotes(req, res, next) {
     // TODO: Add sorting options for this method
     const sortBy = '_id'
     const sortOrder = 1
-    limit = clamp(parseInt(limit), 0, 150) || 20
-    skip = parseInt(skip) || (parseInt(page) - 1) * limit || 0
 
     // Fetch paginated results
     const [results, totalCount] = await Promise.all([
@@ -63,16 +60,8 @@ export default async function listQuotes(req, res, next) {
       Quotes.countDocuments(filter),
     ])
 
-    // `lastItemIndex` is the offset of the last result returned by this
-    // request. When paginating through results, this would be used as the
-    // `skip` parameter when requesting the next page of results. It will be
-    // set to `null` if there are no additional results.
+    // The (1-based) index of the last result returned by this request
     const lastItemIndex = skip + results.length
-
-    // 'page' is the page number that the first result of the request
-    // When Paginating through results, this would be used as the
-    // 'page' parameter when requesting the next page of results.
-    page = Math.ceil(lastItemIndex / limit)
 
     // 'totalPages' is total number of pages based on results per page
     const totalPages = Math.ceil(totalCount / limit)
@@ -81,8 +70,8 @@ export default async function listQuotes(req, res, next) {
     res.status(200).json({
       count: results.length,
       totalCount,
-      totalPages,
       page,
+      totalPages,
       lastItemIndex: lastItemIndex >= totalCount ? null : lastItemIndex,
       results,
     })
