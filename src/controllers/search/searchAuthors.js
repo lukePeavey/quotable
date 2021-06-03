@@ -123,9 +123,7 @@ export default async function searchAuthors(req, res, next) {
 
     // Required clause
     // This clause determines which authors will be included in the results.
-    // What I wanted to do was require that at least x number of search terms
-    // match,
-    //
+    // TODO: explain
     $search.compound.must = {
       compound: {
         minimumShouldMatch: Math.min(terms.length, matchThreshold),
