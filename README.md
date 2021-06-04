@@ -108,8 +108,10 @@ GET /quotes
 | tags      | `String` | Filter quotes by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
 | author    | `String` | Get quotes by a specific author. The value can be an author `name` or `slug`. To get quotes by multiple authors, provide a pipe separated list of author names/slugs.                                                                                                                                            |
 | authorId  | `String` | `deprecated` <br> Same as `author` param, except it uses author `_id` instead of `slug`                                                                                                                                                                                                                          |
-| limit     | `Int`    | `Min: 1` `Max: 150` `Default: 20` <br> Sets the number of results per page.                                                                                                                                                                                                                                      |
-| page      | `Int`    | `Min: 1` `Default: 1` <br> The page of results to return. If the value is greater than the total number of pages, request will not return any results                                                                                                                                                            |
+| sortBy    | `enum`   | `default: "_id"` &nbsp; `values: "_id", "author", "content"` <br> The field used to sort quotes                                                                                                                                                                                                                  |
+| order     | `enum`   | `values: "asc", "desc"` <br> The order in which results are sorted. The default order depends on the sortBy field. For string fields that are sorted alphabetically, the default order is ascending. For numeric fields, the default order is descending.                                                        |
+| limit     | `Int`    | `Min: 1` &nbsp; `Max: 150` &nbsp; `Default: 20` <br> Sets the number of results per page.                                                                                                                                                                                                                        |
+| page      | `Int`    | `Min: 1` &nbsp; `Default: 1` <br> The page of results to return. If the value is greater than the total number of pages, request will not return any results                                                                                                                                                     |
 
 #### Response
 
@@ -208,13 +210,13 @@ GET /authors
 
 #### Query parameters
 
-| param     | type                           | Description                                                                                                                                             |
-| :-------- | :----------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| sortBy    | `enum: ['name', 'quoteCount']` | `Default: "name"` <br> The field used to sort authors.                                                                                                  |
-| sortOrder | `enum: ['asc', 'desc']`        | `Default: "asc"` <br> The order results are sorted in.                                                                                                  |
-| slug      | `string`                       | Filter authors by slug. The value can be one or more author slugs. To get multiple authors by slug, the value should be a pipe separated list of slugs. |
-| limit     | `Int`                          | `Min: 1` `Max: 150` `Default: 20` <br> Sets the number of results per page.                                                                             |
-| page      | `Int`                          | `Min: 1` `Default: 1` <br> The page of results to return. If the value is greater than the total number of pages, request will not return any results   |
+| param  | type     | Description                                                                                                                                                                                                                                                                            |
+| :----- | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| slug   | `string` | Filter authors by slug. The value can be one or more author slugs. To get multiple authors by slug, the value should be a pipe separated list of slugs.                                                                                                                                |
+| sortBy | `enum`   | `Default: "name"` &nbsp; `values: "name", "quoteCount"` <br> The field used to sort authors.                                                                                                                                                                                           |
+| order  | `enum`   | `values: "asc", "desc"` <br> The order in which results are sorted. The default order depends on the sortBy field. For string fields that are sorted alphabetically (ie `name`), the default order is ascending. For numeric fields (ie `quoteCount`) the default order is descending. |
+| limit  | `Int`    | `Min: 1` &nbsp; `Max: 150` &nbsp; `Default: 20` <br> Sets the number of results per page.                                                                                                                                                                                              |
+| page   | `Int`    | `Min: 1` &nbsp; `Default: 1` <br> The page of results to return. If the value is greater than the total number of pages, request will not return any results                                                                                                                           |
 
 #### Response
 
@@ -332,10 +334,10 @@ Get a list of all tags
 
 #### Query parameters
 
-| param     | type                           | Description                                                              |
-| :-------- | :----------------------------- | :----------------------------------------------------------------------- |
-| sortBy    | `enum: ['name', 'quoteCount']` | `Default: "name"` <br> The field used to sort tags.                      |
-| sortOrder | `enum: ['asc', 'desc']`        | `Default: depends on sortBy` <br> The order in which results are sorted. |
+| param  | type   | Description                                                                                                                                                                                                                                               |
+| :----- | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| sortBy | `enum` | `Default: "name"` `values: "name", "quoteCount"` <br> The field used to sort tags.                                                                                                                                                                        |
+| order  | `enum` | `values: "asc", "desc"` <br> The order in which results are sorted. The default order depends on the sortBy field. For string fields that are sorted alphabetically, the default order is ascending. For numeric fields, the default order is descending. |
 
 #### Response
 

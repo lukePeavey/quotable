@@ -3,6 +3,7 @@ import Quotes from '../../models/Quotes'
 import getTagsFilter from '../utils/getTagsFilter'
 import getLengthFilter from '../utils/getLengthFilter'
 import getPaginationParams from '../utils/getPaginationParams'
+import getSortParams from '../utils/getSortParams'
 import slug from '../utils/slug'
 
 /**
@@ -11,6 +12,10 @@ import slug from '../utils/slug'
  * @param {Object} params
  * @param {string} [params.authorId] Filter results by authorId
  * @param {string} [params.tags] List of tags separated by comma or pipe
+ * @param {string} [params.minLength] min length in characters
+ * @param {string} [params.maxLength] max length in characters
+ * @param {string} [params.sortBy] Field used to sort results
+ * @param {string} [params.sortOrder] order (asc|desc)
  * @param {number} [req.query.limit = 20] Results per page
  * @param {number} [req.query.page = 0] page of results to return
  */
@@ -18,6 +23,13 @@ export default async function listQuotes(req, res, next) {
   try {
     const { author, authorId, tags, minLength, maxLength } = req.query
     const { limit, skip, page } = getPaginationParams(req.query)
+    const { sortBy, sortOrder } = getSortParams(req.query, {
+      default: { field: '_id', order: 1 },
+      _id: { field: '_id', order: 1 },
+      author: { field: 'author', order: 1 },
+      content: { field: 'content', order: 1 },
+      length: { field: 'length', order: -1 },
+    })
 
     // Query filters
     const filter = {}
@@ -43,11 +55,6 @@ export default async function listQuotes(req, res, next) {
     if (tags) {
       filter.tags = getTagsFilter(tags)
     }
-
-    // Sorting and pagination params
-    // TODO: Add sorting options for this method
-    const sortBy = '_id'
-    const sortOrder = 1
 
     // Fetch paginated results
     const [results, totalCount] = await Promise.all([

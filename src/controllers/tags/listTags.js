@@ -1,17 +1,13 @@
 import Tags from '../../models/Tags'
-import parseSortOrder from '../utils/parseSortOrder'
+import getSortParams from '../utils/getSortParams'
 
 export default async function listTags(req, res, next) {
   try {
-    let { sortBy, sortOrder } = req.query
-
-    // Supported parameter values
-    const Values = { sortBy: ['name', 'quoteCount'] }
-    // The default sort order depends on the `sortBy` field
-    const defaultSortOrder = { name: 1, quoteCount: -1 }
-
-    sortBy = Values.sortBy.includes(sortBy) ? sortBy : 'name'
-    sortOrder = parseSortOrder(sortOrder) || defaultSortOrder[sortBy] || 1
+    const { sortBy, sortOrder } = getSortParams(req.query, {
+      default: { field: 'name', order: 1 },
+      name: { field: 'name', order: 1 },
+      quoteCount: { field: 'quoteCount', order: -1 },
+    })
 
     const results = await Tags.aggregate([
       {

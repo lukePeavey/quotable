@@ -1,7 +1,7 @@
 import createError from 'http-errors'
 import slugify from '../utils/slug'
 import Authors from '../../models/Authors'
-import parseSortOrder from '../utils/parseSortOrder'
+import getSortParams from '../utils/getSortParams'
 import getPaginationParams from '../utils/getPaginationParams'
 
 /**
@@ -23,15 +23,14 @@ export default async function listAuthors(req, res, next) {
   try {
     const { name, slug } = req.query
     const { skip, limit, page } = getPaginationParams(req.query)
-    let { sortBy, sortOrder } = req.query
+    const { sortBy, sortOrder } = getSortParams(req.query, {
+      default: { field: 'name', order: 1 },
+      name: { field: 'name', order: 1 },
+      quoteCount: { field: 'quoteCount', order: -1 },
+    })
 
     const filter = {}
     const nameOrSlug = name || slug
-
-    // Supported parameter values
-    const Values = { sortBy: ['name', 'quoteCount'] }
-    // The default sort order depends on the `sortBy` field
-    const defaultSortOrder = { name: 1, quoteCount: -1 }
 
     if (nameOrSlug) {
       // Filter authors by `slug` or `name`. Value can be a single slug/name or // a pipe-separated list of names.
@@ -42,9 +41,6 @@ export default async function listAuthors(req, res, next) {
       }
       filter.slug = nameOrSlug.split('|').map(slugify)
     }
-
-    sortBy = Values.sortBy.includes(sortBy) ? sortBy : 'name'
-    sortOrder = parseSortOrder(sortOrder) || defaultSortOrder[sortBy] || 1
 
     // Fetch paginated results
     const [results, totalCount] = await Promise.all([
