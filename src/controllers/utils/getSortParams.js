@@ -30,12 +30,12 @@ function parseSortOrder(params = {}) {
  * sorting options for a specific endpoint.
  *
  * @param {Object} params The query params from the API request
- * @param {Object} config An object that defines the sorting options for a
- *     specific endpoint. It should be an object in which the keys are the
- *     supported values for the `sortBy` param. The values are objects that
- *     define the field and default order for each `sortBy` value. `config`
- *     should also have a "default" key that defines the default sorting field
- *     and order.
+ * @param {{[key: string]: {field: string, order: number}}} config An object
+ *     that defines the sorting options for a specific endpoint. The keys are
+ *     the supported values for the `sortBy` param. The values are objects that
+ *     define the `field` and default order for each sortBy value. The config
+ *     object must also include a `default` property that defines the default
+ *     sortBy field and order.
  * @return {{sortBy: string, sortOrder: number}} An object containing `sortBy`
  *     and `sortOrder`. These values can be passed directly in the mongodb query
  *
@@ -50,12 +50,14 @@ function parseSortOrder(params = {}) {
  * }
  */
 export default function getSortParams(params = {}, config) {
-  const sortByParam = toLower(params.sortBy)
+  // The user provided value for the `sortBy` param
+  const sortByValue = toLower(params.sortBy)
   if (!config.default) {
-    throw new Error('Config object must include a `default` field')
+    throw new Error('config object must include a "default" property')
   }
-  const defaultOrder = config[sortByParam]?.order || config.default.order
+  // If `sortByValue`
+  const sortBy = config[sortByValue]?.field || config.default.field
+  const defaultOrder = config[sortByValue]?.order || config.default.order
   const sortOrder = parseSortOrder(params) || defaultOrder
-  const sortBy = config[sortByParam]?.field || config.default.field
   return { sortBy, sortOrder }
 }
