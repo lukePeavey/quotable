@@ -1,13 +1,8 @@
 import createError from 'http-errors'
 import slugify from '../utils/slug'
 import Authors from '../../models/Authors'
-import parseSortOrder from '../utils/parseSortOrder'
+import getSortParams from '../utils/getSortParams'
 import getPaginationParams from '../utils/getPaginationParams'
-
-const SortFields = {
-  name: 'name',
-  quoteCount: 'quoteCount',
-}
 
 /**
  * Get all authors that match a given query. By default, this method returns
@@ -26,18 +21,16 @@ const SortFields = {
  */
 export default async function listAuthors(req, res, next) {
   try {
-    const {
-      name,
-      slug,
-      sortBy: sortByInput,
-      sortOrder: sortOrderInput,
-    } = req.query
+    const { name, slug } = req.query
     const { skip, limit, page } = getPaginationParams(req.query)
+    const { sortBy, sortOrder } = getSortParams(req.query, {
+      default: { field: 'name', order: 1 },
+      name: { field: 'name', order: 1 },
+      quoteCount: { field: 'quoteCount', order: -1 },
+    })
 
     const filter = {}
     const nameOrSlug = name || slug
-    const sortBy = SortFields[sortByInput] || 'name'
-    const sortOrder = parseSortOrder(sortOrderInput)
 
     if (nameOrSlug) {
       // Filter authors by `slug` or `name`. Value can be a single slug/name or // a pipe-separated list of names.

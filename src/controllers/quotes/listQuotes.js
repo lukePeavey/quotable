@@ -3,14 +3,8 @@ import Quotes from '../../models/Quotes'
 import getTagsFilter from '../utils/getTagsFilter'
 import getLengthFilter from '../utils/getLengthFilter'
 import getPaginationParams from '../utils/getPaginationParams'
-import parseSortOrder from '../utils/parseSortOrder'
+import getSortParams from '../utils/getSortParams'
 import slug from '../utils/slug'
-
-const SortFields = {
-  id: '_id',
-  author: 'author',
-  content: 'content',
-}
 
 /**
  * Get multiple quotes from the database.
@@ -27,16 +21,15 @@ const SortFields = {
  */
 export default async function listQuotes(req, res, next) {
   try {
-    const {
-      author,
-      authorId,
-      tags,
-      minLength,
-      maxLength,
-      sortBy,
-      sortOrder,
-    } = req.query
+    const { author, authorId, tags, minLength, maxLength } = req.query
     const { limit, skip, page } = getPaginationParams(req.query)
+    const { sortBy, sortOrder } = getSortParams(req.query, {
+      default: { field: '_id', order: 1 },
+      _id: { field: '_id', order: 1 },
+      author: { field: 'author', order: 1 },
+      content: { field: 'content', order: 1 },
+      length: { field: 'length', order: -1 },
+    })
 
     // Query filters
     const filter = {}
@@ -66,7 +59,7 @@ export default async function listQuotes(req, res, next) {
     // Fetch paginated results
     const [results, totalCount] = await Promise.all([
       Quotes.find(filter)
-        .sort({ [SortFields[sortBy] || '_id']: parseSortOrder(sortOrder) })
+        .sort({ [sortBy]: sortOrder })
         .limit(limit)
         .skip(skip)
         .select('-__v -authorId'),
