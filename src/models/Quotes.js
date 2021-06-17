@@ -16,6 +16,10 @@ const QuoteSchema = new Schema({
   tags: { type: [String], required: true },
   // The length of the quote (total number of characters)
   length: { type: Number, required: true },
+  // Timestamp when item was added
+  dateAdded: { type: String },
+  // Timestamp when item was last updated
+  dateModified: { type: String },
 })
 
 // To support full text search

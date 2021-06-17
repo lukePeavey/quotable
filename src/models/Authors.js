@@ -17,6 +17,10 @@ const AuthorSchema = new Schema({
   description: { type: String, default: '' },
   // The number of quotes by this author
   quoteCount: { type: Number, required: true },
+  // Timestamp when item was added
+  dateAdded: { type: String },
+  // Timestamp when item was last updated
+  dateModified: { type: String },
 })
 
 AuthorSchema.set('collation', { locale: 'en_US', strength: 1 })
