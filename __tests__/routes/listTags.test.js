@@ -1,6 +1,6 @@
 import request from 'supertest'
 import app from '../../src/app'
-import db from '../../scripts/db'
+import * as db from '../../scripts/db'
 
 beforeAll(async () => db.connect())
 

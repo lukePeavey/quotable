@@ -1,16 +1,14 @@
 #!/usr/bin/env
 
 /* eslint-disable no-console */
-require('dotenv').config({})
-const mongoose = require('mongoose')
-const upperFirst = require('lodash/upperFirst')
-const chalk = require('chalk')
-const Table = require('cli-table3')
-const fs = require('fs')
-const path = require('path')
-const Spinner = require('./utils/Spinner')
-require('../src/models')
-
+import mongoose from 'mongoose'
+import upperFirst from 'lodash/upperFirst'
+import chalk from 'chalk'
+import Table from 'cli-table3'
+import fs from 'fs'
+import path from 'path'
+import Spinner from './utils/Spinner'
+import models from '../src/models'
 
 // -------------------------------------------------------------------------
 

@@ -1,12 +1,11 @@
-require('dotenv').config()
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const { MONGODB_URI } = process.env
 
 /**
  * Connects to the mongodb database
  */
-exports.connect = async () => {
+export async function connect() {
   try {
     await mongoose.connect(MONGODB_URI, {
       useUnifiedTopology: true,
@@ -23,6 +22,6 @@ exports.connect = async () => {
 /**
  * Closes the database connection
  */
-exports.close = async () => {
+export async function close() {
   await mongoose.connection.close()
 }

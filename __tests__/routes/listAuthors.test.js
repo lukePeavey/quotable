@@ -2,7 +2,7 @@ import request from 'supertest'
 import { stringify } from 'query-string'
 import sortBy from 'lodash/sortBy'
 import app from '../../src/app'
-import db from '../../scripts/db'
+import * as db from '../../scripts/db'
 import Authors from '../../src/models/Authors'
 
 let authorCount

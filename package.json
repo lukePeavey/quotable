@@ -21,7 +21,7 @@
     "build": "npx babel src --out-dir dist --copy-files",
     "test": "jest --setupFiles dotenv/config",
     "test:watch": "jest --setupFiles dotenv/config --watchAll --verbose",
-    "database:seed": "node scripts/seedDatabase.js",
+    "database:seed": "babel-node --require dotenv/config scripts/seedDatabase.js",
     "deploy:production": "heroku pipelines:promote -a quotable-api-staging"
   },
   "lint-staged": {

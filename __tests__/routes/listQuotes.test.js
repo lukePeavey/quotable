@@ -3,7 +3,7 @@ import last from 'lodash/last'
 import first from 'lodash/first'
 import { stringify } from 'query-string'
 import app from '../../src/app'
-import db from '../../scripts/db'
+import * as db from '../../scripts/db'
 import Authors from '../../src/models/Authors'
 import Quotes from '../../src/models/Quotes'
 

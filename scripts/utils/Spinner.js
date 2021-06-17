@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 
-const Ora = require('ora')
-const isString = require('lodash/isString')
-const isInteractive = require('is-interactive')
+import Ora from 'ora'
+import isString from 'lodash/isString'
+import isInteractive from 'is-interactive'
 
 /**
  * CLI spinners that fall back gracefully on non TTY environments like as CI.
@@ -60,4 +60,4 @@ class Spinner {
   }
 }
 
-module.exports = Spinner
+export default Spinner

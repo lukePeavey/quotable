@@ -1,7 +1,7 @@
 import request from 'supertest'
 import { stringify } from 'query-string'
 import app from '../../src/app'
-import db from '../../scripts/db'
+import * as db from '../../scripts/db'
 
 beforeAll(async () => db.connect())
 
