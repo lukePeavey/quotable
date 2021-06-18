@@ -7,6 +7,8 @@ export default async function listTags(req, res, next) {
       default: { field: 'name', order: 1 },
       name: { field: 'name', order: 1 },
       quoteCount: { field: 'quoteCount', order: -1 },
+      dateAdded: { field: 'dateAdded', order: -1 },
+      dateModified: { field: 'dateModified', order: -1 },
     })
 
     const results = await Tags.aggregate([

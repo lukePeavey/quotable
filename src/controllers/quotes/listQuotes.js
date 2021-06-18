@@ -24,8 +24,9 @@ export default async function listQuotes(req, res, next) {
     const { author, authorId, tags, minLength, maxLength } = req.query
     const { limit, skip, page } = getPaginationParams(req.query)
     const { sortBy, sortOrder } = getSortParams(req.query, {
-      default: { field: '_id', order: 1 },
-      _id: { field: '_id', order: 1 },
+      default: { field: 'dateAdded', order: -1 },
+      dateAdded: { field: 'dateAdded', order: -1 },
+      dateModified: { field: 'dateModified', order: -1 },
       author: { field: 'author', order: 1 },
       content: { field: 'content', order: 1 },
       length: { field: 'length', order: -1 },
