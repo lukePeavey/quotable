@@ -1,5 +1,3 @@
-import toLower from 'lodash/toLower'
-
 /**
  * Parses the `sortOrder` param.
  *
@@ -50,14 +48,11 @@ function parseSortOrder(params = {}) {
  * }
  */
 export default function getSortParams(params = {}, config) {
-  // The user provided value for the `sortBy` param
-  const sortByValue = toLower(params.sortBy)
   if (!config.default) {
     throw new Error('config object must include a "default" property')
   }
-  // If `sortByValue`
-  const sortBy = config[sortByValue]?.field || config.default.field
-  const defaultOrder = config[sortByValue]?.order || config.default.order
+  const sortBy = config[params.sortBy]?.field || config.default.field
+  const defaultOrder = config[params.sortBy]?.order || config.default.order
   const sortOrder = parseSortOrder(params) || defaultOrder
   return { sortBy, sortOrder }
 }
