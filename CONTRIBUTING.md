@@ -2,11 +2,41 @@
 
 All contributions are greatly appreciated!
 
+## Report downtime
+
+You can check the status of the API server [here](https://downfor.io/quotable.io).
+
+There is a designated category in the Discussions area to report downtime.
+
+[check here](https://github.com/lukePeavey/quotable/discussions/categories/report-downtime) to see if the problem has already been reported. If so, please comment on the existing discussion rather than creating a new one.
+
+![](https://user-images.githubusercontent.com/8286271/125713493-862f9fd6-a01f-496c-bdcc-1d66c524d869.jpg)
+
+If the problem **has not** been reported, [start a new discussion](https://github.com/lukePeavey/quotable/discussions/categories/report-downtime). Include a description of the problem and any details that might be helpful.
+
+## Discussions
+
+Use the Discussion area to ask questions, get help, discuss ideas, etc.
+
+![](https://user-images.githubusercontent.com/8286271/125716446-d7af1019-58c2-4ad6-93da-b21e7d0bb303.jpg)
+
 ## Issues
 
-- Feature requests/enhancements
-- Bug reports
-- Questions/feedback
+Please select the appropriate issue template when opening a new issue. For
+
+### :bulb: Feature
+
+Suggest a new API feature
+
+### :zap: Enhancement
+
+Suggest changes to improve an existing API method. For example, adding a new sorting method, etc.
+
+### :bug: Bug
+
+If something is not working as expected (based on the current documentation), file a bug report.
+
+Bugs should be reproducible using a API client like Postman or Chrome.
 
 ## Pull Requests
 
