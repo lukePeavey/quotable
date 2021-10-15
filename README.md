@@ -16,10 +16,10 @@ Quotable is a free, open source quotations API. It was originally built as part 
 
 ## Servers
 
-| Name       | URL                 | Description                                      |
-| :--------- | :------------------ | :----------------------------------------------- |
-| Staging    | staging.quotable.io | Synced with the master branch of this repository |
-| Production | api.quotable.io     | The primary API server                           |
+| Name       | URL                 | Description                                                                                                                                                                                                        |
+| :--------- | :------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Production | api.quotable.io     | The public API server                                                                                                                                                                                              |
+| Staging    | staging.quotable.io | **The staging server is for testing purposes only.** The master branch automatically deploys to the staging server after every commit. Once changes have been tested they will be pushed to the production server. |
 
 ## API Reference
 
