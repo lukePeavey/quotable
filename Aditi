@@ -1,0 +1,32 @@
+<head>
+    <!-- Loading The Bootstrap Library -->
+    <link rel="stylesheet" 
+          href=
+"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+          integrity=
+"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+          crossorigin="anonymous"/>
+  
+    <!-- Loading Icons From Font Awesome -->
+    <link rel="stylesheet" 
+          href=
+"https://use.fontawesome.com/releases/v5.8.1/css/all.css" 
+          integrity=
+"sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" 
+          crossorigin="anonymous">
+  
+    <!-- Linking Your CSS File -->
+    <link rel="stylesheet" href="style.css"/>
+  
+    <!-- Loading Roboto Font from Google Fonts -->
+    <link href=
+"https://fonts.googleapis.com/css2?family=Roboto&display=swap" 
+          rel="stylesheet">
+  
+    <!-- Loading Open Sans Font from Google Fonts -->
+    <link href=
+"https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" 
+          rel="stylesheet">
+    
+</head>
+
