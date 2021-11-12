@@ -2,15 +2,6 @@
 
 Quotable is a free, open source quotations API. It was originally built as part of a [FreeCodeCamp](https://www.freecodecamp.org/) project. If you are interested in contributing, please check out the [Contributors Guide](CONTRIBUTING.md). 
 
-```js
-async function randomQuote() {
-  const response = await fetch('https://api.quotable.io/random')
-  const data = await response.json()
-  console.log(`${data.content} —${data.author}`)
-}
-randomQuote()
-```
-
 **Servers**
 
 | Name       | URL                 | Description                                      |
@@ -18,14 +9,8 @@ randomQuote()
 | Production | api.quotable.io     | The public API server                           |
 | Staging    | staging.quotable.io |  **The staging server is for testing purposes only.** The master branch automatically deploys to the staging server after every commit. Once changes have been tested they will be pushed to the production server. |
 
-**Examples**
-
-- [Basic Quote Machine (CodePen)](https://codepen.io/lukePeavey/pen/RwNVeQG)
-- [React Quote Machine (CodeSandbox)](https://codesandbox.io/s/quotable-demo-react-e7zm1?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=dark)
-- [Paginated Author List (codeSandbox)](https://codesandbox.io/s/quotable-author-list-2-14le9)
-- [Paginated Quote List (codeSandbox)](https://codesandbox.io/s/quotable-get-quotes-with-author-details-iyxw8)
-
 ## API Reference  <!-- omit in toc --> 
+- [Examples](#examples)
 - [Get random quote](#get-random-quote)
 - [List Quotes](#list-quotes)
 - [Get Quote By ID](#get-quote-by-id)
@@ -34,6 +19,13 @@ randomQuote()
 - [Search Authors (beta)](#search-authors-beta)
 - [Get Author By ID](#get-author-by-id)
 - [List Tags](#list-tags)
+
+## Examples
+
+- [Basic Quote Machine (CodePen)](https://codepen.io/lukePeavey/pen/RwNVeQG)
+- [React Quote Machine (CodeSandbox)](https://codesandbox.io/s/quotable-demo-react-e7zm1?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=dark)
+- [Paginated Author List (codeSandbox)](https://codesandbox.io/s/quotable-author-list-2-14le9)
+- [Paginated Quote List (codeSandbox)](https://codesandbox.io/s/quotable-get-quotes-with-author-details-iyxw8)
 
 ## Get random quote
 
