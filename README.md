@@ -1,47 +1,51 @@
 # Quotable
 
-Quotable is a free, open source quotations API. It was originally built as part of a [FreeCodeCamp](https://www.freecodecamp.org/) project. The database includes over 2000 quotes by 900 authors.
+Quotable is a free, open source quotations API. It was originally built as part of a [FreeCodeCamp](https://www.freecodecamp.org/) project. If you are interested in contributing, please check out the [Contributors Guide](CONTRIBUTING.md). 
 
-- [Servers](#servers)
-- [API Reference](#api-reference)
-  - [Get random quote](#get-random-quote)
-  - [List Quotes](#list-quotes)
-  - [Get Quote By ID](#get-quote-by-id)
-  - [List Authors](#list-authors)
-  - [Get Author By ID](#get-author-by-id)
-  - [List Tags](#list-tags)
-- [Usage](#usage)
-  - [Live Examples](#live-examples)
-- [Contributing](#contributing)
+**Servers**
 
-## Servers
+| Name       | URL                 | Description                                      |
+| :--------- | :------------------ | :----------------------------------------------- |
+| Production | api.quotable.io     | The public API server                           |
+| Staging    | staging.quotable.io |  **The staging server is for testing purposes only.** The master branch automatically deploys to the staging server after every commit. Once changes have been tested they will be pushed to the production server. |
 
-| Name       | URL                 | Description                                                                                                                                                                                                        |
-| :--------- | :------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Production | api.quotable.io     | The public API server                                                                                                                                                                                              |
-| Staging    | staging.quotable.io | **The staging server is for testing purposes only.** The master branch automatically deploys to the staging server after every commit. Once changes have been tested they will be pushed to the production server. |
+## API Reference  <!-- omit in toc --> 
+- [Examples](#examples)
+- [Get random quote](#get-random-quote)
+- [List Quotes](#list-quotes)
+- [Get Quote By ID](#get-quote-by-id)
+- [List Authors](#list-authors)
+- [Search Quotes (beta)](#search-quotes-beta)
+- [Search Authors (beta)](#search-authors-beta)
+- [Get Author By ID](#get-author-by-id)
+- [List Tags](#list-tags)
 
-## API Reference
+## Examples
 
-### Get random quote
+- [Basic Quote Machine (CodePen)](https://codepen.io/lukePeavey/pen/RwNVeQG)
+- [React Quote Machine (CodeSandbox)](https://codesandbox.io/s/quotable-demo-react-e7zm1?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=dark)
+- [Paginated Author List (codeSandbox)](https://codesandbox.io/s/quotable-author-list-2-14le9)
+- [Paginated Quote List (codeSandbox)](https://codesandbox.io/s/quotable-get-quotes-with-author-details-iyxw8)
 
-Returns a single random quote from the database
+## Get random quote
 
 ```HTTP
 GET /random
 ```
 
-#### Query parameters
+Returns a single random quote from the database
+
+### Query parameters
 
 | param     | type     | Description                                                                                                                                                                                                                                                                                                            |
 | :-------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | maxLength | `Int`    | The maximum Length in characters ( can be combined with `minLength` )                                                                                                                                                                                                                                                  |
 | minLength | `Int`    | The minimum Length in characters ( can be combined with `maxLength` )                                                                                                                                                                                                                                                  |
-| tags      | `String` | Filter random quote by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
-| author    | `String` | Get random quote by a specific author(s). The value can be an author `name` or `slug`. To include quotes by multiple authors, provide a pipe-separated list of author names/slugs.                                                                                                                                     |
-| authorId  | `String` | `deprecated` <br> Same as `author` param, except it uses author `_id` instead of `slug`                                                                                                                                                                                                                                |  |
+| tags      | `String` | Get a random quote with specific tag(s). This takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **any one** of the provided tags. |
+| author    | `String` | Get a random quote by one or more authors. The value can be an author `name` or `slug`. To include quotes by multiple authors, provide a pipe-separated list of author names/slugs.                                                                                                                                     |
+| authorId  | `String` | `deprecated` <br><br> Same as `author` param, except it uses author `_id` instead of `slug`                                                                                                                                                                                                                                |  |
 
-#### Response
+### Response
 
 ```ts
 {
@@ -59,7 +63,7 @@ GET /random
 }
 ```
 
-#### Examples
+### Examples
 
 Random Quote [try in browser](https://api.quotable.io/random)
 
@@ -91,15 +95,16 @@ Random Quote with a length between 100 and 140 characters [try in browser](https
 GET /random?minLength=100&maxLength=140
 ```
 
-### List Quotes
-
-Get all quotes matching a given query. By default, this will return a paginated list of all quotes, sorted by `_id`. Quotes can also be filter by author, tag, and length.
+## List Quotes
 
 ```HTTP
 GET /quotes
 ```
 
-#### Query parameters
+Get all quotes matching a given query. By default, this will return a paginated list of all quotes, sorted by `_id`. Quotes can also be filter by author, tag, and length.
+
+
+### Query parameters
 
 | param     | type     | Description                                                                                                                                                                                                                                                                                                      |
 | :-------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -107,13 +112,13 @@ GET /quotes
 | minLength | `Int`    | The minimum Length in characters ( can be combined with `maxLength` )                                                                                                                                                                                                                                            |
 | tags      | `String` | Filter quotes by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
 | author    | `String` | Get quotes by a specific author. The value can be an author `name` or `slug`. To get quotes by multiple authors, provide a pipe separated list of author names/slugs.                                                                                                                                            |
-| authorId  | `String` | `deprecated` <br> Same as `author` param, except it uses author `_id` instead of `slug`                                                                                                                                                                                                                          |
-| sortBy    | `enum`   | `default: "dateAdded"` &nbsp; `values: "dateAdded", "dateModified", "author", "content"` <br> The field used to sort quotes                                                                                                                                                                                      |
-| order     | `enum`   | `values: "asc", "desc"` <br> The order in which results are sorted. The default order depends on the sortBy field. For string fields that are sorted alphabetically, the default order is ascending. For number and date fields, the default order is descending.                                                |
-| limit     | `Int`    | `Min: 1` &nbsp; `Max: 150` &nbsp; `Default: 20` <br> Sets the number of results per page.                                                                                                                                                                                                                        |
-| page      | `Int`    | `Min: 1` &nbsp; `Default: 1` <br> The page of results to return. If the value is greater than the total number of pages, request will not return any results                                                                                                                                                     |
+| authorId  | `String` | `deprecated` <br><br> Same as `author` param, except it uses author `_id` instead of `slug`                                                                                                                                                                                                                          |
+| sortBy    | `enum`   | `Default: "dateAdded"` &nbsp; `values: "dateAdded", "dateModified", "author", "content"` <br><br> The field used to sort quotes                                                                                                                                                                                      |
+| order     | `enum`   | `values: "asc", "desc"` &nbsp; `default: depends on sortBy` <br><br> The order in which results are sorted. The default order depends on the sortBy field. For string fields that are sorted alphabetically, the default order is ascending. For number and date fields, the default order is descending.                                                |
+| limit     | `Int`    | `Min: 1` &nbsp; `Max: 150` &nbsp; `Default: 20` <br><br> Sets the number of results per page.                                                                                                                                                                                                                        |
+| page      | `Int`    | `Min: 1` &nbsp; `Default: 1` <br><br> The page of results to return. If the value is greater than the total number of pages, request will not return any results                                                                                                                                                     |
 
-#### Response
+### Response
 
 ```ts
 {
@@ -144,7 +149,7 @@ GET /quotes
 }
 ```
 
-#### Examples
+### Examples
 
 Get the first page of quotes, with 20 results per page [try in browser](https://quotable.io/quotes?page=1)
 
@@ -176,15 +181,16 @@ Get all quotes by author, using the author's `slug`. [try in browser](https://qu
 GET /quotes?author=albert-einstein
 ```
 
-### Get Quote By ID
-
-Get a quote by its ID
+## Get Quote By ID
 
 ```HTTP
 GET /quotes/:id
 ```
 
-#### Response
+Get a quote by its ID
+
+
+### Response
 
 ```ts
 {
@@ -200,25 +206,26 @@ GET /quotes/:id
 }
 ```
 
-### List Authors
-
-Get all authors matching the given query. This endpoint can be used to list authors, with several options for sorting and filter. It can also be used to get author details for one or more specific authors, using the author slug or ids.
+## List Authors
 
 ```HTTP
 GET /authors
 ```
 
-#### Query parameters
+Get all authors matching the given query. This endpoint can be used to list authors, with several options for sorting and filter. It can also be used to get author details for one or more specific authors, using the author slug or ids.
+
+
+### Query parameters
 
 | param  | type     | Description                                                                                                                                                                                                                                                                                    |
 | :----- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | slug   | `string` | Filter authors by slug. The value can be one or more author slugs. To get multiple authors by slug, the value should be a pipe separated list of slugs.                                                                                                                                        |
-| sortBy | `enum`   | `Default: "name"` &nbsp; `values: "dateAdded", "dateModified", "name", "quoteCount"` <br> The field used to sort authors.                                                                                                                                                                      |
-| order  | `enum`   | `values: "asc", "desc"` <br> The order in which results are sorted. The default order depends on the sortBy field. For string fields that are sorted alphabetically (ie `name`), the default order is ascending. For number and date fields (ie `quoteCount`) the default order is descending. |
-| limit  | `Int`    | `Min: 1` &nbsp; `Max: 150` &nbsp; `Default: 20` <br> Sets the number of results per page.                                                                                                                                                                                                      |
-| page   | `Int`    | `Min: 1` &nbsp; `Default: 1` <br> The page of results to return. If the value is greater than the total number of pages, request will not return any results                                                                                                                                   |
+| sortBy | `enum`   | `Default: "name"` &nbsp; `values: "dateAdded", "dateModified", "name", "quoteCount"` <br><br>The field used to sort authors.                                                                                                                                                                      |
+| order  | `enum`   | `values: "asc", "desc"` <br><br>The order in which results are sorted. The default order depends on the sortBy field. For string fields that are sorted alphabetically (ie `name`), the default order is ascending. For number and date fields (ie `quoteCount`) the default order is descending. |
+| limit  | `Int`    | `Min: 1` &nbsp; `Max: 150` &nbsp; `Default: 20` <br><br>Sets the number of results per page.                                                                                                                                                                                                      |
+| page   | `Int`    | `Min: 1` &nbsp; `Default: 1` <br><br>The page of results to return. If the value is greater than the total number of pages, request will not return any results                                                                                                                                   |
 
-#### Response
+### Response
 
 ```ts
 {
@@ -254,7 +261,7 @@ GET /authors
 }
 ```
 
-#### Examples
+### Examples
 
 Get all authors, sorted alphabetically by name [try in browser](https://quotable.io/authors?sortBy=name&order=asc)
 
@@ -280,7 +287,215 @@ Get multiple authors by slug. In this case, you provide a pipe-separated list of
 GET /authors?slug=albert-einstein|abraham-lincoln
 ```
 
-### Get Author By ID
+
+
+## Search Quotes (beta)
+
+```HTTP
+GET /search/quotes
+```
+
+This endpoint allows you to search for quotes by keywords, content, and/or author name. Unlike the [List Quotes](#list-quotes) endpoint, this method is powered by [Atlas Search](https://docs.atlas.mongodb.com/atlas-search/) and is designed to power a search bar UI. 
+
+- Search results are sorted by score
+- The query can be wrapped in quotes to search for an exact phrase. In this case, results will only include quotes that match the query exactly. 
+- Supports fuzzy search (optional). This allows for minor typos and misspelling in the search query. For more info on how this works, refer to the [Atlas docs](https://docs.atlas.mongodb.com/reference/atlas-search/text/#fields)
+
+
+### Query Params
+
+| Param       | Type                 | Description                                      |
+| :--------- | :------------------ | :----------------------------------------------- |
+| query    | `String` | The search string. The query can be wrapped in quotes to search for an exact phrase.   |
+| fields    | `String` | `Default: "content,author,tags"` <br><br>Specify the fields to search by. This takes a comma separated list of field names. Supported search fields are "content", "author", "tags".  By default, it will search by all fields simultaneously.|
+| fuzzyMaxEdits | `Int`     | `Min: 0` &nbsp; `Max: 2` &nbsp; `Default: 0` <br><br> The maximum number of single-character edits required to match the specified search term. Setting this to zero disables fuzzy matching.  |
+| fuzzyMaxExpansions | `Int`     | `Max: 150` &nbsp; `Min: 0` &nbsp; `Default: 50` <br><br> When fuzzy search is enabled, this is the maximum number of variations to generate and search for. This limit applies on a per-token basis.|
+| limit | `Int`     | `Min: 0` &nbsp; `Max: 150` &nbsp;  `Default: 20` <br><br> The maximum number of results per page  |
+| page  | `Int`     | `Min: 1` &nbsp;  `Default: 1` <br><br> Sets the page number for pagination                       |
+
+### Response
+
+```ts
+{
+  // The number of results included in this response.
+  count: number
+  // The total number of results matching this request.
+  totalCount: number
+  // The current page number
+  page: number
+  // The total number of pages matching this request
+  totalPages: number
+  // The 1-based index of the last result included in this response. This shows the
+  // current pagination offset.
+  lastItemIndex: number | null
+  // The array of authors
+  results: Array<{
+    // A unique id for this author
+    _id: string
+    // A brief, one paragraph bio of the author. Source: wiki API
+    bio: string
+    // A one-line description of the author. Typically it is the person's primary
+    // occupation or what they are know for.
+    description: string
+    // The link to the author's wikipedia page or official website
+    link: string
+    // The authors full name
+    name: string
+    // A slug is a URL-friendly ID derived from the authors name. It can be used as
+    slug: string
+    // The number of quotes by this author
+    quoteCount: string
+  }>
+}
+```
+### Examples
+
+Search for "every good technology is basically magic" ([try in browser](https://api.quotable.io/search/quotes?query=every+good+technology+is+basically+magic&fields=content))
+
+```HTTP
+GET /search/quotes?query=every good technology is basically magic
+```
+
+> Results: 
+> - "Any sufficiently advanced technology is equivalent to magic."
+
+Search for the phrase "divided house"
+```HTTP
+GET /search/quotes?query=divided house
+```
+
+> Results
+> - "A house divided against itself cannot stand."
+
+
+Search for quotes with the keywords "life" or "happiness" ([try in browser](https://api.quotable.io/search/quotes?query=life+happiness))
+
+```HTTP
+GET /search/quotes?query=life happiness
+```
+
+Search for quotes by an author named "kennedy"  ([try in browser](https://api.quotable.io/search/quotes?query=kennedy&fields=author))
+
+```HTTP
+GET /search/quotes/query=Kennedy&fields=author
+```
+## Search Authors (beta)
+
+```HTTP
+GET  /search/authors
+``` 
+
+This endpoint allows you search for authors by name. It is designed to power a search bar for authors that displays autocomplete suggests as the user types.
+
+- Powered by [Atlas Search](https://docs.atlas.mongodb.com/atlas-search/). 
+- Real autocomplete 
+- Results are sorted by score
+- Parses the query into "terms". Things like initials, prefixes, suffixes, and stopwords are not considered search terms. They will still impact the score of a result, but are not required to match. 
+
+```
+Example 1. 
+query="John F. Kennedy"
+terms=["john", "kennedy"]
+
+ term      term
+  |         |
+John  F.  Kennedy  Jr.
+      |             |
+   initial        suffix
+
+Example 2
+query="Saint Augustine of Hippo"
+terms=["Augustine", "Hippo"]
+
+        term        term
+          |          |
+ Saint Augustine of Hippo
+   |             |
+prefix        stopword
+```
+
+
+### Query Parameters
+
+| Param       | Type                 | Description                                      |
+| :--------- | :------------------ | :----------------------------------------------- |
+| query    | `String` | The search query  |
+| autocomplete    | `Boolean` | `default: true` <br><br> Enables autocomplete matching |
+| matchThreshold  | `Int`     | `Min: 1` &nbsp;  `Max: 3` &nbsp;  `Default: 2` <br><br>  Sets the minimum number of search terms (words) that must match for an author to be included in results.  Basically, if this is set to 1, the results will include all authors that match at least one part of the name. So query="John F. Kennedy" the results would include all authors that match either "john" `OR` "kennedy". <br><br>If this is set to `2`: when the search query includes two or more "terms", at least two of those terms must match. So query="John F. Kennedy" would only return authors that match "John" `AND` "Kennedy". 
+| limit | `Int`     |  `Min: ` &nbsp;  `Max: 150` &nbsp;  `Default: 20` <br><br> Maximum number of results per page   |
+| page  | `Int`     | `Min: 1` &nbsp;  `Default: 1` <br><br>Sets the page number for pagination                     |
+
+
+### Response
+
+```ts
+{
+  // The number of results included in this response.
+  count: number
+  // The total number of results matching this request.
+  totalCount: number
+  // The current page number
+  page: number
+  // The total number of pages matching this request
+  totalPages: number
+  // The 1-based index of the last result included in this response. This shows the
+  // current pagination offset.
+  lastItemIndex: number | null
+  // The array of authors
+  results: Array<{
+    // A unique id for this author
+    _id: string
+    // A brief, one paragraph bio of the author. Source: wiki API
+    bio: string
+    // A one-line description of the author. Typically it is the person's primary
+    // occupation or what they are know for.
+    description: string
+    // The link to the author's wikipedia page or official website
+    link: string
+    // The authors full name
+    name: string
+    // A slug is a URL-friendly ID derived from the authors name. It can be used as
+    slug: string
+    // The number of quotes by this author
+    quoteCount: string
+  }>
+}
+```
+
+### Examples
+
+Search for author named "Einstein" ([try in browser](https://api.quotable.io/search/authors?query=einstein))
+
+```HTTP
+GET /search/authors?query=Einstein
+```
+
+> Results:
+> - Albert Einstein
+
+Autocomplete search for "Einstein" ([try in browswer](https://api.quotable.io/search/authors?query=Einst))
+```HTTP
+GET /search/authors?query=Einst
+```
+> Results:
+> - Albert Einstein
+
+Search for "John Adams" ([try in browswer](https://api.quotable.io/search/authors?query=john+adams))
+```HTTP
+GET /search/authors?query=Einst
+```
+> Results:
+> - John Adams
+> - John Quincy Adams
+
+Search for "John Quincy Adams" ([try in browswer](https://api.quotable.io/search/authors?query=john+quincy+adams))
+```HTTP
+GET /search/authors?query=Einst
+```
+> Results: (will return all authors that match at least 2 of the search, in this case two authors match "John" and "Adams")
+> - John Quincy Adams (matches exactly)
+> - John Adams
+## Get Author By ID
 
 Get details about a specific author by `_id`.
 
@@ -288,7 +503,7 @@ Get details about a specific author by `_id`.
 GET /authors/:id
 ```
 
-#### Response
+### Response
 
 ```ts
 {
@@ -324,7 +539,7 @@ GET /authors/:id
 }
 ```
 
-### List Tags
+## List Tags
 
 ```HTTP
 GET /tags
@@ -332,14 +547,14 @@ GET /tags
 
 Get a list of all tags
 
-#### Query parameters
+### Query parameters
 
 | param  | type   | Description                                                                                                                                                                                                                                                       |
 | :----- | :----- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| sortBy | `enum` | `Default: "name"` &nbsp; `values: "dateAdded", "dateModified", "name", "quoteCount"` <br> The field used to sort tags.                                                                                                                                            |
-| order  | `enum` | `values: "asc", "desc"` <br> The order in which results are sorted. The default order depends on the sortBy field. For string fields that are sorted alphabetically, the default order is ascending. For number and date fields, the default order is descending. |
+| sortBy | `enum` | `Default: "name"` &nbsp; `values: "dateAdded", "dateModified", "name", "quoteCount"` <br><br>The field used to sort tags.                                                                                                                                            |
+| order  | `enum` | `values: "asc", "desc"` <br><br>The order in which results are sorted. The default order depends on the sortBy field. For string fields that are sorted alphabetically, the default order is ascending. For number and date fields, the default order is descending. |
 
-#### Response
+### Response
 
 ```ts
 {
@@ -352,44 +567,3 @@ Get a list of all tags
   }>
 }
 ```
-
-## Usage
-
-Get a random quote (fetch)
-
-```js
-fetch('https://api.quotable.io/random')
-  .then(response => response.json())
-  .then(data => {
-    console.log(`${data.content} —${data.author}`)
-  })
-```
-
-Get a random quote (async/await)
-
-```js
-async function randomQuote() {
-  const response = await fetch('https://api.quotable.io/random')
-  const data = await response.json()
-  console.log(`${data.content} —${data.author}`)
-}
-randomQuote()
-```
-
-Get a random quote (JQuery)
-
-```js
-$.getJSON('https://api.quotable.io/random', function (data) {
-  console.log(`${data.content} —${data.author}`)
-})
-```
-
-### Live Examples
-
-[Basic Random Quote (CodePen)](https://codepen.io/lukePeavey/pen/RwNVeQG)
-
-[React Random Quote (CodeSandbox)](https://codesandbox.io/s/quotable-demo-react-e7zm1?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=dark)
-
-## Contributing
-
-All contributions are welcome! For more info on how to contribute, check out the [Contributors Guide](./CONTRIBUTING.md)
