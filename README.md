@@ -35,7 +35,7 @@ GET /random
 
 Returns a single random quote from the database
 
-### Query parameters
+**Query parameters**
 
 | param     | type     | Description                                                                                                                                                                                                                                                                                                            |
 | :-------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -45,7 +45,7 @@ Returns a single random quote from the database
 | author    | `String` | Get a random quote by one or more authors. The value can be an author `name` or `slug`. To include quotes by multiple authors, provide a pipe-separated list of author names/slugs.                                                                                                                                     |
 | authorId  | `String` | `deprecated` <br><br> Same as `author` param, except it uses author `_id` instead of `slug`                                                                                                                                                                                                                                |  |
 
-### Response
+**Response**
 
 ```ts
 {
@@ -63,7 +63,7 @@ Returns a single random quote from the database
 }
 ```
 
-### Examples
+**Examples**
 
 Random Quote [try in browser](https://api.quotable.io/random)
 
@@ -104,7 +104,7 @@ GET /quotes
 Get all quotes matching a given query. By default, this will return a paginated list of all quotes, sorted by `_id`. Quotes can also be filter by author, tag, and length.
 
 
-### Query parameters
+**Query parameters**
 
 | param     | type     | Description                                                                                                                                                                                                                                                                                                      |
 | :-------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -118,7 +118,7 @@ Get all quotes matching a given query. By default, this will return a paginated 
 | limit     | `Int`    | `Min: 1` &nbsp; `Max: 150` &nbsp; `Default: 20` <br><br> Sets the number of results per page.                                                                                                                                                                                                                        |
 | page      | `Int`    | `Min: 1` &nbsp; `Default: 1` <br><br> The page of results to return. If the value is greater than the total number of pages, request will not return any results                                                                                                                                                     |
 
-### Response
+**Response**
 
 ```ts
 {
@@ -149,7 +149,7 @@ Get all quotes matching a given query. By default, this will return a paginated 
 }
 ```
 
-### Examples
+**Examples**
 
 Get the first page of quotes, with 20 results per page [try in browser](https://quotable.io/quotes?page=1)
 
@@ -190,7 +190,7 @@ GET /quotes/:id
 Get a quote by its ID
 
 
-### Response
+**Response**
 
 ```ts
 {
@@ -215,7 +215,7 @@ GET /authors
 Get all authors matching the given query. This endpoint can be used to list authors, with several options for sorting and filter. It can also be used to get author details for one or more specific authors, using the author slug or ids.
 
 
-### Query parameters
+**Query parameters**
 
 | param  | type     | Description                                                                                                                                                                                                                                                                                    |
 | :----- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -225,7 +225,7 @@ Get all authors matching the given query. This endpoint can be used to list auth
 | limit  | `Int`    | `Min: 1` &nbsp; `Max: 150` &nbsp; `Default: 20` <br><br>Sets the number of results per page.                                                                                                                                                                                                      |
 | page   | `Int`    | `Min: 1` &nbsp; `Default: 1` <br><br>The page of results to return. If the value is greater than the total number of pages, request will not return any results                                                                                                                                   |
 
-### Response
+**Response**
 
 ```ts
 {
@@ -261,7 +261,7 @@ Get all authors matching the given query. This endpoint can be used to list auth
 }
 ```
 
-### Examples
+**Examples**
 
 Get all authors, sorted alphabetically by name [try in browser](https://quotable.io/authors?sortBy=name&order=asc)
 
@@ -302,7 +302,7 @@ This endpoint allows you to search for quotes by keywords, content, and/or autho
 - Supports fuzzy search (optional). This allows for minor typos and misspelling in the search query. For more info on how this works, refer to the [Atlas docs](https://docs.atlas.mongodb.com/reference/atlas-search/text/#fields)
 
 
-### Query Params
+**Query Params**
 
 | Param       | Type                 | Description                                      |
 | :--------- | :------------------ | :----------------------------------------------- |
@@ -313,7 +313,7 @@ This endpoint allows you to search for quotes by keywords, content, and/or autho
 | limit | `Int`     | `Min: 0` &nbsp; `Max: 150` &nbsp;  `Default: 20` <br><br> The maximum number of results per page  |
 | page  | `Int`     | `Min: 1` &nbsp;  `Default: 1` <br><br> Sets the page number for pagination                       |
 
-### Response
+**Response**
 
 ```ts
 {
@@ -348,7 +348,7 @@ This endpoint allows you to search for quotes by keywords, content, and/or autho
   }>
 }
 ```
-### Examples
+**Examples**
 
 Search for "every good technology is basically magic" ([try in browser](https://api.quotable.io/search/quotes?query=every+good+technology+is+basically+magic&fields=content))
 
@@ -415,7 +415,7 @@ prefix        stopword
 ```
 
 
-### Query Parameters
+**Query Parameters**
 
 | Param       | Type                 | Description                                      |
 | :--------- | :------------------ | :----------------------------------------------- |
@@ -426,7 +426,7 @@ prefix        stopword
 | page  | `Int`     | `Min: 1` &nbsp;  `Default: 1` <br><br>Sets the page number for pagination                     |
 
 
-### Response
+**Response**
 
 ```ts
 {
@@ -462,7 +462,7 @@ prefix        stopword
 }
 ```
 
-### Examples
+**Examples**
 
 Search for author named "Einstein" ([try in browser](https://api.quotable.io/search/authors?query=einstein))
 
@@ -503,7 +503,7 @@ Get details about a specific author by `_id`.
 GET /authors/:id
 ```
 
-### Response
+**Response**
 
 ```ts
 {
@@ -547,14 +547,14 @@ GET /tags
 
 Get a list of all tags
 
-### Query parameters
+**Query parameters**
 
 | param  | type   | Description                                                                                                                                                                                                                                                       |
 | :----- | :----- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | sortBy | `enum` | `Default: "name"` &nbsp; `values: "dateAdded", "dateModified", "name", "quoteCount"` <br><br>The field used to sort tags.                                                                                                                                            |
 | order  | `enum` | `values: "asc", "desc"` <br><br>The order in which results are sorted. The default order depends on the sortBy field. For string fields that are sorted alphabetically, the default order is ascending. For number and date fields, the default order is descending. |
 
-### Response
+**Response**
 
 ```ts
 {
