@@ -10,17 +10,16 @@ Quotable is a free, open source quotations API. It was originally built as part 
 | Staging    | staging.quotable.io |  **The staging server is for testing purposes only.** The master branch automatically deploys to the staging server after every commit. Once changes have been tested they will be pushed to the production server. |
 
 ## API Reference  <!-- omit in toc --> 
-- [Examples](#examples)
 - [Get random quote](#get-random-quote)
 - [List Quotes](#list-quotes)
 - [Get Quote By ID](#get-quote-by-id)
 - [List Authors](#list-authors)
 - [Search Quotes (beta)](#search-quotes-beta)
 - [Search Authors (beta)](#search-authors-beta)
-- [Get Author By ID](#get-author-by-id)
+- [Get Author By Slug](#get-author-by-slug)
 - [List Tags](#list-tags)
 
-## Examples
+## Examples <!-- omit in toc --> 
 
 - [Basic Quote Machine (CodePen)](https://codepen.io/lukePeavey/pen/RwNVeQG)
 - [React Quote Machine (CodeSandbox)](https://codesandbox.io/s/quotable-demo-react-e7zm1?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=dark)
@@ -94,6 +93,8 @@ Random Quote with a length between 100 and 140 characters [try in browser](https
 ```HTTP
 GET /random?minLength=100&maxLength=140
 ```
+
+<br>
 
 ## List Quotes
 
@@ -181,6 +182,8 @@ Get all quotes by author, using the author's `slug`. [try in browser](https://qu
 GET /quotes?author=albert-einstein
 ```
 
+<br>
+
 ## Get Quote By ID
 
 ```HTTP
@@ -205,6 +208,7 @@ Get a quote by its ID
   tags: string[]
 }
 ```
+<br>
 
 ## List Authors
 
@@ -287,7 +291,7 @@ Get multiple authors by slug. In this case, you provide a pipe-separated list of
 GET /authors?slug=albert-einstein|abraham-lincoln
 ```
 
-
+<br>
 
 ## Search Quotes (beta)
 
@@ -379,6 +383,9 @@ Search for quotes by an author named "kennedy"  ([try in browser](https://api.qu
 ```HTTP
 GET /search/quotes/query=Kennedy&fields=author
 ```
+
+<br>
+
 ## Search Authors (beta)
 
 ```HTTP
@@ -495,9 +502,16 @@ GET /search/authors?query=Einst
 > Results: (will return all authors that match at least 2 of the search, in this case two authors match "John" and "Adams")
 > - John Quincy Adams (matches exactly)
 > - John Adams
-## Get Author By ID
 
-Get details about a specific author by `_id`.
+<br>
+
+## Get Author By Slug
+
+Get a _single_ `Author` by `slug`. This method can be used to get author details such as bio, website link, and profile image. 
+
+If you want to get all _quotes_ by a specific author, use the [/quotes](#list-quotes) endpoint and filter by author author name/slug.
+
+If you want to get _multiple_ authors by slug in a single request, use the [/authors](#list-authors) endpoint and filter by `slug`.
 
 ```HTTP
 GET /authors/:id
@@ -538,6 +552,7 @@ GET /authors/:id
   }>
 }
 ```
+<br>
 
 ## List Tags
 
