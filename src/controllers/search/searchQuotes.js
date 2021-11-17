@@ -29,7 +29,7 @@ export default async function searchQuotes(req, res, next) {
     slop = clamp(slop, 0, 1e3) || 0
 
     const supportedFields = ['author', 'content', 'tags']
-    const isExactPhrase = /^(".+")|('.+')$/.test(query)
+    const isExactPhrase = /^(".+")|('.+')$/.test(req.query.query)
 
     if (!query) {
       // Respond with error if `query` param is empty

@@ -121,16 +121,18 @@ export default async function searchAuthors(req, res, next) {
       compound: {},
     }
 
-    // Required clause
-    // This clause determines which authors will be included in the results.
-    // TODO: explain
-    $search.compound.must = {
-      compound: {
-        minimumShouldMatch: Math.min(terms.length, matchThreshold),
-        should: terms.map(term => ({
-          [operator]: { query: term, path: 'name' },
-        })),
-      },
+    if (terms.length) {
+      // Required clause
+      // This clause determines which authors will be included in the results.
+      // TODO: explain
+      $search.compound.must = {
+        compound: {
+          minimumShouldMatch: Math.min(terms.length, matchThreshold),
+          should: terms.map(term => ({
+            [operator]: { query: term, path: 'name' },
+          })),
+        },
+      }
     }
 
     // This clause checks author `names` against the entire search string to
