@@ -382,7 +382,7 @@ GET /search/quotes?query=life happiness
 Search for quotes by an author named "kennedy" ([try in browser](https://api.quotable.io/search/quotes?query=kennedy&fields=author))
 
 ```HTTP
-GET /search/quotes/query=Kennedy&fields=author
+GET /search/quotes?query=Kennedy&fields=author
 ```
 
 <br>
