@@ -21,7 +21,7 @@ import getPaginationParams from '../utils/getPaginationParams'
  */
 export default async function listAuthors(req, res, next) {
   try {
-    const { name, slug } = req.query
+    const { name, slug, slugs } = req.query
     const { skip, limit, page } = getPaginationParams(req.query)
     const { sortBy, sortOrder } = getSortParams(req.query, {
       default: { field: 'name', order: 1 },
@@ -32,16 +32,19 @@ export default async function listAuthors(req, res, next) {
     })
 
     const filter = {}
-    const nameOrSlug = name || slug
+    const nameOrSlug = name || slug || slugs
 
     if (nameOrSlug) {
-      // Filter authors by `slug` or `name`. Value can be a single slug/name or // a pipe-separated list of names.
+      // Filter authors by `slug` or `name`. Value can be a single slug/name or
+      // a pipe-separated list of names.
       if (/,/.test(nameOrSlug)) {
-        // If value is a comma-separated list, respond with error.
-        const message = 'Multiple values should be separated by a pipe.'
-        return next(createError(400, message))
+        // Note: also support a comma-separated list.  Unlike other filters
+        // (such as tags) there is no difference between a comma and pipe
+        // separated list.
+        filter.slug = nameOrSlug.split(',').map(slugify)
+      } else {
+        filter.slug = nameOrSlug.split('|').map(slugify)
       }
-      filter.slug = nameOrSlug.split('|').map(slugify)
     }
 
     // Fetch paginated results
