@@ -24,6 +24,7 @@ Quotable is a free, open source quotations API. It was originally built as part 
 
 - [Basic Quote Machine (CodePen)](https://codepen.io/lukePeavey/pen/RwNVeQG)
 - [React Quote Machine (CodeSandbox)](https://codesandbox.io/s/quotable-demo-react-e7zm1?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=dark)
+- [React Native App (Github)](https://github.com/siddsarkar/SociQuote)
 - [Paginated Author List (codeSandbox)](https://codesandbox.io/s/quotable-author-list-2-14le9)
 - [Paginated Quote List (codeSandbox)](https://codesandbox.io/s/quotable-get-quotes-with-author-details-iyxw8)
 
