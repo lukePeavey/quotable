@@ -22,6 +22,7 @@ Quotable is a free, open source quotations API. It was originally built as part 
 
 ## Examples <!-- omit in toc -->
 
+- [Quote Factory (Bruzu.com)](https://bruzu.com/demos/quotes/)
 - [Basic Quote Machine (CodePen)](https://codepen.io/lukePeavey/pen/RwNVeQG)
 - [React Quote Machine (CodeSandbox)](https://codesandbox.io/s/quotable-demo-react-e7zm1?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=dark)
 - [React Native App (Github)](https://github.com/siddsarkar/SociQuote)
