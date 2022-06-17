@@ -1,4 +1,11 @@
-# Quotable
+## :warning: API is Temporarily Down :warning: 
+
+This issue has been reported. We are looking into it now. I will provide an update as soon I have more information. 
+
+For updates, see [#132](https://github.com/lukePeavey/quotable/discussions/132). 
+
+---
+
 
 Quotable is a free, open source quotations API. It was originally built as part of a [FreeCodeCamp](https://www.freecodecamp.org/) project. If you are interested in contributing, please check out the [Contributors Guide](CONTRIBUTING.md).
 
