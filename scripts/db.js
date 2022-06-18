@@ -10,7 +10,6 @@ export async function connect() {
     await mongoose.connect(MONGODB_URI, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
-      useCreateIndex: true,
       connectTimeoutMS: 1000,
     })
   } catch (error) {
