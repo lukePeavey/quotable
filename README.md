@@ -1,11 +1,4 @@
-## :warning: API is Temporarily Down :warning: 
-
-This issue has been reported. We are looking into it now. I will provide an update as soon I have more information. 
-
-For updates, see [#132](https://github.com/lukePeavey/quotable/discussions/132). 
-
----
-
+# Quotable
 
 Quotable is a free, open source quotations API. It was originally built as part of a [FreeCodeCamp](https://www.freecodecamp.org/) project. If you are interested in contributing, please check out the [Contributors Guide](CONTRIBUTING.md).
 
@@ -46,12 +39,12 @@ Returns a single random quote from the database
 **Query parameters**
 
 | param     | type     | Description                                                                                                                                                                                                                                                                                                                          |
-| :-------- | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| :-------- | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
 | maxLength | `Int`    | The maximum Length in characters ( can be combined with `minLength` )                                                                                                                                                                                                                                                                |
 | minLength | `Int`    | The minimum Length in characters ( can be combined with `maxLength` )                                                                                                                                                                                                                                                                |
 | tags      | `String` | Get a random quote with specific tag(s). This takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **any one** of the provided tags. |
 | author    | `String` | Get a random quote by one or more authors. The value can be an author `name` or `slug`. To include quotes by multiple authors, provide a pipe-separated list of author names/slugs.                                                                                                                                                  |
-| authorId  | `String` | `deprecated` <br><br> Same as `author` param, except it uses author `_id` instead of `slug`                                                                                                                                                                                                                                          |  |
+| authorId  | `String` | `deprecated` <br><br> Same as `author` param, except it uses author `_id` instead of `slug`                                                                                                                                                                                                                                          |     |
 
 **Response**
 
