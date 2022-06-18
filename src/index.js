@@ -13,7 +13,6 @@ async function run() {
     await mongoose.connect(MONGODB_URI, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
-      useCreateIndex: true,
     })
     app.listen(PORT, () => {
       console.log(`Quotable is running on port: ${PORT}`)
