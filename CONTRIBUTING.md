@@ -2,18 +2,6 @@
 
 All contributions are greatly appreciated!
 
-## Report downtime
-
-You can check the status of the API server [here](https://downfor.io/quotable.io).
-
-There is a designated category in the Discussions area to report downtime.
-
-[check here](https://github.com/lukePeavey/quotable/discussions/categories/report-downtime) to see if the problem has already been reported. If so, please comment on the existing discussion rather than creating a new one.
-
-![](https://user-images.githubusercontent.com/8286271/125713493-862f9fd6-a01f-496c-bdcc-1d66c524d869.jpg)
-
-If the problem **has not** been reported, [start a new discussion](https://github.com/lukePeavey/quotable/discussions/categories/report-downtime). Include a description of the problem and any details that might be helpful.
-
 ## Discussions
 
 Use the Discussion area to ask questions, get help, discuss ideas, etc.

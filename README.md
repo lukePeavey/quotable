@@ -1,6 +1,13 @@
 # Quotable
 
+[![CI Tests](https://github.com/lukePeavey/quotable/actions/workflows/tests.yml/badge.svg)](https://github.com/lukePeavey/quotable/actions/workflows/tests.yml)&nbsp; &nbsp; ![api-status-check](https://badgen.net/https/quotable-api-test-lcztnjwfqevy.runkit.sh/)
+
 Quotable is a free, open source quotations API. It was originally built as part of a [FreeCodeCamp](https://www.freecodecamp.org/) project. If you are interested in contributing, please check out the [Contributors Guide](CONTRIBUTING.md).
+
+**How to report downtime**
+
+1. Check the [server status](https://downfor.io/quotable.io) to see if its down for everyone.
+2. Check [here](https://github.com/lukePeavey/quotable/labels/%3Awarning%3A%20API%20is%20down) to see if the problem has already been reported. **If there is an open issue, please do not create another one.** If not, [open an issue](https://github.com/lukePeavey/quotable/issues/new/choose) and select the "Report Downtime" template.
 
 **Servers**
 
@@ -11,6 +18,7 @@ Quotable is a free, open source quotations API. It was originally built as part 
 
 ## API Reference <!-- omit in toc -->
 
+- [Reporting Downtime](#reporting-downtime)
 - [Get random quote](#get-random-quote)
 - [List Quotes](#list-quotes)
 - [Get Quote By ID](#get-quote-by-id)
@@ -38,7 +46,7 @@ Returns a single random quote from the database
 
 **Query parameters**
 
-| param     | type     | Description                                                                                                                                                                                                                                                                                                                          |      |
+| param     | type     | Description                                                                                                                                                                                                                                                                                                                          |     |
 | :-------- | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
 | maxLength | `Int`    | The maximum Length in characters ( can be combined with `minLength` )                                                                                                                                                                                                                                                                |
 | minLength | `Int`    | The minimum Length in characters ( can be combined with `maxLength` )                                                                                                                                                                                                                                                                |
