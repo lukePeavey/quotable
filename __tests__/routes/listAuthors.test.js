@@ -1,14 +1,14 @@
 import request from 'supertest'
 import { stringify } from 'query-string'
-import sortBy from 'lodash/sortBy'
-import app from '../../src/app'
-import * as db from '../../scripts/db'
-import Authors from '../../src/models/Authors'
+import app from '../../src/app.js'
+import MongoClient from '../../src/MongoClient.js'
+import Authors from '../../src/models/Authors.js'
 
+const db = new MongoClient()
 let authorCount
 let sortedAuthors
-
 const getId = obj => obj._id
+
 // Setup
 beforeAll(async () => {
   await db.connect()
@@ -16,7 +16,9 @@ beforeAll(async () => {
   authorCount = await Authors.countDocuments({})
 })
 // Teardown
-afterAll(async () => db.close())
+afterAll(async () => {
+  await db.disconnect()
+})
 
 describe('GET /authors', () => {
   it('Response matches schema', async () => {

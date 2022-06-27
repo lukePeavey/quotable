@@ -1,8 +1,8 @@
 import createError from 'http-errors'
-import slugify from '../utils/slug'
-import Authors from '../../models/Authors'
-import getSortParams from '../utils/getSortParams'
-import getPaginationParams from '../utils/getPaginationParams'
+import slugify from '../utils/slug.js'
+import Authors from '../../models/Authors.js'
+import getSortParams from '../utils/getSortParams.js'
+import getPaginationParams from '../utils/getPaginationParams.js'
 
 /**
  * Get all authors that match a given query. By default, this method returns

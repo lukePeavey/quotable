@@ -1,9 +1,9 @@
-import clamp from 'lodash/clamp'
+import { clamp } from 'lodash-es'
 import createError from 'http-errors'
-import Authors from '../../models/Authors'
-import toBoolean from '../utils/toBoolean'
-import parseName from '../utils/parseName'
-import getPaginationParams from '../utils/getPaginationParams'
+import Authors from '../../models/Authors.js'
+import toBoolean from '../utils/toBoolean.js'
+import parseName from '../utils/parseName.js'
+import getPaginationParams from '../utils/getPaginationParams.js'
 
 /**
  * Search Operators

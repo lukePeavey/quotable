@@ -1,14 +1,13 @@
 import { Router } from 'express'
-import listQuotes from './controllers/quotes/listQuotes'
-import getQuoteById from './controllers/quotes/getQuoteById'
-import searchQuotes from './controllers/search/searchQuotes'
-import searchAuthors from './controllers/search/searchAuthors'
-import randomQuote from './controllers/quotes/randomQuote'
-import listAuthors from './controllers/authors/listAuthors'
-import getAuthorById from './controllers/authors/getAuthorById'
-import getAuthorBySlug from './controllers/authors/getAuthorBySlug'
-
-import listTags from './controllers/tags/listTags'
+import listQuotes from './controllers/quotes/listQuotes.js'
+import getQuoteById from './controllers/quotes/getQuoteById.js'
+import searchQuotes from './controllers/search/searchQuotes.js'
+import searchAuthors from './controllers/search/searchAuthors.js'
+import randomQuote from './controllers/quotes/randomQuote.js'
+import listAuthors from './controllers/authors/listAuthors.js'
+import getAuthorById from './controllers/authors/getAuthorById.js'
+import getAuthorBySlug from './controllers/authors/getAuthorBySlug.js'
+import listTags from './controllers/tags/listTags.js'
 
 const router = Router()
 
