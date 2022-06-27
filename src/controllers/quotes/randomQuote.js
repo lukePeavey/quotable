@@ -1,23 +1,17 @@
 import createError from 'http-errors'
-import Quotes from '../../models/Quotes'
-import Authors from '../../models/Authors'
-import getTagsFilter from '../utils/getTagsFilter'
-import getLengthFilter from '../utils/getLengthFilter'
-import slug from '../utils/slug'
+import Quotes from '../../models/Quotes.js'
+import Authors from '../../models/Authors.js'
+import getTagsFilter from '../utils/getTagsFilter.js'
+import getLengthFilter from '../utils/getLengthFilter.js'
+import slug from '../utils/slug.js'
 
 /**
  * Get a single random quote
  */
 export default async function getRandomQuote(req, res, next) {
   try {
-    const {
-      minLength,
-      maxLength,
-      tags,
-      author,
-      authorId,
-      authorSlug,
-    } = req.query
+    const { minLength, maxLength, tags, author, authorId, authorSlug } =
+      req.query
 
     const filter = {}
 

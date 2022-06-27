@@ -1,11 +1,17 @@
 import request from 'supertest'
 import { stringify } from 'query-string'
-import app from '../../src/app'
-import * as db from '../../scripts/db'
+import app from '../../src/app.js'
+import MongoClient from '../../src/MongoClient.js'
 
-beforeAll(async () => db.connect())
+const db = new MongoClient()
 
-afterAll(async () => db.close())
+beforeAll(async () => {
+  await db.connect()
+})
+// Teardown
+afterAll(async () => {
+  await db.disconnect()
+})
 
 describe('GET /search/quotes', () => {
   it(`Response is OK`, async () => {

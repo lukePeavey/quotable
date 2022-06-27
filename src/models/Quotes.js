@@ -1,5 +1,7 @@
-import { Schema, model } from 'mongoose'
+import mongoose from 'mongoose'
 import shortid from 'shortid'
+
+const { Schema, model } = mongoose
 
 const QuoteSchema = new Schema({
   // @internal

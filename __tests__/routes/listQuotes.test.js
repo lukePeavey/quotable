@@ -1,12 +1,12 @@
 import request from 'supertest'
-import last from 'lodash/last'
-import first from 'lodash/first'
+import { last, first } from 'lodash-es'
 import { stringify } from 'query-string'
-import app from '../../src/app'
-import * as db from '../../scripts/db'
-import Authors from '../../src/models/Authors'
-import Quotes from '../../src/models/Quotes'
+import app from '../../src/app.js'
+import MongoClient from '../../src/MongoClient.js'
+import Authors from '../../src/models/Authors.js'
+import Quotes from '../../src/models/Quotes.js'
 
+const db = new MongoClient()
 // This tag will be used as the value of the `tag` param in tests
 let singleTag
 // `multipleTags` is a array tags that will be used as the value of the
@@ -35,8 +35,11 @@ beforeAll(async () => {
   singleTag = first(multipleTags)
   singleAuthor = await Authors.findOne({})
 })
+
 // Teardown
-afterAll(async () => db.close())
+afterAll(async () => {
+  await db.disconnect()
+})
 
 describe('GET /quotes', () => {
   test('Response matches schema', async () => {

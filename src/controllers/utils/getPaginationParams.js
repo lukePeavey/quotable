@@ -1,7 +1,5 @@
-import clamp from 'lodash/clamp'
-import * as config from '../../config'
-
-const { MAX_LIMIT, DEFAULT_LIMIT } = config
+import { clamp } from 'lodash-es'
+import { MAX_LIMIT, DEFAULT_LIMIT } from '../../constants.js'
 
 /**
  * Processes pagination params for all endpoints.

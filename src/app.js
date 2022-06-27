@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
-import routes from './routes'
-import { handle404, logErrors, handleErrors } from './handleErrors'
+import routes from './routes.js'
+import { handle404, logErrors, handleErrors } from './handleErrors.js'
 
 /** The Express app */
 const app = express()

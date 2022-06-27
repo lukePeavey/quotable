@@ -47,7 +47,7 @@ function parseSortOrder(params = {}) {
  *   quoteCount: { field: 'quoteCount', order: -1 },
  * }
  */
-export default function getSortParams(params = {}, config) {
+export default function getSortParams(params = {}, config = {}) {
   if (!config.default) {
     throw new Error('config object must include a "default" property')
   }

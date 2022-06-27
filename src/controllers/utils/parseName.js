@@ -1,5 +1,4 @@
-import toWords from 'lodash/words'
-import toLower from 'lodash/toLower'
+import { words as toWords, toLower } from 'lodash-es'
 
 // List of prefixes
 const prefix = [
@@ -41,9 +40,9 @@ const suffix = [
 const stopwords = ['the', 'of', 'de']
 
 // Array of regExps for prefixes, suffixes, stopwords
-const regExps = [prefix, suffix, stopwords].map(list => {
-  return new RegExp(`^(${list.join('|')})$`, 'i')
-})
+const regExps = [prefix, suffix, stopwords].map(
+  list => new RegExp(`^(${list.join('|')})$`, 'i')
+)
 
 /**
  * Returns `true` if the given `word` is a search term. For this case,

@@ -1,10 +1,10 @@
 import createError from 'http-errors'
-import Quotes from '../../models/Quotes'
-import getTagsFilter from '../utils/getTagsFilter'
-import getLengthFilter from '../utils/getLengthFilter'
-import getPaginationParams from '../utils/getPaginationParams'
-import getSortParams from '../utils/getSortParams'
-import slug from '../utils/slug'
+import Quotes from '../../models/Quotes.js'
+import getTagsFilter from '../utils/getTagsFilter.js'
+import getLengthFilter from '../utils/getLengthFilter.js'
+import getPaginationParams from '../utils/getPaginationParams.js'
+import getSortParams from '../utils/getSortParams.js'
+import slug from '../utils/slug.js'
 
 /**
  * Get multiple quotes from the database.

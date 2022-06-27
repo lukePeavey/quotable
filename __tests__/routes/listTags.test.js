@@ -1,10 +1,18 @@
 import request from 'supertest'
-import app from '../../src/app'
-import * as db from '../../scripts/db'
+import app from '../../src/app.js'
+import MongoClient from '../../src/MongoClient.js'
 
-beforeAll(async () => db.connect())
+const db = new MongoClient()
 
-afterAll(async () => db.close())
+// Setup
+beforeAll(async () => {
+  await db.connect()
+})
+
+// Teardown
+afterAll(async () => {
+  await db.disconnect()
+})
 
 describe('GET /tags', () => {
   it('Response matches schema', async () => {
