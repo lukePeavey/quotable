@@ -19,10 +19,8 @@
     "dev": "NODE_ENV=development nodemon src/index.js",
     "start:dev": "npm run dev",
     "lint": "./node_modules/.bin/eslint . --color && echo \"eslint: no lint errors\"",
-    "build": "npx babel src --out-dir dist --copy-files",
     "test": "jest --setupFiles dotenv/config --verbose",
     "test:watch": "jest --setupFiles dotenv/config --watchAll --verbose",
-    "database:seed": "babel-node --require dotenv/config scripts/seedDatabase.js",
     "deploy:production": "heroku pipelines:promote -a quotable-api-staging"
   },
   "lint-staged": {
