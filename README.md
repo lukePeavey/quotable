@@ -1,6 +1,6 @@
 # Quotable
 
-[![CI Tests](https://github.com/lukePeavey/quotable/actions/workflows/tests.yml/badge.svg)](https://github.com/lukePeavey/quotable/actions/workflows/tests.yml)&nbsp; &nbsp; ![api-status-check](https://badgen.net/https/quotable-api-test-lcztnjwfqevy.runkit.sh/)
+[![CI Tests](https://github.com/lukePeavey/quotable/actions/workflows/tests.yml/badge.svg)](https://github.com/lukePeavey/quotable/actions/workflows/tests.yml)&nbsp; &nbsp; 
 
 Quotable is a free, open source quotations API. It was originally built as part of a [FreeCodeCamp](https://www.freecodecamp.org/) project. If you are interested in contributing, please check out the [Contributors Guide](CONTRIBUTING.md).
 
