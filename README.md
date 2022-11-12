@@ -489,17 +489,17 @@ GET /search/authors?query=Einstein
 >
 > - Albert Einstein
 
-Autocomplete search for "Einstein" ([try in browswer](https://api.quotable.io/search/authors?query=Einst))
+Autocomplete search for "Einstein" ([try in browser](https://api.quotable.io/search/authors?query=Einst))
 
 ```HTTP
-GET /search/authors?query=Einst
+GET /search/authors?query=Einstein
 ```
 
 > Results:
 >
 > - Albert Einstein
 
-Search for "John Adams" ([try in browswer](https://api.quotable.io/search/authors?query=john+adams))
+Search for "John Adams" ([try in browser](https://api.quotable.io/search/authors?query=john+adams))
 
 ```HTTP
 GET /search/authors?query=john adams
@@ -510,7 +510,7 @@ GET /search/authors?query=john adams
 > - John Adams
 > - John Quincy Adams
 
-Search for "John Quincy Adams" ([try in browswer](https://api.quotable.io/search/authors?query=john+quincy+adams))
+Search for "John Quincy Adams" ([try in browser](https://api.quotable.io/search/authors?query=john+quincy+adams))
 
 ```HTTP
 GET /search/authors?query=john quincy adams
