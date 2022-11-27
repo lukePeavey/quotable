@@ -6,7 +6,8 @@ import limiter from './rateLimit.js'
 /** The Express app */
 const app = express()
 app.use(cors())
-// app.use(limiter)
+app.use(limiter)
+app.set('trust proxy', 1)
 // Redirect the root URL to the github repository
 app.get('/', (req, res) => {
   res.redirect('https://github.com/lukePeavey/quotable')
