@@ -1,14 +1,18 @@
 # Quotable
 
-## 📢 announcement
-
-we have added a rate limit, which is currently set to 100 requests per minute. this was necessary to prevent downtime.
-
-If you have comments / questions please see #165
-
 [![CI Tests](https://github.com/lukePeavey/quotable/actions/workflows/tests.yml/badge.svg)](https://github.com/lukePeavey/quotable/actions/workflows/tests.yml)&nbsp; &nbsp; 
 
 Quotable is a free, open source quotations API. It was originally built as part of a [FreeCodeCamp](https://www.freecodecamp.org/) project. If you are interested in contributing, please check out the [Contributors Guide](CONTRIBUTING.md).
+
+---
+
+### 📢 announcement
+
+we have added a rate limit, which is currently set to 100 requests per minute. this was necessary to prevent downtime.
+
+If you have questions or comments, please see [#165](https://github.com/lukePeavey/quotable/issues/165)
+
+---
 
 **How to report downtime**
 
