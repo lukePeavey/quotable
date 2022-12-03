@@ -10,6 +10,7 @@ import getAuthorBySlug from './controllers/authors/getAuthorBySlug.js'
 import listTags from './controllers/tags/listTags.js'
 
 const router = Router()
+// @private (for debugging purposes)
 router.get('/internal/uip', (request, response) => response.send(request.ip))
 /**------------------------------------------------
  ** Quotes
