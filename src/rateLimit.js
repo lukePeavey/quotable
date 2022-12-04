@@ -14,4 +14,10 @@ export default rateLimit({
   standardHeaders: true,
   // Disable the `X-RateLimit-*` headers
   legacyHeaders: false,
+  // Handle response when rate limit has been exceeded
+  handler: (_, response) => {
+    const statusCode = 429
+    const statusMessage = 'Too Many Requests'
+    response.status(statusCode).json({ statusCode, statusMessage })
+  },
 })
