@@ -492,7 +492,7 @@ GET /search/authors?query=Einstein
 Autocomplete search for "Einstein" ([try in browser](https://api.quotable.io/search/authors?query=Einst))
 
 ```HTTP
-GET /search/authors?query=Einstein
+GET /search/authors?query=Einst
 ```
 
 > Results:
