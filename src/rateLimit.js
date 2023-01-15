@@ -1,5 +1,6 @@
 import rateLimit from 'express-rate-limit'
 
+const LIMIT = process.env.RATE_LIMIT || 150
 const MINUTE = 60 * 1000
 const HOUR = 60 * 60 * 1000
 
@@ -7,7 +8,7 @@ const HOUR = 60 * 60 * 1000
 // Sets a rate limit of 150 requests per minute (by IP address)
 export default rateLimit({
   // The maximum number of requests that can be made within the specified time window
-  max: 150,
+  max: LIMIT,
   // The time window for the the rate limit
   windowMs: MINUTE,
   // Return rate limit info in the `RateLimit-*` headers

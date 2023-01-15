@@ -1,34 +1,31 @@
 # Quotable
 
-[![CI Tests](https://github.com/lukePeavey/quotable/actions/workflows/tests.yml/badge.svg)](https://github.com/lukePeavey/quotable/actions/workflows/tests.yml)&nbsp; &nbsp; 
+[![CI Tests](https://github.com/lukePeavey/quotable/actions/workflows/tests.yml/badge.svg)](https://github.com/lukePeavey/quotable/actions/workflows/tests.yml)&nbsp; &nbsp;
 
 Quotable is a free, open source quotations API. It was originally built as part of a [FreeCodeCamp](https://www.freecodecamp.org/) project. If you are interested in contributing, please check out the [Contributors Guide](CONTRIBUTING.md).
 
 ---
 
-### 📢 announcement
+#### How to report downtime
 
-we have added a rate limit, which is currently set to 100 requests per minute. this was necessary to prevent downtime.
+1. You can check the status of the API server [here](https://downfor.io/quotable.io). This will tell you if the API is down for everyone.
+2. Check [here](https://github.com/lukePeavey/quotable/labels/%3Awarning%3A%20API%20is%20down) to see if the issue has been reported already.
+3. [open an issue](https://github.com/lukePeavey/quotable/issues/new/choose) and choose the "Report Downtime" template.
 
-If you have questions or comments, please see [#165](https://github.com/lukePeavey/quotable/issues/165)
+#### Rate Limit
 
----
+There is a rate limit of **`150` requests per minute**, per IP address.
 
-**How to report downtime**
+If you have a project that requires a higher request limit, please reach out to me in the [discussions](https://github.com/lukePeavey/quotable/discussions) section.
 
-1. Check the [server status](https://downfor.io/quotable.io) to see if its down for everyone.
-2. Check [here](https://github.com/lukePeavey/quotable/labels/%3Awarning%3A%20API%20is%20down) to see if the problem has already been reported. **If there is an open issue, please do not create another one.** If not, [open an issue](https://github.com/lukePeavey/quotable/issues/new/choose) and select the "Report Downtime" template.
+#### API Server
 
-**Servers**
-
-| Name       | URL                 | Description                                                                                                                                                                                                        |
-| :--------- | :------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Production | api.quotable.io     | The public API server                                                                                                                                                                                              |
-| Staging    | staging.quotable.io | **The staging server is for testing purposes only.** The master branch automatically deploys to the staging server after every commit. Once changes have been tested they will be pushed to the production server. |
+```http
+api.quotable.io/
+```
 
 ## API Reference <!-- omit in toc -->
 
-- [Reporting Downtime](#reporting-downtime)
 - [Get random quote](#get-random-quote)
 - [List Quotes](#list-quotes)
 - [Get Quote By ID](#get-quote-by-id)

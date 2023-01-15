@@ -21,18 +21,8 @@
     "lint": "./node_modules/.bin/eslint . --color && echo \"eslint: no lint errors\"",
     "test": "jest --setupFiles dotenv/config --verbose",
     "test:watch": "jest --setupFiles dotenv/config --watchAll --verbose",
-    "deploy:production": "heroku pipelines:promote -a quotable-api-staging"
-  },
-  "lint-staged": {
-    "**/*.{js,css,json,md}": [
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "deploy:production": "heroku pipelines:promote -a quotable-api-staging",
+    "prepare": "husky install"
   },
   "dependencies": {
     "chalk": "^5.0.1",
@@ -57,7 +47,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.20.1",
-    "husky": "^8.0.1",
+    "husky": "^7.0.0",
     "jest": "^28.1.1",
     "lint-staged": "^13.0.2",
     "nodemon": "^2.0.2",

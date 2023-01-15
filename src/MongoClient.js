@@ -3,6 +3,8 @@ import mongoose from 'mongoose'
 
 const { MONGODB_URI } = process.env
 
+mongoose.set('strictQuery', false)
+
 const defaults = {
   useUnifiedTopology: true,
   useNewUrlParser: true,
