@@ -4,24 +4,14 @@
 
 Quotable is a free, open source quotations API. It was originally built as part of a [FreeCodeCamp](https://www.freecodecamp.org/) project. If you are interested in contributing, please check out the [Contributors Guide](CONTRIBUTING.md).
 
----
-
-### How to report downtime
-
-1. You can check the status of the API server [here](https://downfor.io/quotable.io). This will tell you if the API is down for everyone.
-2. Check [here](https://github.com/lukePeavey/quotable/labels/%3Awarning%3A%20API%20is%20down) to see if the issue has been reported already.
-3. [open an issue](https://github.com/lukePeavey/quotable/issues/new/choose) and choose the "Report Downtime" template.
-
 ### Rate Limit
 
-There is a rate limit of **`150` requests per minute**, per IP address.
+There is a rate limit of **180 requests per minute**, per IP address. If you exceed the rate limit, the API will respond with a `429` error.
 
-If you have a project that requires a higher request limit, please reach out to me in the [discussions](https://github.com/lukePeavey/quotable/discussions) section.
-
-### API Server
+### API Servers
 
 ```
-api.quotable.io/
+https://api.quotable.io
 ```
 
 ## API Reference <!-- omit in toc -->
