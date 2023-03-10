@@ -17,6 +17,7 @@ https://api.quotable.io
 ## API Reference <!-- omit in toc -->
 
 - [Get random quote](#get-random-quote)
+- [Get Random Quotes (beta)](#get-random-quotes-beta)
 - [List Quotes](#list-quotes)
 - [Get Quote By ID](#get-quote-by-id)
 - [List Authors](#list-authors)
@@ -103,6 +104,90 @@ GET /random?minLength=100&maxLength=140
 
 <br>
 
+## Get Random Quotes (beta)
+
+```HTTP
+GET /quotes/random
+```
+
+Get one or more random quotes from the database.  This method supports several filters that can be used to get random quotes with specific properties (ie tags, quote length, etc.)
+
+By default, this methods returns a single random quote. You can specify the number of random quotes to return via the `limit` parameter.  
+
+> ⚠️ This method is similar to the `/random` endpoint. The only difference is the response format:
+> 
+> Instead of retuning a single `Quote` object, this method returns an `Array` of `Quote` objects.
+
+
+<br>
+
+| param     | type     | Description                                                                                                                                                                                                                                                                                                                          | 
+| :-------- | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | 
+| limit     | `Int`    | `default: 1` &nbsp; `min: 1` &nbsp; `max: 50` <br> The number of random quotes to retrieve.                                                                                                                                                                       |
+| maxLength | `Int`    | The maximum Length in characters ( can be combined with `minLength` )                                                                                                                                                                                                                                                                |
+| minLength | `Int`    | The minimum Length in characters ( can be combined with `maxLength` )                                                                                                                                                                                                                                                                |
+| tags      | `String` | Get a random quote with specific tag(s). This takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **any one** of the provided tags. |
+| author    | `String` | Get a random quote by one or more authors. The value can be an author `name` or `slug`. To include quotes by multiple authors, provide a pipe-separated list of author names/slugs.                                                                                                                                                  |
+| authorId  | `String` | `deprecated` <br><br> Same as `author` param, except it uses author `_id` instead of `slug`                                                                                                                                                                                                                                          | 
+
+**Response**
+
+```ts
+// An array containing one or more Quotes
+Array<{
+  _id: string
+  // The quotation text
+  content: string
+  // The full name of the author
+  author: string
+  // The `slug` of the quote author
+  authorSlug: string
+  // The length of quote (number of characters)
+  length: number
+  // An array of tag names for this quote
+  tags: string[]
+}>
+```
+
+
+**Examples**
+
+Get random quote [try in browser](https://api.quotable.io/quotes/random)
+
+```HTTP
+GET /quotes/random
+```
+
+Get 5 random quotes [try in browser](https://api.quotable.io/quotes/random?limit=3)
+
+```HTTP
+GET /quotes/random?limit=3
+```
+
+
+Random Quote with tags "technology" **`AND`** "famous-quotes" [try in browser](https://api.quotable.io/quotes/random?tags=technology,famous-quotes)
+
+```HTTP
+GET /quotes/random?tags=technology,famous-quotes
+```
+
+Random Quote with tags "History" **`OR`** "Civil Rights" [try in browser](https://api.quotable.io/quotes/random?tags=history|civil-rights)
+
+```HTTP
+GET /quotes/random?tags=history|civil-rights
+```
+
+Random Quote with a maximum length of 50 characters [try in browser](https://api.quotable.io/quotes/random?maxLength=50)
+
+```HTTP
+GET /quotes/random?maxLength=50
+```
+
+Random Quote with a length between 100 and 140 characters [try in browser](https://api.quotable.io/quotes/random?minLength=100&maxLength=140)
+
+```HTTP
+GET /quotes/random?minLength=100&maxLength=140
+```
 ## List Quotes
 
 ```HTTP
