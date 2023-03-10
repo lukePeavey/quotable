@@ -77,7 +77,7 @@ export default async function getRandomQuote(req, res, next) {
       // Apply filters (if any)
       { $match: filter },
       // Select n random quotes from the database, where n = limit
-      { $sample: { size: limit } },
+      { $sample: { size } },
       { $project: { __v: 0, authorId: 0 } },
     ])
     const count = results.length

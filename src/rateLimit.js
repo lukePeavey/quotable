@@ -1,6 +1,6 @@
 import rateLimit from 'express-rate-limit'
 
-const LIMIT = process.env.RATE_LIMIT || 150
+const LIMIT = process.env.RATE_LIMIT || 180
 const MINUTE = 60 * 1000
 const HOUR = 60 * 60 * 1000
 
