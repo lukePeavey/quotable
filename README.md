@@ -110,20 +110,20 @@ GET /random?minLength=100&maxLength=140
 GET /quotes/random
 ```
 
-Get a random quote (or quotes) from the database.  This method supports several filters that can be used to get random quotes with specific properties (ie tags, quote length, etc.)
+Get one or more random quotes from the database.  This method supports several filters that can be used to get random quotes with specific properties (ie tags, quote length, etc.)
 
 By default, this methods returns a single random quote. You can specify the number of random quotes to return via the `limit` parameter.  
 
-> ⚠️ This method is equivalent to the `/random` endpoint. The only difference is the response format:
+> ⚠️ This method is similar to the `/random` endpoint. The only difference is the response format:
 > 
-> Instead of retuning a single `Quote` object, this method returns an array of `Quote` objects.  This makes it possible to specify the number of random quotes to retrieve. 
+> Instead of retuning a single `Quote` object, this method returns an `Array` of `Quote` objects.
 
 
 <br>
 
 | param     | type     | Description                                                                                                                                                                                                                                                                                                                          | 
 | :-------- | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | 
-| limit     | `Int`    | `default: 1` &nbsp; `min: 1` &nbsp; `max: 100` <br> The number of random quotes to retrieve.                                                                                                                                                                       |
+| limit     | `Int`    | `default: 1` &nbsp; `min: 1` &nbsp; `max: 50` <br> The number of random quotes to retrieve.                                                                                                                                                                       |
 | maxLength | `Int`    | The maximum Length in characters ( can be combined with `minLength` )                                                                                                                                                                                                                                                                |
 | minLength | `Int`    | The minimum Length in characters ( can be combined with `maxLength` )                                                                                                                                                                                                                                                                |
 | tags      | `String` | Get a random quote with specific tag(s). This takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **any one** of the provided tags. |
