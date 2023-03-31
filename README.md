@@ -243,31 +243,31 @@ Get all quotes matching a given query. By default, this will return a paginated 
 
 **Examples**
 
-Get the first page of quotes, with 20 results per page [try in browser](https://quotable.io/quotes?page=1)
+Get the first page of quotes, with 20 results per page [try in browser](https://api.quotable.io/quotes?page=1)
 
 ```HTTP
 GET /quotes?page=1
 ```
 
-Get the second page of quotes, with 20 results per page [try in browser](https://quotable.io/quotes?page=2)
+Get the second page of quotes, with 20 results per page [try in browser](https://api.quotable.io/quotes?page=2)
 
 ```HTTP
 GET /quotes?page=2
 ```
 
-Get all quotes with the tags `love` `OR` `happiness` [try in browser](https://quotable.io/quotes?tags=love|happiness)
+Get all quotes with the tags `love` `OR` `happiness` [try in browser](https://api.quotable.io/quotes?tags=love|happiness)
 
 ```HTTP
 GET /quotes?tags=love|happiness
 ```
 
-Get all quotes with the tags `technology` `AND` `famous-quotes` [try in browser](https://quotable.io/quotes?tags=technology,famous-quotes)
+Get all quotes with the tags `technology` `AND` `famous-quotes` [try in browser](https://api.quotable.io/quotes?tags=technology,famous-quotes)
 
 ```HTTP
 GET /quotes?tags=technology,famous-quotes
 ```
 
-Get all quotes by author, using the author's `slug`. [try in browser](https://quotable.io/quotes?author=albert-einstein)
+Get all quotes by author, using the author's `slug`. [try in browser](https://api.quotable.io/quotes?author=albert-einstein)
 
 ```HTTP
 GET /quotes?author=albert-einstein
@@ -357,25 +357,25 @@ Get all authors matching the given query. This endpoint can be used to list auth
 
 **Examples**
 
-Get all authors, sorted alphabetically by name [try in browser](https://quotable.io/authors?sortBy=name&order=asc)
+Get all authors, sorted alphabetically by name [try in browser](https://api.quotable.io/authors?sortBy=name&order=asc)
 
 ```HTTP
 GET /authors?sortBy=name
 ```
 
-Get all authors, sorted by number of quotes in descending order [try in browser](https://quotable.io/authors?sortBy=quoteCount&order=desc)
+Get all authors, sorted by number of quotes in descending order [try in browser](https://api.quotable.io/authors?sortBy=quoteCount&order=desc)
 
 ```HTTP
 GET /authors?sortBy=quoteCount&order=desc
 ```
 
-Get a single author by slug. [try in browser](https://quotable.io/authors?slug=albert-einstein)
+Get a single author by slug. [try in browser](https://api.quotable.io/authors?slug=albert-einstein)
 
 ```HTTP
 GET /authors?slug=albert-einstein
 ```
 
-Get multiple authors by slug. In this case, you provide a pipe-separated list of slugs [try in browser](https://quotable.io/authors?slug=albert-einstein|abraham-lincoln)
+Get multiple authors by slug. In this case, you provide a pipe-separated list of slugs [try in browser](https://api.quotable.io/authors?slug=albert-einstein|abraham-lincoln)
 
 ```HTTP
 GET /authors?slug=albert-einstein|abraham-lincoln
@@ -571,7 +571,7 @@ GET /search/authors?query=Einstein
 >
 > - Albert Einstein
 
-Autocomplete search for "Einstein" ([try in browswer](https://api.quotable.io/search/authors?query=Einst))
+Autocomplete search for "Einstein" ([try in browser](https://api.quotable.io/search/authors?query=Einst))
 
 ```HTTP
 GET /search/authors?query=Einst
@@ -581,7 +581,7 @@ GET /search/authors?query=Einst
 >
 > - Albert Einstein
 
-Search for "John Adams" ([try in browswer](https://api.quotable.io/search/authors?query=john+adams))
+Search for "John Adams" ([try in browser](https://api.quotable.io/search/authors?query=john+adams))
 
 ```HTTP
 GET /search/authors?query=john adams
@@ -592,7 +592,7 @@ GET /search/authors?query=john adams
 > - John Adams
 > - John Quincy Adams
 
-Search for "John Quincy Adams" ([try in browswer](https://api.quotable.io/search/authors?query=john+quincy+adams))
+Search for "John Quincy Adams" ([try in browser](https://api.quotable.io/search/authors?query=john+quincy+adams))
 
 ```HTTP
 GET /search/authors?query=john quincy adams
