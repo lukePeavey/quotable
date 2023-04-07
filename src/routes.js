@@ -9,10 +9,13 @@ import listAuthors from './controllers/authors/listAuthors.js'
 import getAuthorById from './controllers/authors/getAuthorById.js'
 import getAuthorBySlug from './controllers/authors/getAuthorBySlug.js'
 import listTags from './controllers/tags/listTags.js'
+import getDocumentCount from './controllers/info/getDocumentCount.js'
 
 const router = Router()
 // @private (for debugging purposes)
 router.get('/internal/uip', (request, response) => response.send(request.ip))
+
+router.get('/info/count', getDocumentCount)
 /**------------------------------------------------
  ** Quotes
  **-----------------------------------------------*/
