@@ -1,10 +1,11 @@
 import { Router } from 'express'
+import createError from 'http-errors'
 import listQuotes from './controllers/quotes/listQuotes.js'
 import getQuoteById from './controllers/quotes/getQuoteById.js'
 import searchQuotes from './controllers/search/searchQuotes.js'
 import searchAuthors from './controllers/search/searchAuthors.js'
-import randomQuote from './controllers/quotes/randomQuote.js'
-import randomQuotes from './controllers/quotes/randomQuote.v2.js'
+import singleRandomQuote from './controllers/quotes/singleRandomQuote.js'
+import randomQuotes from './controllers/quotes/randomQuotes.js'
 import listAuthors from './controllers/authors/listAuthors.js'
 import getAuthorById from './controllers/authors/getAuthorById.js'
 import getAuthorBySlug from './controllers/authors/getAuthorBySlug.js'
@@ -16,13 +17,15 @@ const router = Router()
 router.get('/internal/uip', (request, response) => response.send(request.ip))
 
 router.get('/info/count', getDocumentCount)
+
 /**------------------------------------------------
  ** Quotes
  **-----------------------------------------------*/
-router.get('/quotes', listQuotes)
 router.get('/quotes/random', randomQuotes)
+router.get('/random', singleRandomQuote)
+
+router.get('/quotes', listQuotes)
 router.get('/quotes/:id', getQuoteById)
-router.get('/random', randomQuote)
 
 /**------------------------------------------------
  ** Authors
