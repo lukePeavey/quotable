@@ -1,7 +1,7 @@
-import { lowerCase, clamp } from 'lodash-es'
 import createError from 'http-errors'
 import Quote from '../../models/Quotes.js'
 import getPaginationParams from '../utils/getPaginationParams.js'
+import { parseQuery } from '../quotes/randomQuotes.js'
 
 /**
  * Search quotes by keyword, phrase, or author.
@@ -10,6 +10,7 @@ import getPaginationParams from '../utils/getPaginationParams.js'
  * @param {Object} req.query
  * @param {string} query The search query. The query can be wrapped in
  *     quotes to search for an exact phrase.
+ * @param {string} exactPhrase Specify which fields to search
  * @param {string} fields Specify which fields to search
  *     by. It takes a comma separated list of field names
  * @param {string} [slop = 0] When searching for an exact phrase,
@@ -20,61 +21,59 @@ import getPaginationParams from '../utils/getPaginationParams.js'
  */
 export default async function searchQuotes(req, res, next) {
   try {
-    let { query, fields = 'content, author', slop } = req.query
-    const { skip: $skip, limit: $limit, page } = getPaginationParams(req.query)
-    // Parse params
-    query = lowerCase(query)
-    fields = fields.split(',').map(field => field.trim())
-    slop = clamp(slop, 0, 1e3) || 0
+    const { slop, query: rawQuery = '' } = req.query
 
-    const supportedFields = ['author', 'content', 'tags']
-    const isExactPhrase = /^(".+")|('.+')$/.test(req.query.query)
+    const defaultPath = ['content', 'tags']
+    const { query, exactPhrase } = parseQuery(rawQuery, defaultPath)
+    const { skip: $skip, limit: $limit, page } = getPaginationParams(req.query)
 
     if (!query) {
       // Respond with error if `query` param is empty
       return next(createError(422, 'Missing required parameter: `query`'))
     }
 
-    if (fields.some(field => !supportedFields.includes(field))) {
-      // Respond with error if `fields` param is invalid
-      return next(createError(422, 'Invalid parameter: `fields`'))
-    }
-
     // The search query
     // @see https://docs.atlas.mongodb.com/atlas-search/
     let $search
 
-    if (isExactPhrase) {
+    if (exactPhrase) {
       // Search for an exact phrase...
       // @see https://docs.atlas.mongodb.com/reference/atlas-search/phrase/
       $search = {
-        phrase: { query, path: fields, slop },
+        phrase: { query, path: 'content', slop: 2 },
       }
     } else {
-      // Otherwise, use text search...
-      // @see https://docs.atlas.mongodb.com/reference/atlas-search/text/
+      // Otherwise, use the `queryString` operator
+      // @see https://www.mongodb.com/docs/atlas/atlas-search/queryString/
+      // $search = {
+      //   text: { query, path: ['content', 'tags'] },
+      // }
       $search = {
-        text: { query, path: fields },
+        queryString: { query, defaultPath: 'content' },
       }
     }
 
-    // Query database
     const [results, [meta]] = await Promise.all([
       // Get paginated search results
       Quote.aggregate([{ $search }, { $skip }, { $limit }]),
       // Get the total number of results that match the search
       Quote.aggregate([{ $search }, { $count: 'totalCount' }]),
     ])
-
     // Pagination info
     const { totalCount = 0 } = meta || {}
     const count = results.length
-    // The (1-based) index of the last result returned by this request
-    const lastItemIndex = $skip + count < totalCount ? $skip + count : null
-    // 'totalPages' is total number of pages based on results per page
     const totalPages = Math.ceil(totalCount / $limit)
-    // Send response
-    res.json({ count, totalCount, page, totalPages, lastItemIndex, results })
+
+    res.json({
+      // Temporary property for debugging purposes...
+      // include the $search object in the response.
+      __info__: { $search },
+      count,
+      totalCount,
+      page,
+      totalPages,
+      results,
+    })
   } catch (error) {
     return next(error)
   }
