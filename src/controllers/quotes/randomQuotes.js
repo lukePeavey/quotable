@@ -49,9 +49,10 @@ export function parseQuery(rawQuery, defaultFields) {
     error = 'Query exceeded maximum length. See documentation for limits'
   }
 
-  // By default, the query will search 'content' and 'tags'.
-  if (query && !prefixedTerms.length) {
-    query = `${defaultFields.map(field => `${field}:(${query})`).join(' OR ')}`
+  // Search both content and tags
+  if (query.includes('content:')) {
+    const keywords = /content:((\w+)|(\([\w ]+\)))/i
+    query = query.replace(keywords, (_, m) => `(content:${m} OR tags:${m} )`)
   }
 
   return { query, error }
