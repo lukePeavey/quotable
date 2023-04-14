@@ -45,9 +45,6 @@ export default async function searchQuotes(req, res, next) {
     } else {
       // Otherwise, use the `queryString` operator
       // @see https://www.mongodb.com/docs/atlas/atlas-search/queryString/
-      // $search = {
-      //   text: { query, path: ['content', 'tags'] },
-      // }
       $search = {
         queryString: { query, defaultPath: 'content' },
       }
