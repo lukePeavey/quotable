@@ -9,10 +9,16 @@ Quotable is a free, open source quotations API. It was originally built as part 
 There is a rate limit of **180 requests per minute**, per IP address. If you exceed the rate limit, the API will respond with a `429` error.
 
 ### API Servers
-
 ```
 https://api.quotable.io
 ```
+
+### Postman
+
+There is a public Postman workspace where you can try out the API. This is intended as official documentation.  
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://www.postman.com/quotable/workspace/quotable)
+
 
 ## API Reference <!-- omit in toc -->
 

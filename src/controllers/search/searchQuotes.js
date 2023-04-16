@@ -21,7 +21,7 @@ import { parseQuery } from '../quotes/randomQuotes.js'
  */
 export default async function searchQuotes(req, res, next) {
   try {
-    const { slop, query: rawQuery = '' } = req.query
+    const { slop, debug, query: rawQuery = '' } = req.query
 
     const defaultPath = ['content', 'tags']
     const { query, exactPhrase } = parseQuery(rawQuery, defaultPath)
@@ -60,11 +60,7 @@ export default async function searchQuotes(req, res, next) {
     const { totalCount = 0 } = meta || {}
     const count = results.length
     const totalPages = Math.ceil(totalCount / $limit)
-
     res.json({
-      // Temporary property for debugging purposes...
-      // include the $search object in the response.
-      __info__: { $search },
       count,
       totalCount,
       page,
