@@ -17,7 +17,7 @@ https://api.quotable.io
 ## API Reference <!-- omit in toc -->
 
 - [Get random quote](#get-random-quote)
-- [Get Random Quotes (beta)](#get-random-quotes-beta)
+- [Get Random Quotes](#get-random-quotes)
 - [List Quotes](#list-quotes)
 - [Get Quote By ID](#get-quote-by-id)
 - [List Authors](#list-authors)
@@ -42,15 +42,18 @@ GET /random
 
 Returns a single random quote from the database
 
+> ⛔️ This method is deprecated in favor of [Get Random Quotes](#get-random-quotes)
+
 **Query parameters**
 
-| param     | type     | Description                                                                                                                                                                                                                                                                                                                          |     |
-| :-------- | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+
+| param     | type     | Description                                                                                                                                                                                                                                                                                                                          |
+| :-------- | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | maxLength | `Int`    | The maximum Length in characters ( can be combined with `minLength` )                                                                                                                                                                                                                                                                |
 | minLength | `Int`    | The minimum Length in characters ( can be combined with `maxLength` )                                                                                                                                                                                                                                                                |
-| tags      | `String` | Get a random quote with specific tag(s). This takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **any one** of the provided tags. |
+| tags      | `String` | Get a random quote with specific tag(s). This takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **any one** of the provided tags. Tag names are **not** case-sensitive. Multi-word tags can be kebab-case ("tag-name") or space separated ("tag name") |
 | author    | `String` | Get a random quote by one or more authors. The value can be an author `name` or `slug`. To include quotes by multiple authors, provide a pipe-separated list of author names/slugs.                                                                                                                                                  |
-| authorId  | `String` | `deprecated` <br><br> Same as `author` param, except it uses author `_id` instead of `slug`                                                                                                                                                                                                                                          |     |
+| authorId  | `String` | `deprecated` <br><br> Same as `author` param, except it uses author `_id` instead of `slug`                                                                                                                                                                                                                                          |
 
 **Response**
 
@@ -69,42 +72,9 @@ Returns a single random quote from the database
   tags: string[]
 }
 ```
-
-**Examples**
-
-Random Quote [try in browser](https://api.quotable.io/random)
-
-```HTTP
-GET /random
-```
-
-Random Quote with tags "technology" **`AND`** "famous-quotes" [try in browser](https://api.quotable.io/random?tags=technology,famous-quotes)
-
-```HTTP
-GET /random?tags=technology,famous-quotes
-```
-
-Random Quote with tags "History" **`OR`** "Civil Rights" [try in browser](https://api.quotable.io/random?tags=history|civil-rights)
-
-```HTTP
-GET /random?tags=history|civil-rights
-```
-
-Random Quote with a maximum length of 50 characters [try in browser](https://api.quotable.io/random?maxLength=50)
-
-```HTTP
-GET /random?maxLength=50
-```
-
-Random Quote with a length between 100 and 140 characters [try in browser](https://api.quotable.io/random?minLength=100&maxLength=140)
-
-```HTTP
-GET /random?minLength=100&maxLength=140
-```
-
 <br>
 
-## Get Random Quotes (beta)
+## Get Random Quotes
 
 ```HTTP
 GET /quotes/random
@@ -114,8 +84,7 @@ Get one or more random quotes from the database.  This method supports several f
 
 By default, this methods returns a single random quote. You can specify the number of random quotes to return via the `limit` parameter.  
 
-> ⚠️ This method is similar to the `/random` endpoint. The only difference is the response format:
-> 
+> ⚠️ This method is equivalent to the `/random` endpoint. The only difference is the response format:
 > Instead of retuning a single `Quote` object, this method returns an `Array` of `Quote` objects.
 
 
@@ -126,7 +95,7 @@ By default, this methods returns a single random quote. You can specify the numb
 | limit     | `Int`    | `default: 1` &nbsp; `min: 1` &nbsp; `max: 50` <br> The number of random quotes to retrieve.                                                                                                                                                                       |
 | maxLength | `Int`    | The maximum Length in characters ( can be combined with `minLength` )                                                                                                                                                                                                                                                                |
 | minLength | `Int`    | The minimum Length in characters ( can be combined with `maxLength` )                                                                                                                                                                                                                                                                |
-| tags      | `String` | Get a random quote with specific tag(s). This takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **any one** of the provided tags. |
+| tags      | `String` | Get a random quote with specific tag(s). This takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **any one** of the provided tags. Tag names are **not** case-sensitive. Multi-word tags can be kebab-case ("tag-name") or space separated ("tag name") |
 | author    | `String` | Get a random quote by one or more authors. The value can be an author `name` or `slug`. To include quotes by multiple authors, provide a pipe-separated list of author names/slugs.                                                                                                                                                  |
 | authorId  | `String` | `deprecated` <br><br> Same as `author` param, except it uses author `_id` instead of `slug`                                                                                                                                                                                                                                          | 
 
@@ -202,7 +171,7 @@ Get all quotes matching a given query. By default, this will return a paginated 
 | :-------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | maxLength | `Int`    | The maximum Length in characters ( can be combined with `minLength` )                                                                                                                                                                                                                                            |
 | minLength | `Int`    | The minimum Length in characters ( can be combined with `maxLength` )                                                                                                                                                                                                                                            |
-| tags      | `String` | Filter quotes by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags. |
+| tags      | `String` | Filter quotes by tag(s). Takes a list of one or more tag names, separated by a comma (meaning `AND`) or a pipe (meaning `OR`). A comma separated list will match quotes that have **_all_** of the given tags. While a pipe (`\|`) separated list will match quotes that have **_either_** of the provided tags.  Tag names are **not** case-sensitive. Multi-word tags can be kebab-case ("tag-name") or space separated ("tag name") |
 | author    | `String` | Get quotes by a specific author. The value can be an author `name` or `slug`. To get quotes by multiple authors, provide a pipe separated list of author names/slugs.                                                                                                                                            |
 | authorId  | `String` | `deprecated` <br><br> Same as `author` param, except it uses author `_id` instead of `slug`                                                                                                                                                                                                                      |
 | sortBy    | `enum`   | `Default: "dateAdded"` &nbsp; `values: "dateAdded", "dateModified", "author", "content"` <br><br> The field used to sort quotes                                                                                                                                                                                  |
