@@ -15,7 +15,7 @@ https://api.quotable.io
 
 ### Postman
 
-There is a public Postman workspace where you can try out the API. This is intended as official documentation.  
+You can try out the API on our public Postman workspace. 
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://www.postman.com/quotable/workspace/quotable)
 
