@@ -37,6 +37,7 @@ You can try out the API on our public Postman workspace.
 - [Basic Quote Machine (CodePen)](https://codepen.io/lukePeavey/pen/RwNVeQG)
 - [React Quote Machine (CodeSandbox)](https://codesandbox.io/s/quotable-demo-react-e7zm1?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=dark)
 - [React Native App (Github)](https://github.com/siddsarkar/SociQuote)
+- [Flutter App (Github)](https://github.com/michaelsoliman1/flutter_quotable)
 - [Paginated Author List (codeSandbox)](https://codesandbox.io/s/quotable-author-list-2-14le9)
 - [Paginated Quote List (codeSandbox)](https://codesandbox.io/s/quotable-get-quotes-with-author-details-iyxw8)
 
