@@ -39,6 +39,7 @@ You can try out the API on our public Postman workspace.
 - [React Native App (Github)](https://github.com/siddsarkar/SociQuote)
 - [Paginated Author List (codeSandbox)](https://codesandbox.io/s/quotable-author-list-2-14le9)
 - [Paginated Quote List (codeSandbox)](https://codesandbox.io/s/quotable-get-quotes-with-author-details-iyxw8)
+- [Random Quote Generator (Stackblitz)](https://github.com/JuanPabloDiaz/random-quote-generator)
 
 ## Get random quote
 
