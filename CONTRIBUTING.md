@@ -55,7 +55,7 @@ If you are working on changes to the source code, you will want to run the serve
 
 **Requirements**
 
-- node >= 12.x
+- node >=16.x  
 - npm >= 6.x
 - mongodb >= 4.2
 
